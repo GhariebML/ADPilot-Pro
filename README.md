@@ -1,277 +1,310 @@
-# ADPilot Pro
+<p align="center">
+  <img src="docs/images/hero_banner.png" alt="ADPilot Pro — Enterprise Autonomous Marketing OS" width="100%" />
+</p>
 
-**Enterprise-Grade Autonomous Marketing Agency Powered by Multi-Agent AI Systems.**
+<h1 align="center">ADPilot Pro</h1>
 
-ADPilot Pro turns structured marketing campaign briefs into complete, launch-ready packages. By coordinating **11 specialized AI agents** (covering strategy, market research, competitor analysis, copywriting, analytics feedback, design concepting, and budget scheduling), it delivers comprehensive, consistent, and validated campaigns in seconds.
+<p align="center">
+  <strong>Enterprise-Grade Autonomous Marketing Operating System</strong><br/>
+  <em>18-Agent Multi-Model AI Pipeline · Reinforcement Learning Optimizer · Human-in-the-Loop Governance</em>
+</p>
 
-The system utilizes Pydantic schemas as a single source of truth for contracts, and is built on FastAPI and React. It features a self-correcting multi-agent execution cycle where an evaluation agent scores content quality and feeds back recommendations to optimize the copy autonomously.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/PyTorch-PPO%20RL-EE4C2C?logo=pytorch&logoColor=white" alt="PyTorch" />
+  <img src="https://img.shields.io/badge/Pydantic-v2-E92063?logo=pydantic&logoColor=white" alt="Pydantic" />
+  <img src="https://img.shields.io/badge/TailwindCSS-v3-38B2AC?logo=tailwindcss&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-Ridge%20%7C%20CLIP-F7931E?logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
+  <img src="https://img.shields.io/badge/Qdrant-Vector%20DB-DC382D?logo=qdrant&logoColor=white" alt="Qdrant" />
+  <img src="https://img.shields.io/badge/Tests-269%20Passing-brightgreen?logo=pytest&logoColor=white" alt="Tests" />
+  <img src="https://img.shields.io/github/license/GhariebML/ADPilot-Pro?color=orange" alt="License" />
+</p>
 
 ---
 
-## Technical Badges & Ecosystem
+## What is ADPilot Pro?
 
-![Python Version](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![Pydantic](https://img.shields.io/badge/Pydantic-v2-purple?logo=pydantic&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC?logo=tailwindcss&logoColor=white)
-![Code Style](https://img.shields.io/badge/Code%20Style-Ruff-black?logo=python&logoColor=white)
-![License](https://img.shields.io/github/license/GhariebML/ADPilot-Pro?color=orange)
+**ADPilot Pro** is an **autonomous AI marketing operating system** that transforms a single campaign brief into a complete, launch-ready multi-channel advertising package — including ad copy, email sequences, social media content, creative design assets, budget allocation, and performance optimization.
+
+It orchestrates **18 specialized AI agents** across an immutable Master Pipeline, combining **Large Language Models** (GPT-4o, Claude 3.5 Sonnet), **Reinforcement Learning** (PPO continuous policy optimization), **Computer Vision** (CLIP-ViT quality scoring), **Classical ML** (Ridge regression forecasting), and **Retrieval-Augmented Generation** (BGE FastEmbed + Qdrant) — all governed by a cryptographic **Human-in-the-Loop (HITL)** approval center.
+
+### Key Capabilities
+
+- 🧠 **18 Autonomous AI Agents** — Each with enforced Pydantic I/O contracts, epistemic confidence scoring, and deterministic downstream routing
+- 🔄 **Self-Correcting Quality Gate Loop** — Content ↔ Analytics feedback cycle with 3-retry cap and automated hint extraction
+- 📊 **PPO Reinforcement Learning Optimizer** — Continuous budget reallocation across channels using Actor-Critic policy networks
+- 🖼️ **CLIP-ViT Visual Quality Scoring** — Automated creative asset safety, contrast ratio, and brand compliance verification
+- 🔍 **Production RAG with Hybrid Retrieval** — Semantic (BGE) + Lexical (BM25) retrieval with reranking and provenance tracking
+- 🛡️ **HITL Governance Center** — Role-based access control with HMAC-SHA256 signed cryptographic audit trails
+- 📈 **Executive Intelligence Dashboard** — Real-time KPI metrics, ROAS trajectory charts, channel attribution matrix, and live autonomous action feeds
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ Frozen Master Pipeline (18 Stages)
 
-ADPilot Pro is divided into a fast FastAPI backend, a background worker runner powered by Redis, and a modern React client. The agents use a shared memory context to load and save execution states seamlessly.
+<p align="center">
+  <img src="docs/images/pipeline_architecture.png" alt="ADPilot Pro — 18-Stage Master Pipeline Architecture" width="100%" />
+</p>
 
-```mermaid
-graph TD
-    Client[React/Vite Dashboard] <-->|HTTP / Axios| API[FastAPI Web Server]
-    API <-->|Enqueue / Poll| Worker[Arq Background Worker]
-    Worker <-->|Orchestrate| TaskMgr[TaskManager DAG]
-    TaskMgr <-->|Stateless Runs| AgentPipeline[Agent Pipeline]
-    
-    subgraph Services & DBs
-        TaskMgr <-->|Context State| MemService[MemoryService]
-        MemService <-->|In-Memory Store| Redis[Redis Cache]
-        API <-->|Query Campaign History| SQLite[(SQLite adpilot.db)]
-        AgentPipeline <-->|Query Vector Context| Qdrant[(Qdrant Vector DB)]
-        AgentPipeline <-->|Fallback Vector Context| Chroma[(ChromaDB)]
-    end
-    
-    subgraph External LLM Providers
-        AgentPipeline -->|API Calls| OpenAI[OpenAI API]
-        AgentPipeline -->|API Calls| OpenRouter[OpenRouter Gateway]
-        AgentPipeline -->|API Calls| Claude[Anthropic API]
-        AgentPipeline -->|API Calls| HF[Hugging Face API]
-        AgentPipeline -->|API Calls| Ollama[Local Ollama]
-    end
+The pipeline is **immutable** — every campaign traverses these stages in exact order:
+
+```
+User Input → Campaign Context → Product Classifier → Planner → Strategy → Research →
+Competitor → Content → Design → CV → Analytics → RL Optimizer → Correction Engine →
+Human Approval → Publishing → Monitoring → Feedback Loop → RAG Memory
 ```
 
----
-
-## 🔄 Self-Correcting Quality Gate Loop
-
-The core innovation of ADPilot Pro is the integration of a **Quality Gate** evaluation stage. Rather than executing a simple linear sequence, the system runs a cyclic optimization loop to guarantee that marketing copy meets quality and policy requirements before design and budget allocation are initiated:
-
-```mermaid
-flowchart TD
-    Start([Campaign Brief Input]) --> Strategy[Strategy Agent]
-    Start --> Research[Research Agent]
-    
-    Strategy --> Content[Content Agent]
-    Research --> Content
-    
-    Content --> Analytics[Analytics Agent]
-    
-    subgraph Quality Gate Loop
-        Analytics --> ScoreCheck{Health Score >= 70?}
-        ScoreCheck -- No (Retry < 3) --> ExtractHints[Extract Optimization Hints]
-        ExtractHints -->|Feedback Loop| Content
-        ScoreCheck -- No (Retry >= 3) --> GateFail[Mark 'Requires Review']
-    end
-    
-    ScoreCheck -- Yes --> Design[Design Agent]
-    GateFail --> Design
-    
-    Design --> CampaignMgr[Campaign Manager Agent]
-    CampaignMgr --> Output([Orchestrator Output Package])
-```
-
-1. **Content & Analytics Loop**: The `ContentAgent` generates copy, which is immediately scored by `AnalyticsAgent` against alignment, tone of voice, formatting limits, and brand guidelines.
-2. **Feedback Routing**: If the score is below 70, the orchestrator extracts concrete recommendations (e.g. "Headline is too long", "Tone is too salesy") and sends them back to `ContentAgent` for a retry.
-3. **Execution Cap**: The loop runs up to 3 times. If it fails to reach the quality threshold, it bypasses final design generation and reports `REQUIRES REVIEW` to protect API costs and avoid bad output.
+| # | Stage | Agent | Model | Key Output |
+|---|---|---|---|---|
+| 1 | Campaign Context | Context Builder | Deterministic Engine | Structured campaign brief |
+| 2 | Product Classification | Product Classifier | LLM (GPT-4o) | Product category & vertical |
+| 3 | Strategic Planning | Planner Agent | LLM (GPT-4o) | Execution roadmap & milestones |
+| 4 | Strategy | Strategy Agent | LLM (GPT-4o) | Positioning, channels, funnel stages |
+| 5 | Market Research | Research Agent | LLM (Claude 3.5) | Persona profiles, market trends |
+| 6 | Competitor Analysis | Competitor Agent | LLM (GPT-4o) | Competitive matrix, gap analysis |
+| 7 | Content Creation | Content Agent | LLM (Claude 3.5) | Ad copy, emails, social posts |
+| 8 | Design Direction | Design Agent | LLM (GPT-4o) | Visual concepts, image prompts |
+| 9 | Visual Quality | CV Agent | CLIP-ViT (ONNX) | Aesthetic scores, contrast checks |
+| 10 | Performance Analytics | Analytics Agent | Ridge Regressor | ROAS, CAC, CVR predictions |
+| 11 | Budget Optimization | RL Optimizer | PyTorch PPO | Budget reallocation actions |
+| 12 | Error Correction | Correction Engine | Deterministic | Constraint violation remediation |
+| 13 | Human Approval | HITL Gate | Human Decision | Approve / Reject / Revise |
+| 14 | Publishing | Publishing Agent | Adapter Engine | Multi-channel ad dispatch |
+| 15 | Monitoring | Monitoring Agent | Anomaly Detector | Performance alerts & deviations |
+| 16 | Feedback Loop | Feedback Engine | Deterministic | Closed-loop signal routing |
+| 17 | Knowledge Storage | RAG Engine | FastEmbed BGE | Vector-indexed evidence store |
+| 18 | Memory Persistence | Memory Manager | Multi-Tier Store | Campaign, brand & customer memory |
 
 ---
 
-## 🤖 Specialized Agent Registry
+## 🖥️ Enterprise Dashboard & AI Operating System UI
 
-ADPilot Pro coordinates **11 autonomous agents**, each assigned to a single domain of campaign creation:
+<p align="center">
+  <img src="docs/images/dashboard_preview.png" alt="ADPilot Pro — Executive Intelligence Dashboard" width="100%" />
+</p>
 
-| Agent Name | Description | Key Inputs | Key Outputs / Deliverables |
-| :--- | :--- | :--- | :--- |
-| **StrategyAgent** | Creates positioning statements, chooses core channels, and sets marketing themes. | `CampaignInput` | `StrategyAgentOutput` (Funnel stages, positioning) |
-| **ResearchAgent** | Conducts synthetic target audience profiling and market trend analyses. | `CampaignInput` | `ResearchAgentOutput` (Persona profiles, industry insights) |
-| **CompetitorAgent** | Inspects market competitors and suggests points of differentiation. | `CampaignInput` | Competitor analysis matrix and gaps |
-| **AudienceAgent** | Segment audiences and maps key pain points to product benefits. | `CampaignInput` | Demographic & psychographic target profiles |
-| **ContentAgent** | Drafts text assets, including ads, social posts, and email sequences. | `Strategy`, `Research`, Hints | `ContentAgentOutput` (Ads, email sequences, posts) |
-| **AnalyticsAgent** | Scores content quality and verifies compliance with safety policies. | Generated Content | `AnalyticsAgentOutput` (Health score, retry hints) |
-| **CreativeAgent** | Outlines design direction, color guides, and asset visual concepts. | `Strategy`, `Content` | Visual moodboards, styling directions |
-| **DesignAgent** | Formulates precise text-to-image prompts (e.g., DALL-E) for ad graphics. | `Strategy`, `Content` | `DesignAgentOutput` (Image prompts, brand rules) |
-| **OptimizationAgent** | Adapts copy and target parameters dynamically based on incoming feedback. | Campaign results | Copy adjustments and targeting fine-tunes |
-| **PublishingAgent** | Sets distribution channels and content publication schedules. | Content package | Ad placement schedules |
-| **CampaignManagerAgent**| Computes budget allocations, drafts A/B test plans, and sets targets. | Complete Context | `CampaignManagerOutput` (Budget split, A/B test outline) |
+The frontend is a **full AI Operating System dashboard** — not just a marketing dashboard:
 
----
-
-## 📂 Project Structure
-
-```text
-ADPilot-Pro/
-├── .github/                 # CI/CD Workflows, pull request and issue templates
-├── src/adpilot/             # Core Python package
-│   ├── agents/              # Specialized AI Agent modules
-│   ├── api/                 # FastAPI router layer and endpoint handlers
-│   ├── core/                # Config files, BaseAgent class, custom exceptions
-│   ├── memory/              # Memory storage classes for agents
-│   ├── models/              # Internal database/ORM models
-│   ├── orchestration/       # TaskManager DAG and orchestrator runner
-│   ├── prompts/             # System templates and instruction sets
-│   ├── providers/           # Provider-specific adapter models
-│   ├── schemas/             # Pydantic v2 schemas (Source of Truth)
-│   ├── services/            # Database operations, client calls, memory management
-│   └── utils/               # Logs configuration and helper utilities
-├── frontend/                # React / TypeScript / Vite Dashboard
-│   ├── public/              # Static assets
-│   ├── src/                 # Client UI source code (components, hooks, state)
-│   └── package.json         # Frontend dependencies and configuration
-├── data/                    # Local storage structures
-│   ├── samples/             # Raw JSON payloads for schema testing
-│   └── outputs/             # Campaign run output folder
-├── docs/                    # Architectural documents and setups
-├── scripts/                 # CLI runner utilities for local testing
-├── tests/                   # Pytest test suites (backend & integration)
-├── Dockerfile               # Backend container configuration
-├── docker-compose.yml       # Multi-container orchestration (FastAPI + Redis)
-├── pyproject.toml           # Python configuration (ruff, pytest)
-├── uv.lock                  # Python package locking (uv manager)
-└── requirements.txt         # Production runtime dependencies
-```
+| Module | Description |
+|---|---|
+| **Executive Dashboard** | Hero KPI cards (Managed Spend, ROAS, CAC, Autonomous Decisions), ROAS trajectory chart, channel attribution matrix |
+| **Interactive Pipeline DAG** | Responsive 18-node visualization with live status, confidence bars, and click-to-inspect |
+| **Agent Observatory** | Deep telemetry for every agent — latency, model, I/O contracts, epistemic confidence |
+| **Agent Detail Drawer** | 4-stage Causal Explainability Tree (Prior → Hypothesis → Constraint Filter → Output) |
+| **HITL Governance Center** | RBAC role switching (Director/Auditor/Growth Lead), approve/reject with SHA-256 signed audit log |
+| **RL Optimizer Dashboard** | PPO training curves, reward trajectories, Dirichlet budget constraint visualization |
+| **Model Registry & Benchmark Arena** | Catalog of 5 production models + latency/cost/quality comparison table |
+| **RAG & Multi-Tier Memory** | Searchable vector document store + 4-tier memory architecture browser |
+| **Creative Studio** | Design asset previews with CLIP-ViT quality scores and brand compliance indicators |
+| **Campaign Timeline** | Chronological event log of every pipeline stage execution |
+| **System Health** | Real-time platform diagnostics and service heartbeat monitors |
+| **Command Palette** | `⌘K` keyboard-driven navigation across all OS modules |
 
 ---
 
-## ⚡ Quick Start
+## 🤖 AI Agent Fleet
+
+<p align="center">
+  <img src="docs/images/agent_fleet.png" alt="ADPilot Pro — 18-Agent Autonomous Fleet" width="100%" />
+</p>
+
+| Agent | Responsibility | Model Type | Framework |
+|---|---|---|---|
+| **Context Builder** | Structures raw user brief into validated campaign context | Deterministic Engine | Pydantic v2 |
+| **Product Classifier** | Classifies product vertical (SaaS, Physical, Real Estate, Service) | LLM | GPT-4o |
+| **Planner** | Generates execution roadmap with milestones and dependencies | LLM | GPT-4o |
+| **Strategy Agent** | Creates positioning, selects channels, defines funnel stages | LLM | GPT-4o |
+| **Research Agent** | Conducts audience profiling and market trend analysis | LLM | Claude 3.5 Sonnet |
+| **Competitor Agent** | Maps competitive landscape with differentiation opportunities | LLM | GPT-4o |
+| **Content Agent** | Drafts multi-format ad copy, emails, and social posts | LLM | Claude 3.5 Sonnet |
+| **Design Agent** | Creates visual concepts and text-to-image prompts | LLM | GPT-4o |
+| **CV Agent** | Scores visual quality, contrast ratios, brand compliance | Computer Vision | CLIP-ViT (ONNX) |
+| **Analytics Agent** | Predicts ROAS, CAC, CVR using historical regression | Classical ML | Scikit-Learn Ridge |
+| **RL Optimizer** | Optimizes multi-channel budget allocation via policy gradient | Reinforcement Learning | PyTorch PPO |
+| **Correction Engine** | Detects and remediates constraint violations | Deterministic | Rule Engine |
+| **HITL Gate** | Routes high-risk decisions to human reviewers | Human Decision | RBAC + SHA-256 |
+| **Publishing Agent** | Dispatches ads to Meta, Google, LinkedIn via adapters | Adapter Engine | REST APIs |
+| **Monitoring Agent** | Tracks live campaign KPIs and triggers anomaly alerts | Anomaly Detection | Statistical |
+| **Feedback Engine** | Routes performance signals back to RL Optimizer | Deterministic | Event Router |
+| **RAG Engine** | Indexes and retrieves evidence with semantic + BM25 hybrid search | Vector Embeddings | FastEmbed BGE |
+| **Memory Manager** | Persists campaign, brand, customer, and execution memories | Multi-Tier Store | SQLite + Qdrant |
+
+---
+
+## ⚡ Tech Stack
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| **FastAPI** | Async HTTP API with Pydantic v2 request/response validation |
+| **Pydantic v2** | Strict typed schemas as single source of truth for all agent contracts |
+| **SQLite** | Persistent campaign history and audit log storage |
+| **Redis** | Background task queue and high-speed working memory cache |
+| **Qdrant** | Production vector database for RAG semantic retrieval |
+| **LangChain** | LLM provider abstraction and structured output parsing |
+
+### Frontend
+| Technology | Purpose |
+|---|---|
+| **React 18** | Component-based reactive UI with hooks |
+| **TypeScript 5** | Strict type safety across all components and API contracts |
+| **Vite** | Sub-second HMR dev server and optimized production bundler |
+| **TailwindCSS v3** | Utility-first obsidian dark theme with glassmorphism effects |
+| **Zustand** | Lightweight global state management |
+
+### Machine Learning & AI
+| Technology | Purpose |
+|---|---|
+| **PyTorch** | PPO Actor-Critic reinforcement learning policy network |
+| **Scikit-Learn** | Ridge regression for multi-target revenue/ROAS forecasting |
+| **CLIP-ViT (ONNX)** | Zero-shot visual quality scoring and brand compliance |
+| **FastEmbed BGE** | Lightweight 384-dim dense vector embeddings for RAG |
+| **OpenAI GPT-4o** | Primary LLM router for strategic planning and analysis |
+| **Claude 3.5 Sonnet** | Creative copywriting and audience research LLM |
+
+### DevOps & Quality
+| Technology | Purpose |
+|---|---|
+| **Docker + Compose** | Containerized deployment (FastAPI + Redis + Qdrant) |
+| **pytest** | 217 backend unit and integration tests |
+| **Vitest** | 52 frontend component and integration tests |
+| **ESLint + Ruff** | Zero-warning code quality enforcement |
+| **GitHub Actions** | CI/CD pipeline for automated testing |
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Python:** Version 3.12 or higher.
-- **NodeJS:** Version 20 or higher (for the frontend).
-- **Redis:** Running locally or accessible via URL (for the worker queue).
-
----
+- **Python** 3.12+ 
+- **Node.js** 20+
+- **Redis** (local or remote)
 
 ### Backend Setup
 
-1. **Clone and enter the repository:**
-   ```powershell
-   git clone https://github.com/GhariebML/ADPilot-Pro.git
-   cd ADPilot-Pro
-   ```
+```powershell
+# 1. Clone the repository
+git clone https://github.com/GhariebML/ADPilot-Pro.git
+cd ADPilot-Pro
 
-2. **Create and activate a virtual environment:**
-   *Using standard venv:*
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
-   *Or using `uv` (recommended for faster package resolutions):*
-   ```powershell
-   uv venv
-   .\.venv\Scripts\Activate.ps1
-   ```
+# 2. Create virtual environment
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-3. **Install dependencies:**
-   ```powershell
-   pip install -r requirements.txt
-   pip install -r requirements-dev.txt
-   ```
+# 3. Install dependencies
+pip install -r requirements.txt
 
-4. **Set up environment variables:**
-   Copy the example environment template:
-   ```powershell
-   Copy-Item .env.example .env
-   ```
-   Fill in your configuration settings (see [Environment Variables](#-environment-variables)).
+# 4. Configure environment
+Copy-Item .env.example .env
+# Edit .env with your API keys
 
-5. **Start the FastAPI application server:**
-   ```powershell
-   $env:PYTHONPATH="src"
-   python -m uvicorn adpilot.api.main:app --host 127.0.0.1 --port 8000 --reload
-   ```
-   - Swagger Documentation: `http://127.0.0.1:8000/docs`
-   - Health endpoint: `http://127.0.0.1:8000/healthz`
-
-6. **Start the background task worker (arq):**
-   ```powershell
-   $env:PYTHONPATH="src"
-   arq adpilot.worker.WorkerSettings
-   ```
-
----
+# 5. Launch the API server
+$env:PYTHONPATH="src"
+uvicorn adpilot.api.main:app --host 127.0.0.1 --port 8001
+```
 
 ### Frontend Setup
 
-1. **Navigate to the frontend folder:**
-   ```powershell
-   cd frontend
-   ```
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
-2. **Install Node packages:**
-   ```powershell
-   npm install
-   ```
-
-3. **Run the Vite development server:**
-   ```powershell
-   npm run dev -- --host 127.0.0.1
-   ```
-   Open `http://127.0.0.1:5173` in your browser.
+Open **http://localhost:3000** — click **"1-Click AI Demo"** to see the full pipeline in action.
 
 ---
 
 ## ⚙️ Environment Variables
 
-The application reads configurations from the local `.env` file. A comprehensive preview of supported parameters:
-
-| Variable | Description | Example / Default |
-| :--- | :--- | :--- |
-| `LLM_PROVIDER` | Selection of active LLM backend | `openai`, `openrouter`, `huggingface`, `ollama` |
-| `OPENAI_API_KEY` | Secret token for OpenAI | `sk-...` |
+| Variable | Description | Example |
+|---|---|---|
+| `LLM_PROVIDER` | Active LLM backend | `openai`, `openrouter`, `ollama` |
+| `OPENAI_API_KEY` | OpenAI API secret key | `sk-...` |
 | `OPENAI_MODEL` | Target OpenAI model | `gpt-4o` |
-| `OPENROUTER_API_KEY`| Token for OpenRouter API | `sk-or-...` |
-| `OPENROUTER_MODEL` | Model routing template on OpenRouter | `google/gemini-2.5-pro` or `openrouter/free` |
-| `HF_TOKEN` | Token for Hugging Face server access | `hf_...` |
-| `HF_MODEL` | Target Hugging Face inference endpoint | `deepseek-ai/DeepSeek-R1` |
-| `REDIS_URL` | Redis endpoint path (worker queue) | `redis://localhost:6379/0` |
-| `ADPILOT_DASHBOARD_USE_REAL_LLM` | Force client to request actual LLM runs | `true` (default: `false`, fallback to demo) |
-| `TEMPERATURE` | LLM creativity ceiling | `0.2` (low temperature preserves structured Pydantic schemas) |
-| `ENVIRONMENT` | Running context environment | `development` / `production` |
+| `ANTHROPIC_API_KEY` | Anthropic Claude API key | `sk-ant-...` |
+| `OPENROUTER_API_KEY` | OpenRouter gateway key | `sk-or-...` |
+| `REDIS_URL` | Redis connection URL | `redis://localhost:6379/0` |
+| `QDRANT_URL` | Qdrant vector DB endpoint | `http://localhost:6333` |
+| `TEMPERATURE` | LLM creativity control | `0.2` |
+| `ENVIRONMENT` | Runtime environment | `development` / `production` |
 
 ---
 
-## 🧪 Testing & Code Quality
+## 🧪 Testing & Quality
 
-Validate correctness and formatting before committing:
-
-### Python Backend Testing
-
+### Backend (217 Tests)
 ```powershell
-# Format check and import sorting via Ruff
-ruff check .
-
-# Execute backend unit and integration test suites
-pytest -v
+$env:PYTHONPATH="src"
+pytest tests/ -v
 ```
 
-### Frontend Build Verification
-
+### Frontend (52 Tests)
 ```powershell
 cd frontend
-# Run TypeScript compilation and bundle build
-npm run build
+npm test -- --run     # Unit tests
+npm run lint          # ESLint (0 errors, 0 warnings)
+npm run build         # Production build (0 errors)
 ```
 
 ---
 
-## 🔒 Security Policy
+## 📂 Project Structure
 
-- **Credential Hygiene:** Never commit `.env` or credentials. The project contains custom exclusions in `.gitignore` to protect against accidental credential leaks.
-- **Exposure Response:** If a key is committed, rotate it immediately in the provider dashboard.
-- **Reporting Vulnerabilities:** Please see the [Security Guidelines](SECURITY.md) to report issues safely.
+```
+ADPilot-Pro/
+├── src/adpilot/                 # Core Python backend
+│   ├── agents/                  # 18 specialized AI agents
+│   ├── api/                     # FastAPI routes and middleware
+│   ├── core/                    # Config, BaseAgent, exceptions, health
+│   ├── correction/              # Self-correcting constraint engine
+│   ├── hitl/                    # Human-in-the-Loop governance gates
+│   ├── memory/                  # Multi-tier memory (campaign, brand, customer)
+│   ├── monitoring/              # Live telemetry and anomaly detection
+│   ├── orchestrator/            # Master pipeline orchestrator and planner
+│   ├── prompts/                 # Agent system prompt templates
+│   ├── providers/               # LLM provider adapters (OpenAI, Claude, Ollama)
+│   ├── publishing/              # Multi-channel ad dispatch adapters
+│   ├── rag/                     # RAG engine (chunker, BM25, hybrid, reranker)
+│   ├── rl/                      # PPO reinforcement learning (env, models, trainer)
+│   ├── schemas/                 # Pydantic v2 contracts (source of truth)
+│   ├── services/                # Business logic and integrations
+│   └── utils/                   # Logging and helper utilities
+├── frontend/                    # React / TypeScript / Vite Dashboard
+│   ├── src/components/          # 29 UI components (DAG, Observatory, HITL, etc.)
+│   ├── src/services/            # API client and streaming
+│   ├── src/store/               # Zustand global state
+│   └── src/__tests__/           # Vitest component tests (52 tests)
+├── research/                    # ML model training and evaluation
+│   └── models/                  # Trained artifacts (PPO, Ridge, CLIP, BGE)
+├── tests/                       # Backend pytest suite (217 tests)
+├── docs/                        # Architecture docs and images
+├── docker-compose.yml           # Multi-container orchestration
+├── pyproject.toml               # Python project configuration
+└── requirements.txt             # Production dependencies
+```
+
+---
+
+## 🔒 Security
+
+- **Credential Hygiene:** `.env` files are excluded via `.gitignore`. Never commit API keys.
+- **HITL Governance:** All high-risk autonomous decisions require signed human approval.
+- **Audit Trail:** Every agent execution and human decision is logged with timestamps.
+- **Vulnerability Reporting:** See [SECURITY.md](SECURITY.md) for responsible disclosure.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
+
+---
+
+<p align="center">
+  <strong>Built with ❤️ by <a href="https://github.com/GhariebML">GhariebML</a></strong>
+</p>
