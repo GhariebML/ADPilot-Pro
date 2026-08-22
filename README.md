@@ -133,19 +133,45 @@ ADPilot features a custom **Proximal Policy Optimization (PPO)** Actor-Critic ne
 
 ### Mathematical Formulation
 
-1. **State Vector** $\mathbf{s}_t \in \mathbb{R}^{12}$:
-   $$\mathbf{s}_t = \left[ \text{SpendRatio}_k, \text{ROAS}_k, \text{CAC}_k, \text{CTR}_k, \text{CVR}_k, \text{MarketSat}_k, \dots \right]^T \quad \text{for channels } k \in \{\text{Meta}, \text{Google}, \text{LinkedIn}, \text{Email}\}$$
+1. **State Vector** — The state is a 12-dimensional real vector:
 
-2. **Action Space & Dirichlet Budget Projection**:
-   The policy outputs Dirichlet concentration parameters $\boldsymbol{\alpha} = \text{Softplus}(f_\theta(\mathbf{s}_t)) + 1$. The normalized budget allocation $\mathbf{a}_t \sim \text{Dir}(\boldsymbol{\alpha})$ satisfies the hard economic constraint:
-   $$\sum_{k=1}^{K} a_{t,k} = 1.0 \quad \text{and} \quad a_{t,k} \ge 0.05 \quad \forall k$$
+$$
+\mathbf{s}_t = \begin{bmatrix} \text{SpendRatio}_k & \text{ROAS}_k & \text{CAC}_k & \text{CTR}_k & \text{CVR}_k & \text{MarketSat}_k & \dots \end{bmatrix}^T
+$$
+
+   For channels $k \in \lbrace \text{Meta}, \text{Google}, \text{LinkedIn}, \text{Email} \rbrace$.
+
+2. **Action Space and Dirichlet Budget Projection** — The policy outputs Dirichlet concentration parameters:
+
+$$
+\alpha = \text{Softplus}(f_\theta(\mathbf{s}_t)) + 1
+$$
+
+   The normalized budget allocation $\mathbf{a}_t \sim \text{Dir}(\alpha)$ satisfies the hard economic constraint:
+
+$$
+\sum_{k=1}^{K} a_{t,k} = 1.0 \quad \text{and} \quad a_{t,k} \ge 0.05 \quad \forall k
+$$
 
 3. **Composite Objective Function**:
-   $$L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min\left( r_t(\theta) \hat{A}_t, \, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon) \hat{A}_t \right) \right] - c_1 L_t^{VF}(\theta) + c_2 S[\pi_\theta](s_t)$$
-   where the probability ratio $r_t(\theta) = \frac{\pi_\theta(\mathbf{a}_t | \mathbf{s}_t)}{\pi_{\theta_{\text{old}}}(\mathbf{a}_t | \mathbf{s}_t)}$ and $\epsilon = 0.2$.
+
+$$
+L^{\text{CLIP}}(\theta) = \hat{\mathbb{E}}_t \left[ \min\left( r_t(\theta) \hat{A}_t ,\; \text{clip}(r_t(\theta),\; 1{-}\epsilon,\; 1{+}\epsilon) \hat{A}_t \right) \right] - c_1 L_t^{VF}(\theta) + c_2 S[\pi_\theta](s_t)
+$$
+
+   Where the probability ratio is defined as:
+
+$$
+r_t(\theta) = \frac{\pi_\theta(\mathbf{a}_t \mid \mathbf{s}_t)}{\pi_{\theta_{\text{old}}}(\mathbf{a}_t \mid \mathbf{s}_t)}
+$$
+
+   And the clipping parameter $\epsilon = 0.2$.
 
 4. **Reward Function**:
-   $$R(\mathbf{s}_t, \mathbf{a}_t) = \text{BlendedROAS} - \lambda_1 \left( \frac{\text{CAC}}{\text{CAC}_{\text{target}}} \right) + \lambda_2 \Delta\text{Conversions} - \text{Penalty}_{\text{Constraint}}$$
+
+$$
+R(\mathbf{s}_t, \mathbf{a}_t) = \text{BlendedROAS} - \lambda_1 \left( \frac{\text{CAC}}{\text{CAC}_{\text{target}}} \right) + \lambda_2 \cdot \Delta\text{Conversions} - \text{Penalty}_{\text{Constraint}}
+$$
 
 ---
 
@@ -161,7 +187,10 @@ To guarantee factual accuracy and strict brand compliance without hallucinations
 - **Dense Semantic Stream**: BAAI/bge-small-en-v1.5 embeddings producing 384-dimensional dense vectors stored in Qdrant.
 - **Sparse Lexical Stream**: BM25 Okapi search indexing exact keyword tokens, brand names, and negative keywords.
 - **Reciprocal Rank Fusion (RRF)**:
-  $$\text{RRF\_Score}(d \in D) = \sum_{m \in \{\text{Dense}, \text{Sparse}\}} \frac{1}{k + r_m(d)} \quad (k = 60)$$
+
+$$
+\text{RRF Score}(d \in D) = \sum_{m \in \lbrace \text{Dense}, \text{Sparse} \rbrace} \frac{1}{k + r_m(d)} \quad (k = 60)
+$$
 
 ### 2. 4-Tier Memory Architecture
 
@@ -178,23 +207,30 @@ To guarantee factual accuracy and strict brand compliance without hallucinations
 
 ADPilot integrates an ONNX-optimized **CLIP-ViT B/32 zero-shot scoring pipeline** (`src/adpilot/agents/cv_agent.py`) to audit all visual creatives before publishing:
 
-1. **Aesthetic Quality Regression**: Embeds image concept candidates and computes dot product similarity with high-converting marketing asset benchmarks:
-   $$\text{Score}_{\text{aesthetic}} = \sigma\left( \mathbf{w}^T \text{CLIP}_{\text{visual}}(I) + b \right) \in [0.0, 10.0]$$
-2. **WCAG AAA Contrast Ratio**: Calculates luminance contrast between text layers and image backgrounds to ensure minimum $7.0:1$ readability.
-3. **Brand Palette Alignment**: Computes color histogram Earth Mover's Distance (EMD) between generated assets and the brand identity guidelines.
+1. **Aesthetic Quality Regression** — Embeds image concept candidates and computes dot product similarity with high-converting marketing asset benchmarks:
+
+$$
+\text{Score}_{\text{aesthetic}} = \sigma\left( \mathbf{w}^T \cdot \text{CLIP}_{\text{visual}}(I) + b \right) \in [0.0,\; 10.0]
+$$
+
+2. **WCAG AAA Contrast Ratio** — Calculates luminance contrast between text layers and image backgrounds to ensure minimum 7.0:1 readability.
+3. **Brand Palette Alignment** — Computes color histogram Earth Mover's Distance (EMD) between generated assets and the brand identity guidelines.
 
 ---
 
 ## 🛡️ Cryptographic Human-in-the-Loop Governance
 
-High-risk actions (e.g., budget shifts $> \$1,000$, live campaign publishing, brand identity modifications) are automatically quarantined behind the **HITL Governance Center** (`src/adpilot/hitl/`):
+High-risk actions (e.g., budget shifts exceeding \$1,000, live campaign publishing, brand identity modifications) are automatically quarantined behind the **HITL Governance Center** (`src/adpilot/hitl/`):
 
 - **Role-Based Access Control (RBAC)**: Support for 3 enterprise roles:
   - `Campaign Director`: Full authorization power across budget and live media dispatch.
   - `Compliance Auditor`: Quality gate verification, brand safety, and CLIP-ViT review.
   - `Growth Lead`: Tactical copy adjustments and A/B test parameter approvals.
 - **HMAC-SHA256 Signed Audit Ledger**: Every approval or rejection action generates a cryptographically signed receipt:
-  $$\text{Signature} = \text{HMAC-SHA256}\left( K_{\text{private}}, \, \text{CampaignID} \,\|\, \text{Decision} \,\|\, \text{Timestamp} \,\|\, \text{Role} \right)$$
+
+$$
+\text{Signature} = \text{HMAC-SHA256}\left( K_{\text{private}} ,\; \text{CampaignID} \;\Vert\; \text{Decision} \;\Vert\; \text{Timestamp} \;\Vert\; \text{Role} \right)
+$$
 
 ---
 
