@@ -20,6 +20,8 @@
   <img src="https://img.shields.io/badge/Scikit--Learn-Ridge%20%7C%20CLIP-F7931E?logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
   <img src="https://img.shields.io/badge/Qdrant-Vector%20DB-DC382D?logo=qdrant&logoColor=white" alt="Qdrant" />
   <img src="https://img.shields.io/badge/Tests-269%20Passing-brightgreen?logo=pytest&logoColor=white" alt="Tests" />
+  <img src="https://github.com/GhariebML/ADPilot-Pro/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI Pipeline" />
+  <img src="https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant%202.1-4baaaa?logo=open-source-initiative&logoColor=white" alt="Code of Conduct" />
   <img src="https://img.shields.io/github/license/GhariebML/ADPilot-Pro?color=orange" alt="License" />
 </p>
 
@@ -43,6 +45,10 @@
 14. [Testing & Quality Assurance](#-testing--quality-assurance)
 15. [Project Structure](#-project-structure)
 16. [Security & License](#-security--license)
+
+---
+
+> 📚 **Documentation Hub** — The complete 56-file technical documentation package is available at [`docs/adpilot_system/`](docs/adpilot_system/DOCUMENTATION_INDEX.md). Includes agent specifications, model architectures, API references, deployment guides, and presentation materials. See the [Changelog](docs/CHANGELOG.md) for release history.
 
 ---
 
@@ -439,64 +445,67 @@ npm run build
 
 ```text
 ADPilot-Pro/
-├── .github/                      # CI/CD workflows and automation
-│   └── workflows/ci.yml         # GitHub Actions test runner
-├── data/                         # Local database and vector stores
-│   ├── sample/                  # Seed campaign briefs and templates
-│   └── outputs/                 # Exported campaign asset bundles
-├── docs/                         # Architecture documentation & diagrams
-│   └── images/                  # 6 High-resolution generated UI visuals
-│       ├── hero_banner.png
-│       ├── pipeline_architecture.png
-│       ├── dashboard_preview.png
-│       ├── agent_fleet.png
-│       ├── rl_optimizer_loss.png
-│       └── rag_hybrid_retrieval.png
-├── frontend/                     # React 18 / TypeScript / Vite Client
+├── .github/                          # GitHub repository configuration
+│   ├── workflows/ci.yml             # 3-job CI pipeline (Backend, Frontend, Docker)
+│   ├── ISSUE_TEMPLATE/              # 8 structured issue templates
+│   ├── pull_request_template.md     # PR template with review checklist
+│   ├── CODEOWNERS                   # Code ownership rules
+│   └── FUNDING.yml                  # GitHub Sponsors configuration
+├── data/                             # Local database and vector stores
+│   ├── sample/                      # Seed campaign briefs and templates
+│   └── outputs/                     # Exported campaign asset bundles
+├── docs/                             # Complete documentation suite
+│   ├── adpilot_system/              # 📚 56-file technical documentation package
+│   │   ├── agents/                  #    17 agent specification files
+│   │   ├── ai_models/              #    6 model architecture files
+│   │   ├── intelligence/           #    5 RAG, memory, reasoning files
+│   │   ├── data/                   #    5 data architecture files
+│   │   ├── infrastructure/         #    6 deployment & API files
+│   │   ├── campaign/               #    4 campaign lifecycle files
+│   │   ├── evaluation/             #    4 testing & QA files
+│   │   └── presentation/           #    4 executive & demo files
+│   ├── development_reports/         # Archived phase build reports
+│   ├── images/                      # 6 high-resolution generated visuals
+│   └── CHANGELOG.md                 # Release history (Keep a Changelog format)
+├── frontend/                         # React 18 / TypeScript 5 / Vite Client
 │   ├── src/
-│   │   ├── components/          # 29 Modular OS components
-│   │   │   ├── ExecutiveDashboardView.tsx
-│   │   │   ├── InteractivePipelineDAG.tsx
-│   │   │   ├── AgentObservatory.tsx
-│   │   │   ├── AgentDetailDrawer.tsx
-│   │   │   ├── HITLApprovalCenter.tsx
-│   │   │   ├── OptimizerDashboard.tsx
-│   │   │   ├── ModelRegistryView.tsx
-│   │   │   ├── KnowledgeBaseView.tsx
-│   │   │   ├── CreativeStudioView.tsx
-│   │   │   ├── CampaignTimelineView.tsx
-│   │   │   └── SystemHealthView.tsx
-│   │   ├── services/            # API client and telemetry stream
-│   │   ├── store/               # Zustand global state manager
-│   │   └── types/               # TypeScript interface contracts
-│   └── package.json             # Node dependencies and scripts
-├── research/                     # Machine learning research & models
-│   └── models/                  # Production model artifacts
-│       ├── optimizer/           # PyTorch PPO policy network (.pt)
-│       ├── analytics/           # Ridge revenue forecaster (.pkl)
-│       ├── content/             # Brand voice classifier (.pkl)
-│       └── cv/                  # CLIP-ViT visual quality regressor (.pkl)
-├── src/adpilot/                  # Core Python FastAPI Application
-│   ├── agents/                  # 18 Specialized AI Agent implementations
-│   ├── api/                     # FastAPI router and endpoint handlers
-│   ├── core/                    # BaseAgent, Pydantic contracts, Redis, Health
-│   ├── correction/              # Constraint guards and remediation engine
-│   ├── hitl/                    # Cryptographic approval gates and audit logs
-│   ├── memory/                  # 4-Tier Memory (Campaign, Brand, Customer, RL)
-│   ├── monitoring/              # Anomaly detection and telemetry aggregator
-│   ├── orchestrator/            # Master pipeline runner and dependency DAG
-│   ├── prompts/                 # System prompt Markdown templates
-│   ├── providers/               # LLM provider abstractions (OpenAI, Claude)
-│   ├── publishing/              # Ad network adapters (Meta, Google, LinkedIn)
-│   ├── rag/                     # Hybrid RAG engine (FastEmbed BGE + BM25 + RRF)
-│   ├── rl/                      # PPO environment, policy models, and trainer
-│   ├── schemas/                 # Pydantic v2 source-of-truth schemas
-│   └── services/                # Business logic and external connectors
-├── tests/                        # 217 Backend unit and integration tests
-├── Dockerfile                    # Multi-stage production container
-├── docker-compose.yml            # Multi-service orchestration
-├── pyproject.toml                # Project configuration and tools
-└── requirements.txt              # Production Python dependencies
+│   │   ├── components/              # 29 modular AI OS UI components
+│   │   ├── services/                # API client and telemetry stream
+│   │   ├── store/                   # Zustand global state manager
+│   │   └── types/                   # TypeScript interface contracts
+│   └── package.json                 # Node dependencies and scripts
+├── research/                         # Machine learning research & models
+│   └── models/                      # Production model artifacts
+│       ├── optimizer/               # PyTorch PPO policy network (.pt)
+│       ├── analytics/               # Ridge revenue forecaster (.pkl)
+│       ├── content/                 # Brand voice classifier (.pkl)
+│       └── cv/                      # CLIP-ViT visual quality regressor (.pkl)
+├── src/adpilot/                      # Core Python FastAPI Application
+│   ├── agents/                      # 18 specialized AI agent implementations
+│   ├── api/                         # FastAPI router and endpoint handlers
+│   ├── core/                        # BaseAgent, Pydantic contracts, Redis, Health
+│   ├── correction/                  # Constraint guards and remediation engine
+│   ├── hitl/                        # Cryptographic approval gates and audit logs
+│   ├── memory/                      # 4-Tier Memory (Campaign, Brand, Customer, RL)
+│   ├── monitoring/                  # Anomaly detection and telemetry aggregator
+│   ├── orchestrator/                # Master pipeline runner and dependency DAG
+│   ├── prompts/                     # System prompt Markdown templates
+│   ├── providers/                   # LLM provider abstractions (OpenAI, Claude)
+│   ├── publishing/                  # Ad network adapters (Meta, Google, LinkedIn)
+│   ├── rag/                         # Hybrid RAG engine (FastEmbed BGE + BM25 + RRF)
+│   ├── rl/                          # PPO environment, policy models, and trainer
+│   ├── schemas/                     # Pydantic v2 source-of-truth schemas
+│   └── services/                    # Business logic and external connectors
+├── tests/                            # 217 backend unit and integration tests
+├── CODE_OF_CONDUCT.md                # Contributor Covenant v2.1
+├── CONTRIBUTING.md                   # Development setup & contribution guide
+├── Dockerfile                        # Multi-stage production container
+├── LICENSE                           # MIT License
+├── README.md                         # This file
+├── SECURITY.md                       # Security policy & responsible disclosure
+├── docker-compose.yml                # Multi-service orchestration
+├── pyproject.toml                    # Project configuration and tools
+└── requirements.txt                  # Production Python dependencies
 ```
 
 ---
@@ -510,9 +519,18 @@ ADPilot-Pro/
 
 ---
 
-## 📄 License
+## 📄 License & Community
 
 This project is open-source software licensed under the **[MIT License](LICENSE)**.
+
+| Document | Description |
+|----------|-------------|
+| [**LICENSE**](LICENSE) | MIT License |
+| [**CONTRIBUTING.md**](CONTRIBUTING.md) | Development setup & contribution guide |
+| [**CODE_OF_CONDUCT.md**](CODE_OF_CONDUCT.md) | Contributor Covenant v2.1 |
+| [**SECURITY.md**](SECURITY.md) | Security policy & responsible disclosure |
+| [**CHANGELOG.md**](docs/CHANGELOG.md) | Release history |
+| [**Documentation Hub**](docs/adpilot_system/DOCUMENTATION_INDEX.md) | 56-file technical documentation package |
 
 ---
 
