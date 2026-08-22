@@ -1,0 +1,14 @@
+{
+  "model_type": "ProximalPolicyOptimization_ActorCritic",
+  "version": "1.0.0",
+  "state_dim": 10,
+  "action_dim": 5,
+  "checkpoint_file": "ppo_policy.pt",
+  "hyperparameters": {
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_epsilon": 0.2,
+    "value_coef": 0.5,
+    "entropy_coef": 0.01
+  }
+}

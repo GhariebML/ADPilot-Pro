@@ -1,0 +1,34 @@
+{
+  "random": {
+    "mean_cumulative_reward": 339.1543002918572,
+    "std_cumulative_reward": 89.82179629155657,
+    "mean_final_roas": 5.737339736410124,
+    "mean_final_cpa": 34.409381666266555,
+    "mean_conversions": 2459.26,
+    "mean_revenue": 388012.6669833693
+  },
+  "rule_based": {
+    "mean_cumulative_reward": 235.25675517704994,
+    "std_cumulative_reward": 2.2315225431745698,
+    "mean_final_roas": 3.6868396693141294,
+    "mean_final_cpa": 43.23995040962566,
+    "mean_conversions": 1709.2,
+    "mean_revenue": 269779.76352739194
+  },
+  "contextual_bandit": {
+    "mean_cumulative_reward": 232.62879205724116,
+    "std_cumulative_reward": 3.0768179283341195,
+    "mean_final_roas": 3.1703492426085096,
+    "mean_final_cpa": 49.89229138290573,
+    "mean_conversions": 1695.92,
+    "mean_revenue": 267658.0882556167
+  },
+  "ppo": {
+    "mean_cumulative_reward": 1074.505988686536,
+    "std_cumulative_reward": 11.446387481739462,
+    "mean_final_roas": 15.209476105668395,
+    "mean_final_cpa": 10.402327416026619,
+    "mean_conversions": 7595.5,
+    "mean_revenue": 1198844.8452041731
+  }
+}
