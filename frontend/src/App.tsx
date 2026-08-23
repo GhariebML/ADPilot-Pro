@@ -20,6 +20,7 @@ import { KnowledgeBaseView } from './components/KnowledgeBaseView'
 import { LiveActivityFeed } from './components/LiveActivityFeed'
 import { CommandPalette } from './components/CommandPalette'
 import { InteractiveDemoModal } from './components/InteractiveDemoModal'
+import { TechnologyStackView } from './components/TechnologyStackView'
 import { MASTER_AGENTS } from './data/agentContracts'
 import { useTaskPolling } from './hooks/useTaskPolling'
 import { campaignService } from './services/api'
@@ -107,6 +108,16 @@ function App() {
     }
     localStorage.setItem('theme', theme)
   }, [theme])
+
+  // Sync URL Path with active OS view
+  useEffect(() => {
+    const path = location.pathname.toLowerCase()
+    if (path === '/technology-stack' || path === '/technologies' || path === '/tech-stack') {
+      setActiveOSSection('techstack')
+    } else if (path === '/dashboard') {
+      setActiveOSSection('dashboard')
+    }
+  }, [location.pathname])
 
   // React Query Task Polling
   const { status, loading, error } = useTaskPolling(currentTaskId)
@@ -345,6 +356,18 @@ function App() {
             </div>
             <div className="space-y-0.5">
               <button
+                onClick={() => { setActiveOSSection('techstack'); navigate('/technology-stack'); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  activeOSSection === 'techstack'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                }`}
+              >
+                <Cpu className="w-4 h-4 text-cyan-400" />
+                <span>Technology Stack & Arch</span>
+              </button>
+
+              <button
                 onClick={() => { setActiveOSSection('models'); navigate('/campaigns'); }}
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   activeOSSection === 'models'
@@ -563,6 +586,10 @@ function App() {
 
             {activeOSSection === 'hitl' && (
               <HITLApprovalCenter />
+            )}
+
+            {activeOSSection === 'techstack' && (
+              <TechnologyStackView />
             )}
 
             {activeOSSection === 'models' && (

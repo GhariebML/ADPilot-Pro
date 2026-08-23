@@ -58,6 +58,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
     { id: 'creative', title: 'Open Nano Banana Creative Studio', category: 'WORKSPACE', icon: <Palette className="w-4 h-4 text-pink-400" />, action: () => { onNavigate('creative'); onClose(); } },
     { id: 'timeline', title: 'View Campaign Audit Event Timeline', category: 'OPERATIONS', icon: <Activity className="w-4 h-4 text-emerald-400" />, action: () => { onNavigate('timeline'); onClose(); } },
     { id: 'health', title: 'Check AI Platform System Health', category: 'SYSTEM', icon: <Activity className="w-4 h-4 text-cyan-400" />, action: () => { onNavigate('health'); onClose(); } },
+    { id: 'techstack', title: 'Open Technology Stack & System Architecture Board', category: 'SYSTEM', icon: <Box className="w-4 h-4 text-cyan-400" />, action: () => { onNavigate('techstack'); onClose(); } },
     { id: 'rag', title: 'Access RAG Knowledge Base & Memory', category: 'KNOWLEDGE', icon: <BookOpen className="w-4 h-4 text-purple-400" />, action: () => { onNavigate('knowledge'); onClose(); } },
   ];
 
