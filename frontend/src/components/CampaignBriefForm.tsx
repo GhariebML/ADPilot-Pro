@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { CampaignBrief } from '../types';
 import { campaignService } from '../services/api';
@@ -163,7 +163,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
   };
 
   const labelClass = 'block text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5';
-  const inputClass = 'w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder:text-slate-600 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all font-sans';
+  const inputClass = 'w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder:text-slate-600 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all font-sans';
 
   return (
     <div className="w-full space-y-6">
@@ -215,7 +215,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
           <div>
             <div className="text-xs font-bold text-slate-200">Brief Completeness Score</div>
             <div className="text-[10px] text-slate-500 font-mono">
-              {qualityScore >= 80 ? '🎯 Excellent readiness for 18-agent pipeline' : '⚠️ Add more detail to optimize agent accuracy'}
+              {qualityScore >= 80 ? 'ðŸŽ¯ Excellent readiness for 18-agent pipeline' : 'âš ï¸ Add more detail to optimize agent accuracy'}
             </div>
           </div>
         </div>
@@ -328,10 +328,10 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
           <label className={labelClass}>Optimization Goals</label>
           <div className="flex flex-wrap gap-2">
             {[
-              { id: 'lead_generation', label: '🎯 Lead Generation' },
-              { id: 'sales_conversion', label: '⚡ Direct Sales / ROAS' },
-              { id: 'brand_awareness', label: '🚀 Brand Awareness' },
-              { id: 'retargeting', label: '🔄 BOFU Retargeting' },
+              { id: 'lead_generation', label: 'ðŸŽ¯ Lead Generation' },
+              { id: 'sales_conversion', label: 'âš¡ Direct Sales / ROAS' },
+              { id: 'brand_awareness', label: 'ðŸš€ Brand Awareness' },
+              { id: 'retargeting', label: 'ðŸ”„ BOFU Retargeting' },
             ].map((goal) => {
               const isChecked = selectedGoals.includes(goal.id);
               return (
@@ -376,3 +376,4 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
     </div>
   );
 };
+

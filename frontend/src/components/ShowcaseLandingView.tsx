@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Zap, 
   Sparkles, 
@@ -64,7 +64,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
   return (
     <div className="w-full bg-[#030712] text-slate-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen">
-      {/* ── TOP NAV BAR (Rendered on Standalone Port 3001 or as Sleek Subnav) ── */}
+      {/* â”€â”€ TOP NAV BAR (Rendered on Standalone Port 3001 or as Sleek Subnav) â”€â”€ */}
       {isStandalone && (
         <header className="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-2xl border-b border-slate-800/80 px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -110,15 +110,15 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </header>
       )}
 
-      {/* ── 3D HOLOGRAPHIC HERO SECTION (PERFECTLY CENTERED) ── */}
-      <section className="relative w-full py-16 sm:py-24 overflow-hidden border-b border-slate-800/60 flex flex-col items-center justify-center text-center">
-        {/* Three.js Multi-Mode 3D Holographic Globe & Brain Background */}
-        <ThreeHolographicGlobe
-          activeMode={visualMode}
-          onModeChange={setVisualMode}
-          className="absolute inset-0 w-full h-full pointer-events-none z-0"
-        />
+      {/* â”€â”€ 3D HOLOGRAPHIC GLOBAL BACKGROUND â”€â”€ */}
+      <ThreeHolographicGlobe
+        activeMode={visualMode}
+        onModeChange={setVisualMode}
+        className="fixed inset-0 w-full h-full pointer-events-none z-0"
+      />
 
+      {/* â”€â”€ 3D HOLOGRAPHIC HERO SECTION (PERFECTLY CENTERED) â”€â”€ */}
+      <section className="relative z-10 w-full py-16 sm:py-24 overflow-hidden border-b border-slate-800/60 flex flex-col items-center justify-center text-center">
         {/* Ambient Glow Orbs */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] bg-radial from-cyan-500/10 via-purple-500/5 to-transparent rounded-full filter blur-[140px] pointer-events-none z-0" />
 
@@ -126,7 +126,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
           {/* Release Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/90 border border-cyan-500/40 text-xs font-mono text-cyan-300 shadow-xl shadow-cyan-500/10">
             <Sparkles className="w-4 h-4 text-cyan-400 fill-cyan-400" />
-            <span>ADPilot Pro Enterprise V3 • 18-Agent Autonomous Marketing OS</span>
+            <span>ADPilot Pro Enterprise V3 â€¢ 18-Agent Autonomous Marketing OS</span>
           </div>
 
           {/* Main Headline */}
@@ -141,7 +141,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
           </p>
 
           {/* 3D Hologram Interactive Mode Switcher HUD */}
-          <div className="flex items-center justify-center gap-1.5 p-1 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-xl shadow-xl z-20">
+          <div className="flex items-center justify-center gap-1.5 p-1 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-3xl shadow-xl z-20">
             <button
               onClick={() => setVisualMode('brain')}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
@@ -219,7 +219,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
               { val: 'HMAC-SHA256', lbl: 'Cryptographic HITL Gate', color: 'text-amber-400', border: 'border-amber-500/30' },
             ].map((m, idx) => (
               <TiltCard3D key={idx} maxTilt={8} className="h-full">
-                <div className={`p-4 rounded-2xl bg-slate-950/85 border ${m.border} text-center backdrop-blur-xl h-full flex flex-col justify-center`}>
+                <div className={`p-4 rounded-2xl bg-slate-950/85 border ${m.border} text-center backdrop-blur-3xl h-full flex flex-col justify-center`}>
                   <div className={`text-xl sm:text-2xl font-mono font-extrabold ${m.color}`}>{m.val}</div>
                   <div className="text-[10px] text-slate-400 font-mono mt-0.5">{m.lbl}</div>
                 </div>
@@ -229,8 +229,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 1: IN-SHOWCASE LIVE CAMPAIGN STUDIO ── */}
-      <section id="simulator" className="py-16 border-b border-slate-800/60 bg-slate-950/40">
+      {/* â”€â”€ MODULE 1: IN-SHOWCASE LIVE CAMPAIGN STUDIO â”€â”€ */}
+      <section id="simulator" className="py-16 border-b border-slate-800/60 bg-slate-950/10 backdrop-blur-sm relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -245,8 +245,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 2: INTERACTIVE 3D DAG PIPELINE FLOW ── */}
-      <section id="dag" className="py-16 border-b border-slate-800/60">
+      {/* â”€â”€ MODULE 2: INTERACTIVE 3D DAG PIPELINE FLOW â”€â”€ */}
+      <section id="dag" className="py-16 border-b border-slate-800/60 relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -261,8 +261,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 3: 18-AGENT MATRIX & CONTRACT ENCYCLOPEDIA ── */}
-      <section id="agents" className="py-16 border-b border-slate-800/60 bg-slate-950/40">
+      {/* â”€â”€ MODULE 3: 18-AGENT MATRIX & CONTRACT ENCYCLOPEDIA â”€â”€ */}
+      <section id="agents" className="py-16 border-b border-slate-800/60 bg-slate-950/10 backdrop-blur-sm relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -277,8 +277,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 4: NEURAL ML & RL PLAYGROUND ── */}
-      <section id="playground" className="py-16 border-b border-slate-800/60">
+      {/* â”€â”€ MODULE 4: NEURAL ML & RL PLAYGROUND â”€â”€ */}
+      <section id="playground" className="py-16 border-b border-slate-800/60 relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -293,8 +293,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 5: MATHEMATICAL FORMULAS & FORMAL PROOFS ── */}
-      <section id="formulas" className="py-16 border-b border-slate-800/60 bg-slate-950/40">
+      {/* â”€â”€ MODULE 5: MATHEMATICAL FORMULAS & FORMAL PROOFS â”€â”€ */}
+      <section id="formulas" className="py-16 border-b border-slate-800/60 bg-slate-950/10 backdrop-blur-sm relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -309,8 +309,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 6: DUAL-STREAM HYBRID RAG 3D ── */}
-      <section id="rag" className="py-16 border-b border-slate-800/60">
+      {/* â”€â”€ MODULE 6: DUAL-STREAM HYBRID RAG 3D â”€â”€ */}
+      <section id="rag" className="py-16 border-b border-slate-800/60 relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -325,8 +325,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 7: ENTERPRISE COMPARISON MATRIX ── */}
-      <section id="comparison" className="py-16 border-b border-slate-800/60 bg-slate-950/40">
+      {/* â”€â”€ MODULE 7: ENTERPRISE COMPARISON MATRIX â”€â”€ */}
+      <section id="comparison" className="py-16 border-b border-slate-800/60 bg-slate-950/10 backdrop-blur-sm relative z-10">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -341,8 +341,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── MODULE 8: ROADMAP & 100% PROOF ── */}
-      <section id="roadmap" className="py-16 border-b border-slate-800/60">
+      {/* â”€â”€ MODULE 8: ROADMAP & 100% PROOF â”€â”€ */}
+      <section id="roadmap" className="py-16 border-b border-slate-800/60 relative z-10">
         <div className="max-w-4xl mx-auto px-6 space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
@@ -386,14 +386,14 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="py-12 bg-slate-950 border-t border-slate-800/80 px-6">
+      {/* â”€â”€ FOOTER â”€â”€ */}
+      <footer className="py-12 bg-slate-950/20 backdrop-blur-md border-t border-slate-800/80 px-6 relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-3">
             <div className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
               AD
             </div>
-            <span>© 2026 ADPilot Pro — Autonomous Marketing Operating System</span>
+            <span>Â© 2026 ADPilot Pro â€” Autonomous Marketing Operating System</span>
           </div>
 
           <div className="flex items-center gap-6">
@@ -413,7 +413,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </footer>
 
-      {/* ── IN-APP TECHNICAL WHITEPAPER MODAL ── */}
+      {/* â”€â”€ IN-APP TECHNICAL WHITEPAPER MODAL â”€â”€ */}
       <TechnicalWhitepaperModal
         isOpen={isWhitepaperOpen}
         onClose={() => setIsWhitepaperOpen(false)}
@@ -423,3 +423,4 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 };
 
 export default ShowcaseLandingView;
+

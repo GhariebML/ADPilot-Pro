@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Code2, 
   Sparkles, 
@@ -28,7 +28,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
         <div>
@@ -73,7 +73,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
         </div>
       </div>
 
-      {/* ── FORMULA 1: PPO SURROGATE LOSS ── */}
+      {/* â”€â”€ FORMULA 1: PPO SURROGATE LOSS â”€â”€ */}
       {activeFormula === 'ppo' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
           <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -82,12 +82,12 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
             {/* LaTeX Render Block */}
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 text-sm overflow-x-auto">
               <code>
-                L^(CLIP)(θ) = E_t [ min( r_t(θ) * A_t , clip(r_t(θ), 1-ε, 1+ε) * A_t ) ]
+                L^(CLIP)(Î¸) = E_t [ min( r_t(Î¸) * A_t , clip(r_t(Î¸), 1-Îµ, 1+Îµ) * A_t ) ]
               </code>
             </div>
 
             <p className="text-slate-300 leading-relaxed text-xs">
-              Where the probability ratio is defined as <code className="text-purple-300">r_t(θ) = π_θ(a_t | s_t) / π_θ_old(a_t | s_t)</code>. The clipping parameter <code className="text-amber-300">ε = 0.20</code> prevents destructive updates during live multi-channel budget rebalancing.
+              Where the probability ratio is defined as <code className="text-purple-300">r_t(Î¸) = Ï€_Î¸(a_t | s_t) / Ï€_Î¸_old(a_t | s_t)</code>. The clipping parameter <code className="text-amber-300">Îµ = 0.20</code> prevents destructive updates during live multi-channel budget rebalancing.
             </p>
 
             <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
@@ -100,15 +100,15 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
               <span className="text-xs font-bold text-slate-300 uppercase block">Empirical Hyperparameters</span>
               <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="text-slate-500 block">Clip Epsilon (ε)</span>
+                  <span className="text-slate-500 block">Clip Epsilon (Îµ)</span>
                   <span className="text-emerald-400 font-bold">0.20</span>
                 </div>
                 <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="text-slate-500 block">Discount Factor (γ)</span>
+                  <span className="text-slate-500 block">Discount Factor (Î³)</span>
                   <span className="text-emerald-400 font-bold">0.99</span>
                 </div>
                 <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
-                  <span className="text-slate-500 block">GAE Lambda (λ)</span>
+                  <span className="text-slate-500 block">GAE Lambda (Î»)</span>
                   <span className="text-emerald-400 font-bold">0.95</span>
                 </div>
                 <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
@@ -125,7 +125,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
         </div>
       )}
 
-      {/* ── FORMULA 2: DIRICHLET ACTION DENSITY ── */}
+      {/* â”€â”€ FORMULA 2: DIRICHLET ACTION DENSITY â”€â”€ */}
       {activeFormula === 'dirichlet' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
           <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -133,12 +133,12 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
 
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-purple-300 text-sm overflow-x-auto">
               <code>
-                f(a; α) = ( 1 / B(α) ) * ∏_(k=1)^K a_k^(α_k - 1)
+                f(a; Î±) = ( 1 / B(Î±) ) * âˆ_(k=1)^K a_k^(Î±_k - 1)
               </code>
             </div>
 
             <p className="text-slate-300 leading-relaxed text-xs">
-              Actions <code className="text-cyan-300">a_t</code> are sampled on the standard simplex where <code className="text-amber-300">∑ a_k = 1.0</code> and <code className="text-emerald-300">a_k ≥ 0.05</code> (floor constraint), ensuring no marketing channel is starved completely.
+              Actions <code className="text-cyan-300">a_t</code> are sampled on the standard simplex where <code className="text-amber-300">âˆ‘ a_k = 1.0</code> and <code className="text-emerald-300">a_k â‰¥ 0.05</code> (floor constraint), ensuring no marketing channel is starved completely.
             </p>
 
             <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
@@ -152,15 +152,15 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
               <div className="space-y-2 text-[11px]">
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between">
                   <span className="text-slate-400">Sum Normalization:</span>
-                  <span className="text-cyan-400 font-bold">∑ a_k = 100% Total Budget</span>
+                  <span className="text-cyan-400 font-bold">âˆ‘ a_k = 100% Total Budget</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between">
                   <span className="text-slate-400">Safety Channel Floor:</span>
-                  <span className="text-emerald-400 font-bold">a_k ≥ 5.0% Minimum</span>
+                  <span className="text-emerald-400 font-bold">a_k â‰¥ 5.0% Minimum</span>
                 </div>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between">
                   <span className="text-slate-400">Single Channel Cap:</span>
-                  <span className="text-amber-400 font-bold">a_k ≤ 65.0% Maximum</span>
+                  <span className="text-amber-400 font-bold">a_k â‰¤ 65.0% Maximum</span>
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
         </div>
       )}
 
-      {/* ── FORMULA 3: HYBRID RAG RRF FUSION ── */}
+      {/* â”€â”€ FORMULA 3: HYBRID RAG RRF FUSION â”€â”€ */}
       {activeFormula === 'rrf' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
           <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -180,7 +180,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
 
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-emerald-300 text-sm overflow-x-auto">
               <code>
-                RRF(d ∈ D) = ∑_(m ∈ M) ( w_m / ( k + r_m(d) ) )
+                RRF(d âˆˆ D) = âˆ‘_(m âˆˆ M) ( w_m / ( k + r_m(d) ) )
               </code>
             </div>
 
@@ -213,13 +213,13 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
             </div>
 
             <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px]">
-              Retrieval HitRate = <strong className="text-white">100%</strong> • Mean Reciprocal Rank (MRR) = <strong className="text-white">1.00</strong>
+              Retrieval HitRate = <strong className="text-white">100%</strong> â€¢ Mean Reciprocal Rank (MRR) = <strong className="text-white">1.00</strong>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── FORMULA 4: CRYPTOGRAPHIC HMAC-SHA256 ── */}
+      {/* â”€â”€ FORMULA 4: CRYPTOGRAPHIC HMAC-SHA256 â”€â”€ */}
       {activeFormula === 'hmac' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-mono text-xs">
           <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -227,7 +227,7 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
 
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-rose-300 text-sm overflow-x-auto">
               <code>
-                HMAC(K, m) = H( (K' ⊕ opad) || H( (K' ⊕ ipad) || m ) )
+                HMAC(K, m) = H( (K' âŠ• opad) || H( (K' âŠ• ipad) || m ) )
               </code>
             </div>
 
@@ -274,3 +274,4 @@ export const MathematicalFormulasDeepDive: React.FC = () => {
 };
 
 export default MathematicalFormulasDeepDive;
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   Zap, 
   TrendingUp, 
@@ -32,7 +32,7 @@ export const OptimizerDashboard: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="absolute -top-10 -right-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -48,7 +48,7 @@ export const OptimizerDashboard: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 shrink-0">
+          <div className="flex items-center gap-3 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl px-4 py-2.5 shrink-0">
             <div>
               <div className="text-[10px] uppercase font-mono text-slate-500">Policy Checkpoint</div>
               <div className="text-xs font-mono font-bold text-amber-300">ppo_policy.pt</div>
@@ -65,7 +65,7 @@ export const OptimizerDashboard: React.FC = () => {
       </div>
 
       {/* 12-Dimensional State Vector Inspection Grid */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl">
+      <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Sliders className="w-4 h-4 text-cyan-400" />
@@ -94,7 +94,7 @@ export const OptimizerDashboard: React.FC = () => {
       {/* Action Space & Simulated Optimization Trajectory */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Recommended PPO Actions */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl">
+        <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Cpu className="w-4 h-4 text-amber-400" />
@@ -109,7 +109,7 @@ export const OptimizerDashboard: React.FC = () => {
             <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
               <div className="flex justify-between font-bold text-slate-200 mb-1">
                 <span>LinkedIn Ads Allocation</span>
-                <span className="text-emerald-400 font-mono">+12% ($4,500 → $5,700)</span>
+                <span className="text-emerald-400 font-mono">+12% ($4,500 â†’ $5,700)</span>
               </div>
               <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden mt-2">
                 <div className="bg-emerald-500 h-full" style={{ width: '57%' }} />
@@ -129,7 +129,7 @@ export const OptimizerDashboard: React.FC = () => {
             <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
               <div className="flex justify-between font-bold text-slate-200 mb-1">
                 <span>Google Search Allocation</span>
-                <span className="text-rose-400 font-mono">-12% ($2,000 → $800)</span>
+                <span className="text-rose-400 font-mono">-12% ($2,000 â†’ $800)</span>
               </div>
               <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden mt-2">
                 <div className="bg-rose-500 h-full" style={{ width: '8%' }} />
@@ -139,7 +139,7 @@ export const OptimizerDashboard: React.FC = () => {
         </div>
 
         {/* Right: Reward Function & Trajectory Forecast */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between">
+        <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -151,28 +151,29 @@ export const OptimizerDashboard: React.FC = () => {
             {/* Formula Block */}
             <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 mb-4">
               <div className="text-amber-400 font-bold mb-1">Reward Objective:</div>
-              R(s, a) = w₁ · ΔROAS - w₂ · ΔCAC - λ · RiskPenalty
+              R(s, a) = wâ‚ Â· Î”ROAS - wâ‚‚ Â· Î”CAC - Î» Â· RiskPenalty
             </div>
 
             {/* Performance Trajectory Milestones */}
             <div className="space-y-2 text-xs font-mono">
               <div className="flex justify-between items-center p-2 rounded-lg bg-slate-950/60 border border-slate-800">
                 <span className="text-slate-400">Baseline (No Optimization):</span>
-                <span className="text-slate-300 font-bold">ROAS 3.2x • CAC $49.00</span>
+                <span className="text-slate-300 font-bold">ROAS 3.2x â€¢ CAC $49.00</span>
               </div>
               <div className="flex justify-between items-center p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
                 <span className="text-emerald-400 font-semibold">PPO Optimized Trajectory:</span>
-                <span className="text-emerald-300 font-bold">ROAS 3.84x • CAC $42.10</span>
+                <span className="text-emerald-300 font-bold">ROAS 3.84x â€¢ CAC $42.10</span>
               </div>
             </div>
           </div>
 
           <div className="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
             <span>Constraint Guards: <strong className="text-emerald-400">0 Violations</strong></span>
-            <span>Exploration Factor: <strong className="text-cyan-400">ε = 0.05</strong></span>
+            <span>Exploration Factor: <strong className="text-cyan-400">Îµ = 0.05</strong></span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+

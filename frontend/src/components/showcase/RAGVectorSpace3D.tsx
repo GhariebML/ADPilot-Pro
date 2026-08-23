@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Database, 
   Search, 
@@ -49,7 +49,7 @@ export const RAGVectorSpace3D: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -66,7 +66,7 @@ export const RAGVectorSpace3D: React.FC = () => {
         </div>
 
         <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
-          HitRate = 1.0 • MRR = 1.00
+          HitRate = 1.0 â€¢ MRR = 1.00
         </span>
       </div>
 
@@ -130,3 +130,4 @@ export const RAGVectorSpace3D: React.FC = () => {
 };
 
 export default RAGVectorSpace3D;
+

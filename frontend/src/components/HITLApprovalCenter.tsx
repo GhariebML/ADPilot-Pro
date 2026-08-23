@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   ShieldCheck, 
   CheckCircle2, 
@@ -20,7 +20,7 @@ export const HITLApprovalCenter: React.FC = () => {
       id: 'hitl-001',
       stage: 'Budget / Optimizer',
       agent: 'RL Policy Optimizer (PPO)',
-      title: 'Authorize +12% Budget Allocation to LinkedIn Ads ($4,500 → $5,700)',
+      title: 'Authorize +12% Budget Allocation to LinkedIn Ads ($4,500 â†’ $5,700)',
       riskLevel: 'MEDIUM',
       status: 'PENDING',
       recommendation: 'Rebalance LinkedIn budget from $4,500 to $5,700 and reduce Google Search by $1,200.',
@@ -78,7 +78,7 @@ export const HITLApprovalCenter: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -93,7 +93,7 @@ export const HITLApprovalCenter: React.FC = () => {
           </div>
 
           {/* RBAC Role Switcher */}
-          <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 rounded-xl p-1.5 shrink-0">
+          <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-1.5 shrink-0">
             <span className="text-[10px] font-mono text-slate-500 uppercase px-2">Active Role:</span>
             {(['Director', 'Auditor', 'GrowthLead'] as const).map(role => (
               <button
@@ -129,7 +129,7 @@ export const HITLApprovalCenter: React.FC = () => {
           {items.map(item => (
             <div 
               key={item.id}
-              className={`p-6 rounded-2xl border transition-all backdrop-blur-xl ${
+              className={`p-6 rounded-2xl border transition-all backdrop-blur-3xl ${
                 item.status === 'APPROVED' 
                   ? 'bg-slate-900/40 border-emerald-500/30 opacity-70'
                   : item.status === 'REJECTED'
@@ -149,7 +149,7 @@ export const HITLApprovalCenter: React.FC = () => {
                       {item.riskLevel} RISK
                     </span>
                     <span className="text-[11px] font-mono text-slate-500">
-                      ID: {item.id} • {item.timestamp}
+                      ID: {item.id} â€¢ {item.timestamp}
                     </span>
                   </div>
                   <h4 className="text-base font-bold text-slate-100">{item.title}</h4>
@@ -208,7 +208,7 @@ export const HITLApprovalCenter: React.FC = () => {
       </div>
 
       {/* Signed Audit Log */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl">
+      <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Lock className="w-4 h-4 text-emerald-400" />
@@ -228,3 +228,4 @@ export const HITLApprovalCenter: React.FC = () => {
     </div>
   );
 };
+

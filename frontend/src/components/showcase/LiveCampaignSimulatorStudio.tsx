@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Play, 
   Sparkles, 
@@ -160,7 +160,7 @@ export const LiveCampaignSimulatorStudio: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
         <div>
@@ -234,7 +234,7 @@ export const LiveCampaignSimulatorStudio: React.FC = () => {
                 ))}
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
+              <div className="p-3 rounded-lg bg-slate-950/40 border border-slate-800/60 shadow-2xl text-[11px] text-slate-300 leading-relaxed">
                 <span className="text-slate-500 block text-[9px] mb-1">LONG-FORM COPY DIRECTIVE:</span>
                 {activePreset.generatedOutput.bodyCopy}
               </div>
@@ -320,3 +320,4 @@ export const LiveCampaignSimulatorStudio: React.FC = () => {
 };
 
 export default LiveCampaignSimulatorStudio;
+

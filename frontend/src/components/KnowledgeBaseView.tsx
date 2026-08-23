@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   BookOpen, 
   Search, 
@@ -106,7 +106,7 @@ export const KnowledgeBaseView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -121,7 +121,7 @@ export const KnowledgeBaseView: React.FC = () => {
           </div>
 
           {/* Tab Switcher */}
-          <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 rounded-xl p-1.5 shrink-0">
+          <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-1.5 shrink-0">
             <button
               onClick={() => setActiveMemoryTab('rag')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
@@ -150,7 +150,7 @@ export const KnowledgeBaseView: React.FC = () => {
       {activeMemoryTab === 'rag' && (
         <div className="space-y-4">
           {/* Search Bar & Stats */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 rounded-2xl p-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
               <input
@@ -171,7 +171,7 @@ export const KnowledgeBaseView: React.FC = () => {
           {/* Document Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredDocs.map(doc => (
-              <div key={doc.id} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between hover:border-slate-700 transition-colors">
+              <div key={doc.id} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-colors">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20">
@@ -202,7 +202,7 @@ export const KnowledgeBaseView: React.FC = () => {
 
                 <div className="pt-3 mt-3 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-500">
                   <span>Last synced: {doc.lastIndexed}</span>
-                  <span className="text-purple-400 font-semibold cursor-pointer hover:underline">Explore Embeddings →</span>
+                  <span className="text-purple-400 font-semibold cursor-pointer hover:underline">Explore Embeddings â†’</span>
                 </div>
               </div>
             ))}
@@ -214,7 +214,7 @@ export const KnowledgeBaseView: React.FC = () => {
       {activeMemoryTab === 'memory' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {memoryTiers.map((tier, idx) => (
-            <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div key={idx} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-colors">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
@@ -246,3 +246,4 @@ export const KnowledgeBaseView: React.FC = () => {
     </div>
   );
 };
+

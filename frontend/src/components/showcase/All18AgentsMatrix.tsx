@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Bot, 
   Search, 
@@ -62,7 +62,7 @@ export const All18AgentsMatrix: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
         <div>
@@ -154,7 +154,7 @@ export const All18AgentsMatrix: React.FC = () => {
         ))}
       </div>
 
-      {/* ── Slide-Over Agent Contract Drawer ── */}
+      {/* â”€â”€ Slide-Over Agent Contract Drawer â”€â”€ */}
       {selectedAgent && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-5 shadow-2xl relative font-sans">
@@ -224,3 +224,4 @@ export const All18AgentsMatrix: React.FC = () => {
 };
 
 export default All18AgentsMatrix;
+

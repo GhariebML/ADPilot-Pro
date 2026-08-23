@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -141,7 +141,7 @@ export const InteractiveDAG3D: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       {/* Background Laser Scan */}
       <div className="absolute inset-0 cyber-grid-3d opacity-30 pointer-events-none" />
 
@@ -249,3 +249,4 @@ export const InteractiveDAG3D: React.FC = () => {
 };
 
 export default InteractiveDAG3D;
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Cpu, 
   Layers, 
@@ -48,7 +48,7 @@ export interface TechItem {
 }
 
 export const TECH_CATALOG: TechItem[] = [
-  // ── AI & AGENT LAYER ──
+  // â”€â”€ AI & AGENT LAYER â”€â”€
   {
     id: 'tech-agents-18',
     name: '18-Stage Master Agent Fleet',
@@ -83,10 +83,10 @@ export const TECH_CATALOG: TechItem[] = [
     usedBy: ['StrategyAgent', 'ContentAgent', 'ResearchAgent', 'CampaignPlanner'],
     inputSpec: 'System Prompts (.md) + Dynamic Context Injection',
     outputSpec: 'Strict Pydantic JSON Mode Output',
-    latency: '820ms – 1,980ms / call',
+    latency: '820ms â€“ 1,980ms / call',
     status: 'IMPLEMENTED',
     keyFeatures: [
-      'Dynamic provider failover (OpenAI ↔ Anthropic)',
+      'Dynamic provider failover (OpenAI â†” Anthropic)',
       'Deterministic structured JSON parsing via Pydantic v2',
       'Zero-credit mock simulation engine for offline development',
       'Token consumption telemetry and latency tracking'
@@ -94,7 +94,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'Dual-provider routing engine selecting GPT-4o for structured strategic roadmaps and Claude 3.5 Sonnet for multi-variant ad copy, headline generation, and nurture sequences.'
   },
 
-  // ── ML & RL MODELS ──
+  // â”€â”€ ML & RL MODELS â”€â”€
   {
     id: 'tech-ppo-rl',
     name: 'PPO Actor-Critic Budget Policy Network',
@@ -106,7 +106,7 @@ export const TECH_CATALOG: TechItem[] = [
     codeLocation: 'src/adpilot/rl/ & research/models/optimizer/ppo_policy.pt',
     usedBy: ['OptimizationAgent', 'AIOptimizer Service', 'OptimizerDashboard'],
     inputSpec: '12-dim Continuous State Vector (SpendRatio, ROAS, CAC, CTR, CVR)',
-    outputSpec: 'Dirichlet Concentration Vector α → Budget Weights a_t',
+    outputSpec: 'Dirichlet Concentration Vector Î± â†’ Budget Weights a_t',
     latency: '15.8ms inference',
     status: 'IMPLEMENTED',
     keyFeatures: [
@@ -133,7 +133,7 @@ export const TECH_CATALOG: TechItem[] = [
     status: 'IMPLEMENTED',
     keyFeatures: [
       'L2-regularized Ridge regression preventing feature colinearity',
-      'Trained on historical campaign conversion datasets (R² = 0.894)',
+      'Trained on historical campaign conversion datasets (RÂ² = 0.894)',
       'Epistemic uncertainty interval generation ([4.4x - 5.1x])',
       'Instant zero-GPU CPU inference'
     ],
@@ -162,7 +162,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'Computer vision automated quality gate ensuring every visual asset meets commercial marketing standards before reaching publishing dispatch.'
   },
 
-  // ── RAG & MEMORY LAYER ──
+  // â”€â”€ RAG & MEMORY LAYER â”€â”€
   {
     id: 'tech-fastembed-bge',
     name: 'FastEmbed BGE Dense Vector Embeddings',
@@ -230,7 +230,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'Tiered cognitive storage preventing context drift and ensuring brand voice continuity across multiple quarters.'
   },
 
-  // ── BACKEND & RUNTIME ──
+  // â”€â”€ BACKEND & RUNTIME â”€â”€
   {
     id: 'tech-fastapi',
     name: 'FastAPI High-Concurrency Backend',
@@ -276,7 +276,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'High-frequency streaming layer delivering live agent reasoning traces and node execution states to the React AI OS.'
   },
 
-  // ── FRONTEND & UI/UX ──
+  // â”€â”€ FRONTEND & UI/UX â”€â”€
   {
     id: 'tech-react-vite',
     name: 'React 18 & Vite Enterprise AI OS',
@@ -319,7 +319,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'Design system tokens delivering consistent, presentation-ready aesthetics across dark and light modes.'
   },
 
-  // ── STORAGE & INFRASTRUCTURE ──
+  // â”€â”€ STORAGE & INFRASTRUCTURE â”€â”€
   {
     id: 'tech-qdrant',
     name: 'Qdrant Vector Database',
@@ -365,7 +365,7 @@ export const TECH_CATALOG: TechItem[] = [
     description: 'Lightweight, zero-configuration relational persistence layer storing operational state and cryptographic audit trails.'
   },
 
-  // ── GOVERNANCE & SECURITY ──
+  // â”€â”€ GOVERNANCE & SECURITY â”€â”€
   {
     id: 'tech-hitl-security',
     name: 'Cryptographic HMAC-SHA256 Governance Gate',
@@ -476,7 +476,7 @@ export const TechnologyStackView: React.FC = () => {
       </div>
 
       {/* Visual System Architecture Diagram */}
-      <div className="bg-slate-950/70 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-xl shadow-xl space-y-4">
+      <div className="bg-slate-950/70 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-3xl shadow-xl space-y-4">
         <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
           <div className="flex items-center gap-2">
             <Network className="w-5 h-5 text-cyan-400" />
@@ -556,7 +556,7 @@ export const TechnologyStackView: React.FC = () => {
           <div
             key={tech.id}
             onClick={() => setSelectedTech(tech)}
-            className="bg-slate-950/70 border border-slate-800/90 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between hover:border-cyan-500/40 hover:bg-slate-900/60 transition-all cursor-pointer group space-y-4 relative overflow-hidden"
+            className="bg-slate-950/70 border border-slate-800/90 rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-cyan-500/40 hover:bg-slate-900/60 transition-all cursor-pointer group space-y-4 relative overflow-hidden"
           >
             {/* Top Badge Row */}
             <div>
@@ -575,7 +575,7 @@ export const TechnologyStackView: React.FC = () => {
               </h3>
 
               <div className="text-xs text-slate-400 font-mono mt-1">
-                {tech.framework} • <span className="text-slate-500">{tech.version}</span>
+                {tech.framework} â€¢ <span className="text-slate-500">{tech.version}</span>
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed mt-2.5 line-clamp-3">
@@ -597,7 +597,7 @@ export const TechnologyStackView: React.FC = () => {
         ))}
       </div>
 
-      {/* ── Slide-Over Technical Details Modal ── */}
+      {/* â”€â”€ Slide-Over Technical Details Modal â”€â”€ */}
       {selectedTech && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-5 shadow-2xl relative">
@@ -657,7 +657,7 @@ export const TechnologyStackView: React.FC = () => {
               <ul className="space-y-1.5">
                 {selectedTech.keyFeatures.map((feat, idx) => (
                   <li key={idx} className="text-xs text-slate-300 flex items-start gap-2">
-                    <span className="text-cyan-400 font-bold">✓</span>
+                    <span className="text-cyan-400 font-bold">âœ“</span>
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -681,3 +681,4 @@ export const TechnologyStackView: React.FC = () => {
     </div>
   );
 };
+

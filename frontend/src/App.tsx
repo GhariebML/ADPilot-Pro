@@ -22,6 +22,7 @@ import { CommandPalette } from './components/CommandPalette'
 import { InteractiveDemoModal } from './components/InteractiveDemoModal'
 import { TechnologyStackView } from './components/TechnologyStackView'
 import { ShowcaseLandingView } from './components/ShowcaseLandingView'
+import { CampaignSimulationView } from './components/simulation/CampaignSimulationView'
 import { MASTER_AGENTS } from './data/agentContracts'
 import { useTaskPolling } from './hooks/useTaskPolling'
 import { campaignService } from './services/api'
@@ -97,7 +98,7 @@ function App() {
     { id: '9', timestamp: '18:39:22', agent: 'HITL Gate', action: 'HUMAN_APPROVAL_RECORDED', level: 'success', details: 'Campaign Director authorized live multi-channel deployment.', latency: '50ms' }
   ])
 
-  // Custom OS active section — defaults to showcase on dedicated showcase port (3001) or /showcase
+  // Custom OS active section Ã¢â‚¬â€ defaults to showcase on dedicated showcase port (3001) or /showcase
   const isShowcasePort = typeof window !== 'undefined' && window.location.port === '3001'
   const [activeOSSection, setActiveOSSection] = useState<string>(isShowcasePort ? 'showcase' : 'pipeline')
 
@@ -186,13 +187,13 @@ function App() {
       <div className="absolute top-[30%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full mix-blend-screen filter blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[30%] w-[50vw] h-[50vw] bg-cyan-600/10 rounded-full mix-blend-screen filter blur-[140px] pointer-events-none" />
 
-      {/* ── Enterprise AI OS Sidebar Navigation ── */}
-      <aside className="w-[260px] bg-slate-950/80 border-r border-slate-800/80 flex flex-col z-30 shrink-0 backdrop-blur-2xl">
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Enterprise AI OS Sidebar Navigation Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      <aside className="w-[260px] bg-slate-950/40 border-r border-slate-800/60 flex flex-col z-30 shrink-0 backdrop-blur-3xl shadow-2xl shadow-black/50">
         {/* Brand Header */}
-        <div className="p-5 flex items-center justify-between border-b border-slate-800/80 bg-slate-950/60">
+        <div className="p-5 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/20">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
-              <Cpu className="text-white w-5 h-5 animate-pulse-slow" />
+            <div className="w-10 h-10 bg-cyan-500/10 border border-cyan-500/20 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/10 transition-transform duration-500 hover:scale-105">
+              <Cpu className="text-cyan-400 w-5 h-5 animate-pulse-slow" />
             </div>
             <div>
               <span className="text-base font-bold tracking-tight block leading-none text-white flex items-center gap-1.5">
@@ -215,10 +216,10 @@ function App() {
             <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('dashboard'); navigate('/dashboard'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'dashboard'
                     ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4 text-blue-400" />
@@ -226,14 +227,25 @@ function App() {
               </button>
               <button
                 onClick={() => { setActiveOSSection('brief'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'brief'
                     ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <FileText className="w-4 h-4 text-cyan-400" />
                 <span>Campaign Ingestion Brief</span>
+              </button>
+              <button
+                onClick={() => { setActiveOSSection('simulation'); navigate('/simulation'); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                  activeOSSection === 'simulation'
+                    ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                }`}
+              >
+                <Activity className="w-4 h-4 text-cyan-400" />
+                <span>End-to-End Simulation</span>
               </button>
             </div>
           </div>
@@ -246,10 +258,10 @@ function App() {
             <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('pipeline'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'pipeline'
                     ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -261,10 +273,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('agents'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'agents'
                     ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Compass className="w-4 h-4 text-purple-400" />
@@ -273,10 +285,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('creative'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'creative'
                     ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Palette className="w-4 h-4 text-pink-400" />
@@ -285,10 +297,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('optimizer'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'optimizer'
                     ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Zap className="w-4 h-4 text-amber-400" />
@@ -305,10 +317,10 @@ function App() {
             <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('knowledge'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'knowledge'
                     ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <BookOpen className="w-4 h-4 text-purple-400" />
@@ -325,10 +337,10 @@ function App() {
             <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('hitl'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'hitl'
                     ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -342,10 +354,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('timeline'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'timeline'
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Clock className="w-4 h-4 text-emerald-400" />
@@ -362,10 +374,10 @@ function App() {
             <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('showcase'); navigate('/showcase'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'showcase'
                     ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Sparkles className="w-4 h-4 text-purple-400" />
@@ -374,10 +386,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('techstack'); navigate('/technology-stack'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'techstack'
                     ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Cpu className="w-4 h-4 text-cyan-400" />
@@ -386,10 +398,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('models'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'models'
                     ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <Box className="w-4 h-4 text-blue-400" />
@@ -398,10 +410,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('health'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'health'
                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -413,10 +425,10 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('settings'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
                   activeOSSection === 'settings'
                     ? 'bg-slate-800 text-slate-200'
-                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
                 }`}
               >
                 <SettingsIcon className="w-4 h-4 text-slate-400" />
@@ -445,10 +457,10 @@ function App() {
         </div>
       </aside>
 
-      {/* ── Main Application Content Canvas ── */}
+      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Main Application Content Canvas Ã¢â€â‚¬Ã¢â€â‚¬ */}
       <main className="flex-1 flex flex-col overflow-hidden relative z-10">
         {/* Top App Bar */}
-        <header className="h-16 bg-slate-950/70 border-b border-slate-800/80 px-6 flex items-center justify-between z-20 shrink-0 backdrop-blur-xl">
+        <header className="h-16 bg-slate-950/40 border-b border-slate-800/60 px-6 flex items-center justify-between z-20 shrink-0 backdrop-blur-3xl shadow-sm">
           {/* Quick Search & Command Palette Button */}
           <div className="flex items-center gap-3">
             <button
@@ -496,8 +508,8 @@ function App() {
           </div>
         </header>
 
-        {/* ── Main Scrollable Body ── */}
-        <div className="flex-1 overflow-y-auto p-6 bg-[#030712]/90">
+        {/* Ã¢â€â‚¬Ã¢â€â‚¬ Main Scrollable Body Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        <div className="flex-1 overflow-y-auto p-6 bg-transparent">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Top Campaign Control Bar (Hidden on Showcase & TechStack standalone views) */}
             {activeOSSection !== 'showcase' && activeOSSection !== 'techstack' && (
@@ -518,7 +530,7 @@ function App() {
             {activeOSSection === 'brief' && (
               <div className="space-y-6">
                 {currentTaskId && (loading || status?.status === 'in_progress') ? (
-                  <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-xl">
+                  <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl">
                     <LiveOrchestration status={status} isLoading={loading} error={error} />
                   </div>
                 ) : results ? (
@@ -546,7 +558,7 @@ function App() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-                    <div className="xl:col-span-5 bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl shadow-xl">
+                    <div className="xl:col-span-5 bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl">
                       <CampaignBriefForm onSubmit={handleBriefSubmit} isLoading={loading} />
                     </div>
                     <div className="xl:col-span-7">
@@ -566,7 +578,7 @@ function App() {
             {activeOSSection === 'pipeline' && (
               <div className="space-y-6">
                 {currentTaskId && (loading || status?.status === 'in_progress') && (
-                  <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-xl">
+                  <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl">
                     <LiveOrchestration status={status} isLoading={loading} error={error} />
                   </div>
                 )}
@@ -644,10 +656,14 @@ function App() {
                 <SettingsView theme={theme} toggleTheme={toggleTheme} />
               </div>
             )}
+
+            {activeOSSection === 'simulation' && (
+              <CampaignSimulationView />
+            )}
           </div>
         </div>
 
-        {/* ── Slide-Over Drawers & Modals ── */}
+        {/* Ã¢â€â‚¬Ã¢â€â‚¬ Slide-Over Drawers & Modals Ã¢â€â‚¬Ã¢â€â‚¬ */}
         <AgentDetailDrawer
           agent={selectedAgentForDrawer}
           isOpen={selectedAgentForDrawer !== null}
@@ -688,4 +704,6 @@ function App() {
 }
 
 export default App
+
+
 

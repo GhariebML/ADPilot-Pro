@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Box, 
   CheckCircle2, 
@@ -42,7 +42,7 @@ export const ModelRegistryView: React.FC = () => {
       inputDim: 'Scaled Features (StandardScaler)',
       outputDim: '[ROAS, CAC, CVR]',
       inferenceLatency: '2.1ms',
-      accuracyOrReward: 'R² = 0.894'
+      accuracyOrReward: 'RÂ² = 0.894'
     },
     {
       id: 'model-content-001',
@@ -81,7 +81,7 @@ export const ModelRegistryView: React.FC = () => {
       inputDim: 'Variable Text Chunks',
       outputDim: '384-dim Dense Vector',
       inferenceLatency: '23.3ms',
-      accuracyOrReward: 'MRR = 1.00 • HitRate = 1.0'
+      accuracyOrReward: 'MRR = 1.00 â€¢ HitRate = 1.0'
     }
   ];
 
@@ -89,14 +89,14 @@ export const ModelRegistryView: React.FC = () => {
     { model: 'GPT-4o Router', task: 'Strategic Roadmap Planning', latency: '1,420ms', costPer1k: '$0.0050', quality: '96.2%', status: 'Primary Router' },
     { model: 'Claude 3.5 Sonnet', task: 'Ad Copywriting & Nurture Sequences', latency: '1,980ms', costPer1k: '$0.0030', quality: '97.5%', status: 'Creative Lead' },
     { model: 'PPO Continuous Policy', task: 'Dynamic Budget Reallocation', latency: '15.8ms', costPer1k: '$0.0000', quality: '+0.48 Reward', status: 'Active Policy' },
-    { model: 'Ridge Revenue Forecaster', task: 'Multi-Target ROI Prediction', latency: '2.1ms', costPer1k: '$0.0000', quality: 'R² = 0.894', status: 'Predictive Forecaster' },
+    { model: 'Ridge Revenue Forecaster', task: 'Multi-Target ROI Prediction', latency: '2.1ms', costPer1k: '$0.0000', quality: 'RÂ² = 0.894', status: 'Predictive Forecaster' },
     { model: 'CLIP-ViT (ONNX)', task: 'Visual Quality & Contrast Check', latency: '4.8ms', costPer1k: '$0.0000', quality: '91.2% Accuracy', status: 'Safety Gate' },
   ];
 
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -111,7 +111,7 @@ export const ModelRegistryView: React.FC = () => {
           </div>
 
           {/* Toggle Tabs */}
-          <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 rounded-xl p-1.5 shrink-0">
+          <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-1.5 shrink-0">
             <button
               onClick={() => setActiveTab('catalog')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
@@ -140,7 +140,7 @@ export const ModelRegistryView: React.FC = () => {
       {activeTab === 'catalog' && (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {models.map(model => (
-            <div key={model.id} className="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between hover:border-slate-700 transition-all">
+            <div key={model.id} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-all">
               <div>
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <div>
@@ -195,7 +195,7 @@ export const ModelRegistryView: React.FC = () => {
 
       {/* VIEW 2: Benchmark Arena Table */}
       {activeTab === 'arena' && (
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl space-y-4">
+        <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <div>
               <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
@@ -243,3 +243,4 @@ export const ModelRegistryView: React.FC = () => {
     </div>
   );
 };
+

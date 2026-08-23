@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   Activity, 
   X, 
@@ -24,7 +24,7 @@ export const LiveActivityFeed: React.FC<LiveActivityFeedProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-16 right-4 z-40 w-full max-w-sm sm:max-w-md bg-slate-900/95 border border-slate-800 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
+    <div className="fixed top-16 right-4 z-40 w-full max-w-sm sm:max-w-md bg-slate-900/95 border border-slate-800 rounded-2xl shadow-2xl backdrop-blur-3xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
       {/* Header */}
       <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
         <div className="flex items-center gap-2.5">
@@ -61,3 +61,4 @@ export const LiveActivityFeed: React.FC<LiveActivityFeedProps> = ({
     </div>
   );
 };
+

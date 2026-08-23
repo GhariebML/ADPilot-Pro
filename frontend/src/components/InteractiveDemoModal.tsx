@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { 
   Play, 
   Pause, 
@@ -79,7 +79,7 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
                 </span>
               </div>
               <p className="text-xs text-slate-400 font-mono mt-0.5">
-                Autonomous B2B Enterprise SaaS Campaign Ingestion → Optimization Stream
+                Autonomous B2B Enterprise SaaS Campaign Ingestion â†’ Optimization Stream
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-2 text-xs font-mono shrink-0">
+              <div className="flex items-center gap-3 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl px-4 py-2 text-xs font-mono shrink-0">
                 <div>
                   <div className="text-[10px] text-slate-500 uppercase">Epistemic Conf</div>
                   <div className="text-emerald-400 font-bold">{currentAgent.confidence}%</div>
@@ -223,12 +223,12 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
             disabled={currentStep === 0}
             className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 transition-colors"
           >
-            ← Previous Stage
+            â† Previous Stage
           </button>
 
           <span className="text-xs text-slate-400 font-mono">
             {currentStep === agents.length - 1 ? (
-              <span className="text-emerald-400 font-bold">✓ Campaign Ready for Execution</span>
+              <span className="text-emerald-400 font-bold">âœ“ Campaign Ready for Execution</span>
             ) : (
               <span>Next Agent: <strong className="text-cyan-400">{agents[currentStep + 1]?.name}</strong></span>
             )}
@@ -247,3 +247,4 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
     </div>
   );
 };
+

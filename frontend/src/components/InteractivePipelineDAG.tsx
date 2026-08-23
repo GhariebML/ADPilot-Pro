@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Compass, 
   Search, 
@@ -81,7 +81,7 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
   ];
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-5 sm:p-6 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 sm:p-6 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
       {/* Background Subtle Gradient */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-[100px] pointer-events-none" />
 
@@ -212,3 +212,4 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
     </div>
   );
 };
+

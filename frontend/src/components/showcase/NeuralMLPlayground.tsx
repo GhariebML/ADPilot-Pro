@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Zap, 
   BarChart3, 
@@ -34,14 +34,14 @@ export const NeuralMLPlayground: React.FC = () => {
   const googleBudget = Math.round(totalBudget * googleWeight);
   const emailBudget = Math.round(totalBudget * emailWeight);
 
-  // Dynamic Ridge Revenue Forecasting calculation (R² = 0.894)
+  // Dynamic Ridge Revenue Forecasting calculation (RÂ² = 0.894)
   const estimatedClicks = Math.round((audienceSize * (historicalCtr / 100)) * (totalBudget / 10000) * 0.18);
   const estimatedConversions = Math.round(estimatedClicks * 0.048);
   const estimatedRoas = (3.4 + (historicalCtr * 0.38) + (totalBudget > 20000 ? 0.4 : 0.1)).toFixed(2);
   const forecastedCac = (totalBudget / Math.max(1, estimatedConversions)).toFixed(2);
 
   return (
-    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
       {/* Header & Tabs */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
         <div>
@@ -98,7 +98,7 @@ export const NeuralMLPlayground: React.FC = () => {
         </div>
       </div>
 
-      {/* ── TAB 1: PPO REINFORCEMENT LEARNING ── */}
+      {/* â”€â”€ TAB 1: PPO REINFORCEMENT LEARNING â”€â”€ */}
       {activeTab === 'ppo' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Controls */}
@@ -173,13 +173,13 @@ export const NeuralMLPlayground: React.FC = () => {
             </div>
 
             <div className="text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-800/80">
-              Surrogate Objective: <code className="text-slate-300">L_CLIP(θ) - c1*VF(θ) + c2*S[π_θ]</code> (Inference: 15.8ms)
+              Surrogate Objective: <code className="text-slate-300">L_CLIP(Î¸) - c1*VF(Î¸) + c2*S[Ï€_Î¸]</code> (Inference: 15.8ms)
             </div>
           </div>
         </div>
       )}
 
-      {/* ── TAB 2: RIDGE REVENUE FORECASTER ── */}
+      {/* â”€â”€ TAB 2: RIDGE REVENUE FORECASTER â”€â”€ */}
       {activeTab === 'ridge' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4 p-5 rounded-xl bg-slate-900/60 border border-slate-800">
@@ -218,7 +218,7 @@ export const NeuralMLPlayground: React.FC = () => {
             </div>
 
             <div className="pt-2 text-[11px] font-mono text-slate-400 border-t border-slate-800/80">
-              Artifact: <code className="text-cyan-300">research/models/analytics/revenue_forecaster.pkl</code> (R² = 0.894)
+              Artifact: <code className="text-cyan-300">research/models/analytics/revenue_forecaster.pkl</code> (RÂ² = 0.894)
             </div>
           </div>
 
@@ -250,13 +250,13 @@ export const NeuralMLPlayground: React.FC = () => {
             </div>
 
             <div className="text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-800/80">
-              Confidence Interval: <strong className="text-slate-300">[3.82x – 4.45x ROAS] (95% CI)</strong>
+              Confidence Interval: <strong className="text-slate-300">[3.82x â€“ 4.45x ROAS] (95% CI)</strong>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── TAB 3: CLIP-ViT ZERO-SHOT VISION ── */}
+      {/* â”€â”€ TAB 3: CLIP-ViT ZERO-SHOT VISION â”€â”€ */}
       {activeTab === 'clip' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
@@ -318,3 +318,4 @@ export const NeuralMLPlayground: React.FC = () => {
 };
 
 export default NeuralMLPlayground;
+

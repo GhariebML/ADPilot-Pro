@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   Activity, 
   CheckCircle2, 
@@ -27,7 +27,7 @@ export const SystemHealthView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -51,7 +51,7 @@ export const SystemHealthView: React.FC = () => {
       {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {services.map((svc, idx) => (
-          <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between">
+          <div key={idx} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-950 text-slate-400 border border-slate-800">
@@ -80,3 +80,4 @@ export const SystemHealthView: React.FC = () => {
     </div>
   );
 };
+

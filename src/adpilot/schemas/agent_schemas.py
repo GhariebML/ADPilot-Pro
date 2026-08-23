@@ -387,7 +387,7 @@ class ContentEvaluationReport(BaseModel):
 class ContentAgentInput(BaseModel):
     strategy: Optional[StrategyAgentOutput] = None
     research: Optional[ResearchAgentOutput] = None
-    competitors: Optional[CompetitorLandscape] = None
+    competitors: Optional[Any] = None
     brand_guidelines: Optional[str] = None
     keywords: Optional[List[str]] = None
     campaign: Optional[CampaignInput] = None

@@ -13,7 +13,12 @@ from ..core.agent_events import AgentEventType
 from ..core.base_agent import BaseAgent
 from ..core.contract_registry import DESIGN_AGENT_CONTRACT
 from ..core.exceptions import AgentOutputError
-from ..providers.image_provider import ImageGenerationProvider, NanoBananaProviderAdapter
+from ..providers.image_provider import (
+    ImageGenerationProvider,
+    NanoBananaProviderAdapter,
+    ImageGenerationRequest,
+    ImageGenerationResponse,
+)
 from ..schemas.agent_schemas import (
     CampaignContext,
     CreativeAsset,
@@ -159,16 +164,24 @@ class DesignAgent(BaseAgent[DesignAgentInput, DesignAgentOutput]):
             # Attempt real image generation via ImageGenerationProvider (NanoBanana adapter)
             gen_errors = []
             for asset in output.creative_assets:
-                gen_result = await self.image_provider.generate_image(
-                    prompt=asset.generation_prompt,
-                    negative_prompt=asset.negative_prompt,
-                    width=asset.dimensions.width,
-                    height=asset.dimensions.height,
-                    brand_colors=brand_colors,
+                request = ImageGenerationRequest(
+                    campaign_id=campaign_id,
+                    product_name=brief.business_name,
+                    product_type=getattr(brief, 'product_type', 'unknown'),
+                    campaign_goal=str(brief.goals) if hasattr(brief, 'goals') and brief.goals else "conversion",
+                    target_audience=getattr(brief, 'target_market', 'general audience'),
+                    brand_identity=f"Colors: {', '.join(brand_colors)}",
+                    visual_style="modern corporate",
+                    platform=asset.channel.value if hasattr(asset.channel, "value") else str(asset.channel),
+                    aspect_ratio=asset.aspect_ratio,
+                    creative_brief=asset.generation_prompt,
+                    human_review_required=True
                 )
-                asset.generation_status = gen_result.status
-                if gen_result.image_url:
-                    asset.image_url = gen_result.image_url
+                gen_result = await self.image_provider.generate_image(request)
+                
+                asset.generation_status = gen_result.generation_status
+                if gen_result.generated_image:
+                    asset.image_url = gen_result.generated_image
                 if gen_result.error_message:
                     gen_errors.append(f"{asset.asset_id}: {gen_result.error_message}")
 
@@ -330,6 +343,20 @@ class DesignAgent(BaseAgent[DesignAgentInput, DesignAgentOutput]):
                 negative_prompt=neg_prompt,
                 color_palette=brand_colors,
                 placeholder_url="https://placehold.co/1080x1080.png",
+            ),
+            CreativeAsset(
+                asset_id="asset-meta-feed",
+                headline=headline,
+                cta=cta,
+                dimensions=ImageDimensions(width=1080, height=1350),
+                aspect_ratio="4:5",
+                format="png",
+                channel=MarketingChannel.facebook,
+                funnel_stage=FunnelStage.consideration,
+                generation_prompt=prompt_2 + " Tailored for mobile feed vertical framing with high engagement.",
+                negative_prompt=neg_prompt,
+                color_palette=brand_colors,
+                placeholder_url="https://placehold.co/1080x1350.png",
             ),
             CreativeAsset(
                 asset_id="asset-story-vertical",

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   Play, 
   Pause, 
@@ -41,7 +41,7 @@ export const CampaignControlBar: React.FC<CampaignControlBarProps> = ({
   const isDone = status === 'completed';
 
   return (
-    <div className="w-full bg-slate-900/90 border border-slate-800/90 rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-2xl relative overflow-hidden mb-6">
+    <div className="w-full bg-slate-900/90 border border-slate-800/90 rounded-2xl p-4 sm:p-5 backdrop-blur-3xl shadow-2xl relative overflow-hidden mb-6">
       {/* Background Subtle Cyber Mesh */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 via-purple-900/10 to-emerald-900/10 pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500" />
@@ -69,7 +69,7 @@ export const CampaignControlBar: React.FC<CampaignControlBarProps> = ({
             </div>
             <p className="text-xs text-slate-400 mt-1 flex items-center gap-2">
               <span>Goal: <strong className="text-slate-200">{campaign?.goals?.join(', ') || 'Lead Generation & Sales'}</strong></span>
-              <span>•</span>
+              <span>â€¢</span>
               <span>Audience: <strong className="text-slate-200">{campaign?.targetAudience || 'B2B Mid-Market & SaaS Founders'}</strong></span>
             </p>
           </div>
@@ -169,3 +169,4 @@ export const CampaignControlBar: React.FC<CampaignControlBarProps> = ({
     </div>
   );
 };
+

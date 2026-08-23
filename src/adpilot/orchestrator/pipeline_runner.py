@@ -1,4 +1,4 @@
-"""Phase 16 — Master Pipeline Runner executing the full immutable 18-stage workflow.
+﻿"""Phase 16 â€” Master Pipeline Runner executing the full immutable 18-stage workflow.
 
 Pipeline:
 User Input
@@ -40,6 +40,7 @@ from ..agents.product_classifier_agent import ProductClassifierAgent
 from ..agents.publishing_agent import PublishingAgent
 from ..agents.research_agent import ResearchAgent
 from ..agents.strategy_agent import StrategyAgent
+from ..agents.creative_evaluator import CreativeEvaluator
 from ..core.context_builder import CampaignContextBuilder
 from ..correction.engine import CorrectionEngine
 from ..hitl.manager import HITLReviewManager
@@ -306,11 +307,72 @@ class MasterPipelineRunner:
         )
 
         # -------------------------------------------------------------------
-        # Stage 9: Design Agent
+        # Stage 9: Design Agent & Creative Validation Loop
         # -------------------------------------------------------------------
         t0 = time.perf_counter()
-        context = await self.design_agent.run(context)
-        design_out = getattr(context, "design", None)
+        
+        max_revisions = 2
+        evaluator = CreativeEvaluator()
+        
+        for attempt in range(max_revisions + 1):
+            context = await self.design_agent.run(context)
+            design_out = getattr(context, "design", None)
+            
+            if not design_out:
+                break
+                
+            decision, feedback = await evaluator.evaluate(context, design_out)
+            if decision == "PASS":
+                break
+                
+            if attempt < max_revisions:
+                logger.warning(f"Creative evaluation failed. Retrying Design Agent (attempt {attempt+1}). Feedback: {feedback}")
+                # Pass feedback back into context for next run
+                if not hasattr(context, "creative_revision_notes"):
+                    context.creative_revision_notes = []
+                # Ensure we handle the new dictionary feedback
+                if isinstance(feedback, list):
+                    context.creative_revision_notes.extend(feedback)
+                elif isinstance(feedback, dict):
+                    context.creative_revision_notes.extend(feedback.get('violations', []))
+                    context.creative_revision_notes.extend(feedback.get('corrective_actions', []))
+            else:
+                logger.error("Max creative revisions reached. Proceeding with current output.")
+                
+        # Lineage & HITL Tracking
+        if design_out:
+            for asset in design_out.creative_assets:
+                asset.metadata = getattr(asset, "metadata", {})
+                
+                # Assign Hitl Status based on Evaluation
+                if decision == "PASS":
+                    asset.metadata["hitl_status"] = "HITL_REVIEW"
+                else:
+                    asset.metadata["hitl_status"] = "REVISION_REQUIRED"
+                    
+                asset.metadata["lineage"] = {
+                    "asset_id": asset.asset_id,
+                    "campaign_id": campaign_id,
+                    "agent_id": "design_agent",
+                    "provider": "GeminiImageGenerationProvider",
+                    "model": "gemini-3.1-flash-image",
+                    "prompt_version": getattr(asset, "generation_prompt", ""),
+                    "campaign_input_version": getattr(context, "schema_version", "v2"),
+                    "creative_spec_version": "v1",
+                    "generation_id": str(uuid4()),
+                    "revision_number": attempt,
+                    "evaluator_score": feedback.get('score', 0) if isinstance(feedback, dict) else 0,
+                    "evaluator_feedback": feedback,
+                    "human_decision": "PENDING",
+                    "parent_asset_id": None,
+                    "timestamps": {
+                        "generated_at": datetime.utcnow().isoformat(),
+                        "evaluated_at": datetime.utcnow().isoformat()
+                    }
+                }
+                
+                # Mock Save to Asset Registry
+                logger.info(f"Registered Asset Lineage for {asset.asset_id}: {asset.metadata['lineage']}")
         tracer.record_stage_trace(
             stage_number=9,
             stage_name="Design Creative Agent",
@@ -513,3 +575,5 @@ class MasterPipelineRunner:
 
         tracer.finalize(overall_status="success")
         return context, tracer.log
+
+

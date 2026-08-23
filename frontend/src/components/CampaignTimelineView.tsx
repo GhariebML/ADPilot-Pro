@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { 
   Clock, 
   CheckCircle2, 
@@ -15,7 +15,7 @@ export const CampaignTimelineView: React.FC = () => {
   const events = [
     {
       time: '18:39:13.201',
-      stage: 'Stage 01 — User Input Ingestion',
+      stage: 'Stage 01 â€” User Input Ingestion',
       agent: 'Campaign Context Builder',
       status: 'SUCCESS',
       latency: '2.1ms',
@@ -23,7 +23,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:13.245',
-      stage: 'Stage 05 — Strategy Planning',
+      stage: 'Stage 05 â€” Strategy Planning',
       agent: 'Strategy Agent (GPT-4o Router)',
       status: 'SUCCESS',
       latency: '1,420ms',
@@ -31,7 +31,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:14.670',
-      stage: 'Stage 06 — Audience & Market Research',
+      stage: 'Stage 06 â€” Audience & Market Research',
       agent: 'Research Agent (FastEmbed BGE)',
       status: 'SUCCESS',
       latency: '820ms',
@@ -39,7 +39,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:15.510',
-      stage: 'Stage 07 — Competitor Intelligence',
+      stage: 'Stage 07 â€” Competitor Intelligence',
       agent: 'Competitor Agent',
       status: 'SUCCESS',
       latency: '650ms',
@@ -47,7 +47,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:16.180',
-      stage: 'Stage 08 — Content Copywriting',
+      stage: 'Stage 08 â€” Content Copywriting',
       agent: 'Content Agent (ML Ridge Scorer)',
       status: 'SUCCESS',
       latency: '1,980ms',
@@ -55,7 +55,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:18.190',
-      stage: 'Stage 09 — Visual Creative Studio',
+      stage: 'Stage 09 â€” Visual Creative Studio',
       agent: 'Design Agent (Nano Banana Studio)',
       status: 'SUCCESS',
       latency: '2,450ms',
@@ -63,7 +63,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:20.660',
-      stage: 'Stage 10 — Computer Vision Inspection',
+      stage: 'Stage 10 â€” Computer Vision Inspection',
       agent: 'Computer Vision Agent (CLIP-ViT)',
       status: 'SUCCESS',
       latency: '410ms',
@@ -71,7 +71,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:21.080',
-      stage: 'Stage 11 — Analytics Forecasting',
+      stage: 'Stage 11 â€” Analytics Forecasting',
       agent: 'Analytics Agent (Sklearn Forecaster)',
       status: 'SUCCESS',
       latency: '310ms',
@@ -79,7 +79,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:21.410',
-      stage: 'Stage 12 — Reinforcement Learning Optimizer',
+      stage: 'Stage 12 â€” Reinforcement Learning Optimizer',
       agent: 'RL Optimizer (PyTorch PPO Policy)',
       status: 'SUCCESS',
       latency: '290ms',
@@ -87,7 +87,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:21.720',
-      stage: 'Stage 14 — Human-in-the-Loop Governance',
+      stage: 'Stage 14 â€” Human-in-the-Loop Governance',
       agent: 'HITL Review Manager',
       status: 'APPROVED',
       latency: '50ms',
@@ -95,7 +95,7 @@ export const CampaignTimelineView: React.FC = () => {
     },
     {
       time: '18:39:21.800',
-      stage: 'Stage 15 — Publishing Dispatch',
+      stage: 'Stage 15 â€” Publishing Dispatch',
       agent: 'Publishing Agent (Dry-Run Mode)',
       status: 'DISPATCHED',
       latency: '120ms',
@@ -106,7 +106,7 @@ export const CampaignTimelineView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex items-center gap-2.5">
           <span className="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
             <Clock className="w-5 h-5" />
@@ -121,7 +121,7 @@ export const CampaignTimelineView: React.FC = () => {
       </div>
 
       {/* Timeline Stream */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-xl relative">
+      <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-3xl relative">
         <div className="absolute top-10 bottom-10 left-[27px] w-[2px] bg-slate-800 pointer-events-none" />
 
         <div className="space-y-6 relative z-10">
@@ -133,11 +133,11 @@ export const CampaignTimelineView: React.FC = () => {
               </div>
 
               {/* Event Content Card */}
-              <div className="flex-1 bg-slate-950/80 border border-slate-800/80 rounded-xl p-4 group-hover:border-slate-700 transition-colors">
+              <div className="flex-1 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-4 group-hover:border-slate-700 transition-colors">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-bold text-slate-200">{evt.stage}</span>
-                    <span className="text-cyan-400 font-semibold">• {evt.agent}</span>
+                    <span className="text-cyan-400 font-semibold">â€¢ {evt.agent}</span>
                   </div>
                   <div className="flex items-center gap-2 text-[11px] text-slate-500">
                     <span>{evt.time}</span>
@@ -156,3 +156,4 @@ export const CampaignTimelineView: React.FC = () => {
     </div>
   );
 };
+

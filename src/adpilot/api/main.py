@@ -25,6 +25,17 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+from pathlib import Path
+
+# Load .env from project root so GEMINI_API_KEY and other secrets are available
+_env_path = Path(__file__).resolve().parents[3] / ".env"
+if _env_path.exists():
+    with open(_env_path) as _f:
+        for _line in _f:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _key, _, _val = _line.partition("=")
+                os.environ.setdefault(_key.strip(), _val.strip())
 from contextlib import asynccontextmanager
 from uuid import uuid4
 from datetime import datetime, timezone
@@ -1416,5 +1427,66 @@ async def health_check() -> Dict[str, Any]:
         "status": "healthy" if db_healthy else "unhealthy",
         "database": "connected" if db_healthy else "disconnected",
         "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+@app.post("/api/creative/generate", tags=["Creative Studio"])
+async def generate_creative(
+    request: Request,
+    payload: dict,
+):
+    from ..core.context_builder import CampaignContextBuilder
+    from ..agents.design_agent import DesignAgent
+    from ..agents.creative_evaluator import CreativeEvaluator
+
+    product_name = payload.get("product_name", "ADPilot Pro")
+    product_type = payload.get("product_type", "saas")
+    target_audience = payload.get("target_audience", "CMOs and Growth Marketers")
+    campaign_goal = payload.get("campaign_goal", "lead_generation")
+    visual_style = payload.get("visual_style", "Futuristic Cyberpunk Glassmorphism")
+    brand_colors = payload.get("brand_colors", ["#07090e", "#00f0ff", "#3b82f6", "#8b5cf6"])
+    custom_prompt = payload.get("custom_prompt", "")
+
+    # Build context using the builder
+    builder = CampaignContextBuilder()
+    builder.with_business(
+        name=product_name,
+        description=product_type
+    ).with_product(
+        product_type="saas",
+        name=product_name,
+        description=f"Enterprise {product_type} offering: {custom_prompt or 'Next-gen autonomous AI platform'}"
+    ).with_audience(
+        summary=target_audience
+    ).with_budget(
+        total_budget=5000.0
+    ).with_timeline(
+        duration_days=30
+    )
+    context = builder.build()
+    if brand_colors and hasattr(context, "brief") and context.brief:
+        context.brief.brand_colors = brand_colors
+
+    agent = DesignAgent()
+    evaluator = CreativeEvaluator()
+
+    # Run design agent
+    context = await agent.run(context)
+    design_out = getattr(context, "design", None)
+
+    decision = "PASS"
+    feedback = []
+    if design_out:
+        eval_result = await evaluator.evaluate(context, design_out)
+        decision = eval_result.get("status", "PASS")
+        feedback = eval_result.get("reasons", [])
+    else:
+        decision = "FAILED"
+        feedback = ["Design Agent failed to produce output."]
+
+    return {
+        "status": "success",
+        "decision": decision,
+        "feedback": feedback,
+        "creative_assets": [a.model_dump() for a in (design_out.creative_assets if design_out else [])]
     }
 

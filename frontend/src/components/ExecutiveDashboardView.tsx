@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -75,7 +75,7 @@ export const ExecutiveDashboardView: React.FC = () => {
   const campaigns = [
     {
       id: 'cmp-01',
-      name: 'VisionGuard AI — Q3 Enterprise SaaS Launch',
+      name: 'VisionGuard AI â€” Q3 Enterprise SaaS Launch',
       status: 'OPTIMIZING',
       budget: '$10,000',
       spent: '$4,280',
@@ -85,7 +85,7 @@ export const ExecutiveDashboardView: React.FC = () => {
     },
     {
       id: 'cmp-02',
-      name: 'CloudFlow Metrics — High Growth Tech Scale',
+      name: 'CloudFlow Metrics â€” High Growth Tech Scale',
       status: 'ACTIVE_LIVE',
       budget: '$25,000',
       spent: '$19,450',
@@ -95,7 +95,7 @@ export const ExecutiveDashboardView: React.FC = () => {
     },
     {
       id: 'cmp-03',
-      name: 'OmniRetail Pro — Multi-Format Creative Blitz',
+      name: 'OmniRetail Pro â€” Multi-Format Creative Blitz',
       status: 'ACTIVE_LIVE',
       budget: '$50,000',
       spent: '$42,100',
@@ -105,7 +105,7 @@ export const ExecutiveDashboardView: React.FC = () => {
     },
     {
       id: 'cmp-04',
-      name: 'HealthPulse Enterprise — Lead Gen Sequence',
+      name: 'HealthPulse Enterprise â€” Lead Gen Sequence',
       status: 'PENDING_HITL',
       budget: '$15,000',
       spent: '$0',
@@ -125,7 +125,7 @@ export const ExecutiveDashboardView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-xl">
+      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
@@ -143,7 +143,7 @@ export const ExecutiveDashboardView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-950/80 border border-slate-800 rounded-xl p-1.5 shrink-0">
+          <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-1.5 shrink-0">
             {(['7d', '30d', '90d'] as const).map((r) => (
               <button
                 key={r}
@@ -164,7 +164,7 @@ export const ExecutiveDashboardView: React.FC = () => {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {kpis.map((kpi, idx) => (
-          <div key={idx} className="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between hover:border-slate-700 transition-all group">
+          <div key={idx} className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700/80 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 transition-all duration-300 ease-out group">
             <div className="flex items-center justify-between mb-3">
               <div className={`p-2.5 rounded-xl border ${kpi.bg}`}>
                 <kpi.icon className={`w-5 h-5 ${kpi.color}`} />
@@ -195,7 +195,7 @@ export const ExecutiveDashboardView: React.FC = () => {
       {/* Trajectory Graph & Channel Attribution Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Trajectory Curve (SVG Chart) */}
-        <div className="lg:col-span-2 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
@@ -273,7 +273,7 @@ export const ExecutiveDashboardView: React.FC = () => {
         </div>
 
         {/* Channel Attribution Breakdown */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-between">
+        <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
@@ -317,7 +317,7 @@ export const ExecutiveDashboardView: React.FC = () => {
       </div>
 
       {/* Active Campaign Portfolio Table */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl">
+      <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
@@ -384,7 +384,7 @@ export const ExecutiveDashboardView: React.FC = () => {
       </div>
 
       {/* Autonomous Action Stream */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 backdrop-blur-xl">
+      <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-3xl shadow-2xl">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Bot className="w-4 h-4 text-purple-400" />
@@ -420,3 +420,4 @@ export const ExecutiveDashboardView: React.FC = () => {
     </div>
   );
 };
+
