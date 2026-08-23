@@ -2,12 +2,12 @@ import axios from 'axios';
 import type { CampaignBrief, TaskResponse, ContentOutput, DesignAssetsResponse } from '../types';
 
 const isTestEnv = import.meta.env.MODE === 'test';
-const API_BASE = (import.meta.env?.VITE_API_URL as string) || (isTestEnv ? 'http://127.0.0.1:8000/api' : '/api');
+const API_BASE = (import.meta.env?.VITE_API_URL as string) || (isTestEnv ? 'http://127.0.0.1:8000/api' : 'http://127.0.0.1:8001/api');
 
 const apiClient = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: true,
+  withCredentials: false,
 });
 
 // Attach JWT token from localStorage if present
@@ -21,6 +21,11 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (res) => res,
   (err) => {
+    if (err.code === 'ERR_NETWORK' || err.message?.includes('Network Error')) {
+      return Promise.reject(
+        new Error('Unable to connect to backend server at http://127.0.0.1:8001. Please ensure the backend is running.')
+      );
+    }
     const detail = err?.response?.data?.detail;
     let message: string;
     if (Array.isArray(detail)) {

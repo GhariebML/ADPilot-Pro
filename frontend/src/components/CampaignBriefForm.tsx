@@ -177,7 +177,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
           <span className="text-[11px] text-slate-500 font-mono">Load calibrated parameters</span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5">
           {VERTICAL_PRESETS.map((preset) => {
             const Icon = preset.icon;
             const isSelected = activePreset === preset.id;
@@ -197,8 +197,8 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
                   {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />}
                 </div>
                 <div>
-                  <div className="text-xs font-bold truncate">{preset.name}</div>
-                  <div className="text-[10px] text-slate-500 font-mono mt-0.5 truncate">{preset.category}</div>
+                  <div className="text-xs font-bold leading-tight">{preset.name}</div>
+                  <div className="text-[10px] text-slate-500 font-mono mt-0.5 leading-tight">{preset.category}</div>
                 </div>
               </button>
             );

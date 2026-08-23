@@ -503,11 +503,11 @@ function App() {
                     />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 backdrop-blur-xl">
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+                    <div className="xl:col-span-5 bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-2xl shadow-xl">
                       <CampaignBriefForm onSubmit={handleBriefSubmit} isLoading={loading} />
                     </div>
-                    <div className="lg:col-span-2">
+                    <div className="xl:col-span-7">
                       <InteractivePipelineDAG
                         agents={MASTER_AGENTS}
                         activeAgentId={selectedAgentForDrawer?.id}
