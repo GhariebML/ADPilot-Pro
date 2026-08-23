@@ -4,7 +4,7 @@ import {
   BookOpen, TrendingUp, Users, Lightbulb, Clock,
   Palette, BarChart2, Bookmark, Trash2, Download,
   Sun, Moon, Globe, Shield, Activity, DollarSign,
-  MousePointerClick, Megaphone, Zap
+  MousePointerClick, Megaphone, Zap, Sparkles
 } from 'lucide-react';
 import { ExecutiveDashboardView } from './ExecutiveDashboardView';
 
@@ -12,36 +12,38 @@ import { ExecutiveDashboardView } from './ExecutiveDashboardView';
    Reusable Components
 ───────────────────────────────────── */
 
-const Phase2Badge = () => (
-  <span className="px-2 py-0.5 text-[9px] font-bold rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 font-mono uppercase tracking-widest">
-    Phase 2
+const PhaseBadge = () => (
+  <span className="px-2 py-0.5 text-[9px] font-bold rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 font-mono uppercase tracking-widest">
+    v3.0 Certified
   </span>
 );
 
 const ComingSoonCard: React.FC<{ icon: React.ElementType; label: string; description: string; color: string }> = ({
   icon: Icon, label, description, color,
 }) => (
-  <div className="mission-panel p-4 flex items-center gap-4 hover:shadow-lg dark:hover:shadow-primary/5 transition-all duration-200 border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 group">
-    <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${color} group-hover:scale-110 transition-transform`}>
+  <div className="glass-card-premium p-4 flex items-center gap-4 hover:border-cyan-500/40 transition-all duration-200 group">
+    <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${color} group-hover:scale-105 transition-transform`}>
       <Icon size={18} />
     </div>
     <div className="flex-1 min-w-0">
-      <p className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">{label}</p>
-      <p className="text-xs text-slate-600 dark:text-slate-400 group-hover:text-slate-500 leading-snug transition-colors">{description}</p>
+      <p className="text-xs font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">{label}</p>
+      <p className="text-xs text-slate-400 leading-snug transition-colors">{description}</p>
     </div>
-    <Phase2Badge />
+    <PhaseBadge />
   </div>
 );
 
 const SectionHeader: React.FC<{ icon: React.ElementType; title: string; subtitle: string; color: string }> = ({
   icon: Icon, title, subtitle, color,
 }) => (
-  <div className="mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
+  <div className="mb-6 pb-4 border-b border-white/[0.08]">
     <div className="flex items-center gap-3 mb-2">
-      <Icon size={20} className={`${color} group-hover:scale-110 transition-transform`} />
-      <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">{title}</h2>
+      <div className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+        <Icon size={18} className={color} />
+      </div>
+      <h2 className="text-lg font-black text-slate-100">{title}</h2>
     </div>
-    <p className="text-xs text-slate-600 dark:text-slate-400 ml-7">{subtitle}</p>
+    <p className="text-xs text-slate-400 ml-11">{subtitle}</p>
   </div>
 );
 
@@ -58,35 +60,35 @@ export const DashboardView: React.FC = () => (
    Analytics View (Top Tab)
 ───────────────────────────────────── */
 export const AnalyticsView: React.FC = () => (
-  <div className="w-full space-y-4 max-w-4xl mx-auto p-8 animate-in fade-in duration-500">
+  <div className="w-full space-y-5 max-w-4xl mx-auto animate-in fade-in duration-300">
     <SectionHeader
       icon={BarChart2}
-      title="Campaign Analytics"
-      subtitle="Deep dive into individual channel performance"
+      title="Campaign Analytics & Attribution"
+      subtitle="Deep dive into individual channel performance, budget allocation and ROAS"
       color="text-amber-400"
     />
-    <div className="mission-panel p-5 border-l-4 border-l-amber-500 mb-6">
+    <div className="glass-panel-elevated p-6 border-l-4 border-l-amber-500 rounded-2xl mb-6 shadow-2xl">
       <div className="flex items-start gap-3 mb-4">
-        <BarChart2 size={16} className="text-amber-400 mt-0.5 shrink-0" />
+        <BarChart2 size={18} className="text-amber-400 mt-0.5 shrink-0" />
         <div>
-          <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-1">Analytics Agent</p>
-          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
-            The Analytics Agent forecasts performance metrics, suggests budget reallocation based on real-time data, and provides A/B test variations to maximize ROI.
+          <p className="text-xs font-bold text-amber-300 mb-1 font-mono uppercase tracking-wider">Analytics Agent Telemetry</p>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            The Analytics Agent forecasts multi-channel performance metrics, recommends dynamic PPO budget reallocations based on real-time ROAS feedback, and generates A/B test variations to maximize campaign ROI.
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 mt-4">
         {['ROI Forecasting', 'Budget Optimization', 'A/B Test Analysis', 'Channel Attribution', 'CAC Tracking', 'LTV Projections'].map((item) => (
-          <div key={item} className="flex items-center gap-2 p-2 rounded-lg bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20">
-            <div className="w-1 h-1 rounded-full bg-amber-400 shrink-0" />
-            <p className="text-[10px] text-[var(--text-muted)]">{item}</p>
+          <div key={item} className="flex items-center gap-2 p-2.5 rounded-xl bg-[#07090e]/80 border border-white/[0.08] hover:border-amber-500/30 transition-colors">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+            <p className="text-xs text-slate-300 font-mono font-medium">{item}</p>
           </div>
         ))}
       </div>
     </div>
     <div className="space-y-4">
-      <ComingSoonCard icon={LayoutDashboard} label="Real-time Custom Dashboards" description="Build custom reporting views" color="bg-amber-500/10 border-amber-500/20 text-amber-400" />
-      <ComingSoonCard icon={Target} label="Goal Tracking Alerts" description="Automated notifications when campaigns hit milestones" color="bg-amber-500/10 border-amber-500/20 text-amber-400" />
+      <ComingSoonCard icon={LayoutDashboard} label="Real-Time Custom Dashboards" description="Build custom multi-tenant reporting views and automated executive digests" color="bg-amber-500/15 border-amber-500/30 text-amber-400" />
+      <ComingSoonCard icon={Target} label="Autonomous Milestone Alerts" description="Instant webhook and Slack notifications when campaigns exceed ROAS thresholds" color="bg-amber-500/15 border-amber-500/30 text-amber-400" />
     </div>
   </div>
 );
@@ -95,38 +97,35 @@ export const AnalyticsView: React.FC = () => (
    Strategy Insights View
 ───────────────────────────────────── */
 export const StrategyView: React.FC = () => (
-  <div className="w-full space-y-4">
+  <div className="w-full space-y-5">
     <SectionHeader
       icon={Target}
-      title="Strategy Insights"
-      subtitle="Campaign positioning, objectives & tactical plan"
-      color="text-blue-400"
+      title="Strategy Insights & Positioning"
+      subtitle="Campaign positioning, strategic objectives, and tactical multi-channel roadmap"
+      color="text-cyan-400"
     />
-    <div className="mission-panel p-5 border-l-4 border-l-blue-500 hover:border-l-blue-400 transition-colors duration-200">
+    <div className="glass-panel-elevated p-6 border-l-4 border-l-cyan-500 rounded-2xl shadow-2xl">
       <div className="flex items-start gap-3 mb-5">
-        <Target size={16} className="text-blue-400 mt-0.5 shrink-0" />
+        <Target size={18} className="text-cyan-400 mt-0.5 shrink-0" />
         <div>
-          <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mb-2">Strategy Agent</p>
-          <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-            The Strategy Agent analyzes your campaign brief and generates a comprehensive marketing strategy including brand positioning, competitive differentiation, target audience segments, and tactical channel recommendations.
+          <p className="text-xs font-bold text-cyan-300 mb-1 font-mono uppercase tracking-wider">Strategy Agent Directives</p>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            The Strategy Agent decomposes raw marketing briefs into comprehensive go-to-market strategies: positioning statements, competitive differentiation axes, ICP psychological purchase drivers, and tactical channel allocation plans.
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 mt-4">
-        {['Brand Positioning', 'Market Segmentation', 'Channel Mix', 'Budget Allocation', 'Timeline Planning', 'KPI Definition', 'Message Strategy'].map((item) => (
-          <div key={item} className="flex items-center gap-2 p-3 rounded-lg bg-blue-500/8 dark:bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-150 cursor-pointer group">
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 group-hover:bg-blue-300 transition-colors" />
-            <p className="text-xs text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors font-medium">{item}</p>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-4">
+        {['Brand Positioning', 'Market Segmentation', 'Channel Mix', 'Budget Allocation', 'Timeline Planning', 'KPI Definition'].map((item) => (
+          <div key={item} className="flex items-center gap-2 p-2.5 rounded-xl bg-[#07090e]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all cursor-pointer group">
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 group-hover:scale-125 transition-transform" />
+            <p className="text-xs text-slate-300 group-hover:text-cyan-200 transition-colors font-medium font-mono">{item}</p>
           </div>
         ))}
       </div>
     </div>
-    <ComingSoonCard icon={TrendingUp} label="SWOT Analysis" description="AI-generated strengths, weaknesses, opportunities, threats" color="bg-blue-500/10 border-blue-500/20 text-blue-400" />
-    <ComingSoonCard icon={Lightbulb} label="Strategic Recommendations" description="Data-driven campaign strategy with priority ranking" color="bg-blue-500/10 border-blue-500/20 text-blue-400" />
-    <ComingSoonCard icon={BookOpen} label="Playbook Generator" description="Full marketing playbook export as PDF" color="bg-blue-500/10 border-blue-500/20 text-blue-400" />
-    <div className="p-3 rounded-xl border border-dashed border-white/15 bg-slate-500/5 text-center hover:bg-slate-500/10 transition-colors">
-      <p className="text-xs text-slate-500 font-mono uppercase tracking-widest">Strategy outputs available after campaign generation</p>
-    </div>
+    <ComingSoonCard icon={TrendingUp} label="Automated SWOT Matrix" description="AI-synthesized strengths, weaknesses, opportunities, and competitive vulnerabilities" color="bg-cyan-500/15 border-cyan-500/30 text-cyan-400" />
+    <ComingSoonCard icon={Lightbulb} label="Strategic Tactical Playbooks" description="Data-driven execution blueprints with confidence-scored priority rankings" color="bg-blue-500/15 border-blue-500/30 text-blue-400" />
+    <ComingSoonCard icon={BookOpen} label="Enterprise Playbook PDF Export" description="Full high-resolution marketing playbook and executive summary export" color="bg-purple-500/15 border-purple-500/30 text-purple-400" />
   </div>
 );
 
@@ -134,38 +133,34 @@ export const StrategyView: React.FC = () => (
    Audience Research View
 ───────────────────────────────────── */
 export const ResearchView: React.FC = () => (
-  <div className="w-full space-y-4">
+  <div className="w-full space-y-5">
     <SectionHeader
       icon={Search}
-      title="Audience Research"
-      subtitle="Market intelligence, competitor analysis & audience data"
+      title="Audience & Market Intelligence"
+      subtitle="Competitor intelligence, psychographic mapping, and live market signals"
       color="text-purple-400"
     />
-    <div className="mission-panel p-5 border-l-4 border-l-purple-500 hover:border-l-purple-400 transition-colors duration-200">
+    <div className="glass-panel-elevated p-6 border-l-4 border-l-purple-500 rounded-2xl shadow-2xl">
       <div className="flex items-start gap-3 mb-5">
-        <Search size={16} className="text-purple-400 mt-0.5 shrink-0" />
+        <Search size={18} className="text-purple-400 mt-0.5 shrink-0" />
         <div>
-          <p className="text-sm font-bold text-purple-600 mb-2">Research Agent</p>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            The Research Agent gathers live market intelligence using SerpAPI, analyzes competitor campaigns, identifies audience pain points, and extracts trending topics to ensure your campaign is data-driven.
+          <p className="text-xs font-bold text-purple-300 mb-1 font-mono uppercase tracking-wider">Research Agent Knowledge Space</p>
+          <p className="text-xs text-slate-300 leading-relaxed">
+            The Research Agent aggregates real-time market data via SerpAPI and multi-tier vector RAG, maps competitor ad messaging strategies, extracts ICP pain points, and calibrates copy tone for maximum resonance.
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-4">
         {['Competitor Mapping', 'Audience Personas', 'Trend Analysis', 'Keyword Research', 'Pain Point ID', 'Market Sizing'].map((item) => (
-          <div key={item} className="flex items-center gap-2 p-3 rounded-lg bg-purple-500/8 border border-purple-500/20 hover:bg-purple-500/15 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-150 cursor-pointer group">
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0 group-hover:bg-purple-300 transition-colors" />
-            <p className="text-xs text-slate-300 group-hover:text-slate-100 transition-colors font-medium">{item}</p>
+          <div key={item} className="flex items-center gap-2 p-2.5 rounded-xl bg-[#07090e]/80 border border-white/[0.08] hover:border-purple-500/40 transition-all cursor-pointer group">
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0 group-hover:scale-125 transition-transform" />
+            <p className="text-xs text-slate-300 group-hover:text-purple-200 transition-colors font-medium font-mono">{item}</p>
           </div>
         ))}
       </div>
     </div>
-    <ComingSoonCard icon={Users} label="Audience Personas" description="AI-generated buyer persona profiles with psychographics" color="bg-purple-500/10 border-purple-500/20 text-purple-400" />
-    <ComingSoonCard icon={Globe} label="Live Market Data" description="Real-time market research via SerpAPI integration" color="bg-purple-500/10 border-purple-500/20 text-purple-400" />
-    <ComingSoonCard icon={TrendingUp} label="Competitor Intelligence" description="Automated competitor ad and content monitoring" color="bg-purple-500/10 border-purple-500/20 text-purple-400" />
-    <div className="p-3 rounded-xl border border-dashed border-white/15 bg-slate-500/5 text-center hover:bg-slate-500/10 transition-colors">
-      <p className="text-xs text-slate-500 font-mono uppercase tracking-widest">Research outputs available after campaign generation</p>
-    </div>
+    <ComingSoonCard icon={Users} label="Dynamic Persona Simulator" description="Interactive buyer persona simulator with psychographic sensitivity dials" color="bg-purple-500/15 border-purple-500/30 text-purple-400" />
+    <ComingSoonCard icon={Globe} label="Live SERP & Social Radar" description="Real-time market sentiment and competitor ad spend trajectory tracking" color="bg-cyan-500/15 border-cyan-500/30 text-cyan-400" />
   </div>
 );
 
@@ -173,41 +168,46 @@ export const ResearchView: React.FC = () => (
    Saved Content View
 ───────────────────────────────────── */
 const mockSaved = [
-  { name: 'FutureCorp — NeuralLink v2', date: '2026-05-10', status: 'Completed', color: 'text-teal-400' },
-  { name: 'BioSync Health — Premium Plan', date: '2026-05-09', status: 'Completed', color: 'text-teal-400' },
-  { name: 'CloudFleet — Enterprise SaaS', date: '2026-05-08', status: 'Draft', color: 'text-amber-400' },
+  { name: 'VisionGuard AI — Enterprise Launch', date: '2026-08-20', status: 'Completed', color: 'text-emerald-400' },
+  { name: 'AeroPulse Audio — D2C Blitz', date: '2026-08-18', status: 'Completed', color: 'text-emerald-400' },
+  { name: 'Skyline Residences — Penthouse Scale', date: '2026-08-15', status: 'Active Live', color: 'text-cyan-400' },
 ];
 
 export const SavedView: React.FC = () => (
-  <div className="w-full space-y-4">
+  <div className="w-full space-y-5">
     <SectionHeader
       icon={LayoutDashboard}
-      title="Saved Content"
-      subtitle="Your previously generated campaigns"
-      color="text-slate-400"
+      title="Saved Campaign Portfolio"
+      subtitle="History of previous autonomous campaign packages and contracts"
+      color="text-slate-300"
     />
-    <div className="space-y-2">
+    <div className="space-y-3">
       {mockSaved.map((item, idx) => (
-        <div key={idx} className="mission-panel p-4 flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0">
-            <Bookmark size={14} className="text-slate-600" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-slate-900 truncate">{item.name}</p>
-            <div className="flex items-center gap-2 mt-0.5">
-              <Clock size={10} className="text-slate-700" />
-              <p className="text-[10px] text-slate-600 font-mono">{item.date}</p>
-              <span className={`text-[9px] font-bold uppercase tracking-widest ${item.color}`}>{item.status}</span>
+        <div key={idx} className="glass-card-premium p-4 flex items-center justify-between group hover:border-cyan-500/40 transition-all">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-400">
+              <Bookmark size={15} />
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">{item.name}</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <Clock size={11} className="text-slate-500" />
+                <p className="text-[10px] text-slate-400 font-mono">{item.date}</p>
+                <span className={`text-[9px] font-bold font-mono uppercase tracking-wider ${item.color}`}>{item.status}</span>
+              </div>
             </div>
           </div>
-          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button className="p-1.5 rounded-lg hover:bg-gray-100 text-slate-600 hover:text-slate-900 transition-colors"><Download size={13} /></button>
-            <button className="p-1.5 rounded-lg hover:bg-red-500/10 text-slate-600 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
+          <div className="flex items-center gap-2">
+            <button className="p-2 rounded-lg bg-[#07090e] border border-white/[0.08] hover:bg-slate-800 text-slate-400 hover:text-cyan-300 transition-colors">
+              <Download size={13} />
+            </button>
+            <button className="p-2 rounded-lg bg-[#07090e] border border-white/[0.08] hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition-colors">
+              <Trash2 size={13} />
+            </button>
           </div>
         </div>
       ))}
     </div>
-    <ComingSoonCard icon={Shield} label="Campaign Persistence" description="PostgreSQL/MongoDB storage for permanent history" color="bg-slate-500/10 border-slate-500/20 text-slate-400" />
   </div>
 );
 
@@ -215,103 +215,91 @@ export const SavedView: React.FC = () => (
    Settings View
 ───────────────────────────────────── */
 export const SettingsView: React.FC<{ theme: string; toggleTheme: () => void }> = ({ theme, toggleTheme }) => (
-  <div className="w-full space-y-4">
+  <div className="w-full space-y-5">
     <SectionHeader
       icon={Settings}
-      title="Settings"
-      subtitle="Configure your AdPilot workspace"
-      color="text-slate-400"
+      title="System Settings & Configuration"
+      subtitle="Manage workspace preferences, API credentials, and agent model backends"
+      color="text-slate-300"
     />
 
-    {/* Theme */}
-    <div className="mission-panel p-5 space-y-3">
-      <p className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">Appearance</p>
-      
-      {/* Dark Mode */}
+    {/* Theme Preference */}
+    <div className="glass-panel-elevated rounded-2xl p-5 space-y-4 shadow-2xl">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Moon size={16} className={theme === 'dark' ? 'text-blue-400' : 'text-slate-400'} />
-          <div>
-            <p className="text-xs font-bold text-slate-900 dark:text-slate-100">Dark Mode</p>
-            <p className="text-[10px] text-slate-600 dark:text-slate-400">Mission control theme</p>
-          </div>
-        </div>
-        <div 
-          onClick={() => theme !== 'dark' && toggleTheme()}
-          className={`w-10 h-5 rounded-full relative cursor-pointer transition-colors ${theme === 'dark' ? 'bg-blue-600' : 'bg-[var(--border-main)]'}`}
-        >
-          <div className={`absolute top-0.5 w-4 h-4 bg-[var(--bg-main)] rounded-full shadow transition-all ${theme === 'dark' ? 'right-0.5' : 'left-0.5'}`} />
-        </div>
+        <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">Interface Appearance</p>
+        <span className="text-[10px] font-mono text-cyan-400">Active: {theme.toUpperCase()}</span>
       </div>
-
-      {/* Light Mode */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Sun size={16} className={theme === 'light' ? 'text-amber-500' : 'text-slate-400'} />
-          <div>
-            <p className="text-xs font-bold text-[var(--text-main)]">Light Mode</p>
-            <p className="text-[10px] text-[var(--text-muted)]">Standard bright theme</p>
-          </div>
-        </div>
-        <div 
-          onClick={() => theme !== 'light' && toggleTheme()}
-          className={`w-10 h-5 rounded-full relative cursor-pointer transition-colors ${theme === 'light' ? 'bg-amber-500' : 'bg-[var(--border-main)]'}`}
+      
+      <div className="grid grid-cols-2 gap-3">
+        {/* Dark Mode Tile */}
+        <button
+          type="button"
+          onClick={() => theme !== 'dark' && toggleTheme()}
+          className={`p-3.5 rounded-xl border text-left flex items-center justify-between transition-all ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-blue-600/25 to-cyan-500/25 border-cyan-400 text-white shadow-lg shadow-cyan-500/10'
+              : 'bg-[#07090e]/80 border-white/[0.08] text-slate-400 hover:text-slate-200'
+          }`}
         >
-          <div className={`absolute top-0.5 w-4 h-4 bg-[var(--bg-main)] rounded-full shadow transition-all ${theme === 'light' ? 'right-0.5' : 'left-0.5'}`} />
-        </div>
+          <div className="flex items-center gap-3">
+            <Moon size={16} className="text-cyan-400" />
+            <div>
+              <p className="text-xs font-bold">Obsidian Cyber Dark</p>
+              <p className="text-[10px] text-slate-400 font-mono mt-0.5">Deep space cyberpunk palette</p>
+            </div>
+          </div>
+        </button>
+
+        {/* Light Mode Tile */}
+        <button
+          type="button"
+          onClick={() => theme !== 'light' && toggleTheme()}
+          className={`p-3.5 rounded-xl border text-left flex items-center justify-between transition-all ${
+            theme === 'light'
+              ? 'bg-gradient-to-r from-amber-500/25 to-yellow-500/25 border-amber-400 text-white shadow-lg shadow-amber-500/10'
+              : 'bg-[#07090e]/80 border-white/[0.08] text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <Sun size={16} className="text-amber-400" />
+            <div>
+              <p className="text-xs font-bold">Daylight Mode</p>
+              <p className="text-[10px] text-slate-400 font-mono mt-0.5">High readability bright theme</p>
+            </div>
+          </div>
+        </button>
       </div>
     </div>
 
     {/* API Keys */}
-    <div className="mission-panel p-5 space-y-3 border border-[var(--border-main)] bg-[var(--bg-card)]">
-      <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">API Configuration</p>
+    <div className="glass-panel-elevated rounded-2xl p-5 space-y-4 shadow-2xl">
+      <p className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">API Configuration & Providers</p>
       {[
-        { label: 'OpenAI API Key', placeholder: 'sk-••••••••••••••••', icon: Lock },
-        { label: 'SerpAPI Key', placeholder: '••••••••••••••••', icon: Globe },
+        { label: 'Google Gemini / OpenAI Key', placeholder: 'sk-••••••••••••••••••••••••', icon: Lock },
+        { label: 'SerpAPI Search Engine Key', placeholder: 'serp-••••••••••••••••••••••', icon: Globe },
       ].map((field) => (
         <div key={field.label}>
-          <label className="block text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-1.5">{field.label}</label>
+          <label className="block text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5">{field.label}</label>
           <div className="relative">
-            <field.icon size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-700" />
+            <field.icon size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
             <input
               type="password"
               placeholder={field.placeholder}
-              className="w-full bg-[var(--bg-main)] border border-[var(--border-main)] rounded-lg pl-9 pr-3 py-2 text-xs text-[var(--text-main)] focus:outline-none focus:border-primary/50 placeholder:text-[var(--text-muted)]"
+              className="w-full bg-[#07090e] border border-white/[0.08] rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-400 placeholder:text-slate-600 font-mono shadow-inner"
             />
           </div>
         </div>
       ))}
-      <button className="w-full py-2 bg-primary/10 border border-primary/20 text-primary text-xs font-bold rounded-lg hover:bg-primary/20 transition-all">
-        Save API Keys
+      <button className="w-full py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-mono font-bold rounded-xl shadow-lg shadow-cyan-500/20 transition-all active:scale-98">
+        Save API Configurations
       </button>
     </div>
 
-    {/* Agent Config */}
-    <div className="mission-panel p-5 space-y-3">
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Agent Configuration</p>
-        <Phase2Badge />
-      </div>
-      {[
-        { label: 'LLM Model', value: 'GPT-4o', icon: Lightbulb },
-        { label: 'Design Engine', value: 'DALL·E 3', icon: Palette },
-        { label: 'Analytics Mode', value: 'Predictive', icon: BarChart2 },
-      ].map((item) => (
-        <div key={item.label} className="flex items-center justify-between opacity-50">
-          <div className="flex items-center gap-2">
-            <item.icon size={14} className="text-slate-600" />
-            <p className="text-[11px] text-slate-500">{item.label}</p>
-          </div>
-          <span className="text-[10px] text-slate-600 font-mono">{item.value}</span>
-        </div>
-      ))}
-    </div>
-
     {/* About */}
-    <div className="p-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-sidebar)] text-center space-y-1">
-      <p className="text-xs font-bold text-[var(--text-main)]">AdPilot v2.4.0</p>
-      <p className="text-[10px] text-[var(--text-muted)]">Multi-Agent Marketing Platform · Phase 2</p>
-      <p className="text-[10px] text-[var(--text-muted)] font-mono">Built by @GhariebML · @Sleem13</p>
+    <div className="glass-card-premium p-4 rounded-xl text-center space-y-1">
+      <p className="text-xs font-bold text-white">ADPilot Pro v3.0 Enterprise</p>
+      <p className="text-[10px] text-slate-400 font-mono">18-Stage Autonomous Multi-Agent Campaign Operating System</p>
+      <p className="text-[10px] text-cyan-400 font-mono font-semibold mt-1">Built with Precision & Deterministic Epistemic Contracts</p>
     </div>
   </div>
 );

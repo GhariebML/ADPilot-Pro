@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   BookOpen, 
   Search, 
@@ -106,27 +106,34 @@ export const KnowledgeBaseView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
+      <div className="glass-panel-elevated rounded-2xl p-6 relative overflow-hidden shadow-2xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                <Brain className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <span className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500/25 to-indigo-500/25 text-purple-400 border border-purple-500/40 shadow-[0_0_20px_rgba(168,85,247,0.25)]">
+                <Brain className="w-6 h-6" />
               </span>
-              <h2 className="text-xl font-bold text-slate-100">Global Knowledge Base, RAG & Multi-Tier Memory</h2>
+              <div>
+                <h2 className="text-xl font-black text-slate-100 flex items-center gap-2">
+                  Global Knowledge Base, RAG & Multi-Tier Memory
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                    Qdrant + FastEmbed BGE
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
+                  Enterprise semantic vector retrieval (FastEmbed BGE + Qdrant) and multi-tiered agent memory ensuring zero hallucination and strict brand adherence.
+                </p>
+              </div>
             </div>
-            <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Enterprise semantic vector retrieval (FastEmbed BGE + Qdrant) and multi-tiered agent memory ensuring zero hallucination and strict brand adherence.
-            </p>
           </div>
 
           {/* Tab Switcher */}
-          <div className="flex items-center gap-2 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl p-1.5 shrink-0">
+          <div className="flex items-center gap-2 bg-[#07090e]/90 border border-white/[0.08] rounded-xl p-1.5 shrink-0 shadow-inner">
             <button
               onClick={() => setActiveMemoryTab('rag')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${
                 activeMemoryTab === 'rag'
-                  ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                  ? 'bg-purple-500/25 text-purple-300 border border-purple-400 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -134,9 +141,9 @@ export const KnowledgeBaseView: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveMemoryTab('memory')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono transition-all ${
                 activeMemoryTab === 'memory'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
+                  ? 'bg-cyan-500/25 text-cyan-300 border border-cyan-400 shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -150,15 +157,15 @@ export const KnowledgeBaseView: React.FC = () => {
       {activeMemoryTab === 'rag' && (
         <div className="space-y-4">
           {/* Search Bar & Stats */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 glass-panel-elevated rounded-2xl p-4 shadow-xl">
             <div className="relative w-full sm:w-80">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
               <input
                 type="text"
                 placeholder="Search vector knowledge store..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3.5 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
+                className="w-full bg-[#07090e] border border-white/[0.08] rounded-xl pl-9 pr-3.5 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-purple-400 font-mono shadow-inner"
               />
             </div>
 
@@ -169,40 +176,43 @@ export const KnowledgeBaseView: React.FC = () => {
           </div>
 
           {/* Document Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {filteredDocs.map(doc => (
-              <div key={doc.id} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-colors">
+              <div key={doc.id} className="glass-card-premium p-5 flex flex-col justify-between hover:border-purple-500/40 transition-all shadow-2xl">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                    <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">
                       {doc.category}
                     </span>
                     <span className="text-[10px] font-mono text-emerald-400 font-bold flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" /> HitRate: {Math.round(doc.similarityScore * 100)}%
+                      <CheckCircle2 className="w-3 h-3" /> Cosine Sim: {doc.similarityScore}
                     </span>
                   </div>
 
-                  <h3 className="text-sm font-bold text-slate-100 mt-1">{doc.title}</h3>
-                  
-                  <div className="space-y-1.5 text-xs font-mono mt-3 text-slate-400">
-                    <div className="flex justify-between py-1 border-b border-slate-800/60">
-                      <span>Vector Dimension:</span>
-                      <span className="text-slate-200">{doc.vectorDim}-d Dense</span>
+                  <h3 className="text-sm font-bold text-slate-100">{doc.title}</h3>
+
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-xs font-mono">
+                    <div className="p-2.5 rounded-xl bg-[#07090e] border border-white/[0.08]">
+                      <div className="text-[9px] text-slate-500 uppercase">Chunks</div>
+                      <div className="text-slate-200 font-bold mt-0.5">{doc.chunks}</div>
                     </div>
-                    <div className="flex justify-between py-1 border-b border-slate-800/60">
-                      <span>Embedding Model:</span>
-                      <span className="text-cyan-300">{doc.model}</span>
+                    <div className="p-2.5 rounded-xl bg-[#07090e] border border-white/[0.08]">
+                      <div className="text-[9px] text-slate-500 uppercase">Dim</div>
+                      <div className="text-cyan-400 font-bold mt-0.5">{doc.vectorDim}-d</div>
                     </div>
-                    <div className="flex justify-between py-1">
-                      <span>Indexed Chunks:</span>
-                      <span className="text-purple-300 font-bold">{doc.chunks} Embeddings</span>
+                    <div className="p-2.5 rounded-xl bg-[#07090e] border border-white/[0.08]">
+                      <div className="text-[9px] text-slate-500 uppercase">Indexed</div>
+                      <div className="text-slate-300 font-bold mt-0.5">{doc.lastIndexed}</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-3 mt-3 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <span>Last synced: {doc.lastIndexed}</span>
-                  <span className="text-purple-400 font-semibold cursor-pointer hover:underline">Explore Embeddings â†’</span>
+                <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                  <span>Model: {doc.model}</span>
+                  <button className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                    <span>Inspect Chunks</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             ))}
@@ -212,12 +222,12 @@ export const KnowledgeBaseView: React.FC = () => {
 
       {/* TAB 2: Multi-Tier Memory Engine */}
       {activeMemoryTab === 'memory' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {memoryTiers.map((tier, idx) => (
-            <div key={idx} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div key={idx} className="glass-card-premium p-6 flex flex-col justify-between shadow-2xl">
               <div>
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
                     {tier.scope}
                   </span>
                   <span className="text-[10px] font-mono text-emerald-400 font-bold">
@@ -225,19 +235,26 @@ export const KnowledgeBaseView: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-slate-100 mt-1">{tier.name}</h3>
-                <p className="text-xs text-slate-400 mt-2 font-sans leading-relaxed">{tier.desc}</p>
+                <h3 className="text-base font-bold text-slate-100">{tier.name}</h3>
+                <p className="text-xs text-slate-400 mt-2 leading-relaxed">{tier.desc}</p>
 
-                <div className="mt-4 p-3 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1.5 text-xs font-mono">
+                <div className="mt-4 p-3 rounded-xl bg-[#07090e] border border-white/[0.08] space-y-1.5 font-mono text-xs shadow-inner">
                   <div className="flex justify-between">
                     <span className="text-slate-500">Storage Backend:</span>
-                    <span className="text-purple-300 font-semibold">{tier.storage}</span>
+                    <span className="text-purple-300 font-bold">{tier.storage}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Managed Artifacts:</span>
-                    <span className="text-slate-300 truncate max-w-[200px]">{tier.items}</span>
+                    <span className="text-slate-500">Tracked Entities:</span>
+                    <span className="text-slate-200">{tier.items}</span>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">Continuous Auto-Sync</span>
+                <span className="text-emerald-400 font-bold flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Active Telemetry
+                </span>
               </div>
             </div>
           ))}
@@ -246,4 +263,3 @@ export const KnowledgeBaseView: React.FC = () => {
     </div>
   );
 };
-

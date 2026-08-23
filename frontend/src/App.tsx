@@ -180,92 +180,125 @@ function App() {
     }
   }
 
+  const getSectionMeta = (sec: string) => {
+    switch (sec) {
+      case 'dashboard': return { title: 'Executive Dashboard & Intelligence', icon: LayoutDashboard, tag: 'Live Metrics' };
+      case 'brief': return { title: 'Campaign Ingestion & Synthesis Brief', icon: FileText, tag: 'Step 1 of 18' };
+      case 'simulation': return { title: 'End-to-End Multi-Agent Simulation', icon: Activity, tag: 'Deterministic' };
+      case 'pipeline': return { title: 'Interactive Master Pipeline (DAG 3.0)', icon: Layers, tag: '18 Agents' };
+      case 'agents': return { title: 'AI Agent Center & Contract Observatory', icon: Compass, tag: 'Zero Hallucination' };
+      case 'creative': return { title: 'Nano Banana Creative Studio & Diffusion', icon: Palette, tag: 'Multi-Format' };
+      case 'optimizer': return { title: 'RL Policy Optimizer (Continuous PPO)', icon: Zap, tag: 'PyTorch Active' };
+      case 'knowledge': return { title: 'Knowledge Base & Multi-Tier Vector Memory', icon: BookOpen, tag: 'Hybrid RAG' };
+      case 'hitl': return { title: 'Human-in-the-Loop Approval & Governance', icon: ShieldCheck, tag: 'Gate Control' };
+      case 'timeline': return { title: 'Campaign Event Timeline & State Audit', icon: Clock, tag: 'Audit Log' };
+      case 'showcase': return { title: 'Enterprise Showcase & 3D Visualizer', icon: Sparkles, tag: 'v3.0 3D' };
+      case 'techstack': return { title: 'Technology Stack & Architecture Deep Dive', icon: Cpu, tag: 'Full Stack' };
+      case 'models': return { title: 'ML & Neural Policy Model Registry', icon: Box, tag: 'Checkpoints' };
+      case 'health': return { title: 'Platform Diagnostics & System Health', icon: Activity, tag: '100% Online' };
+      case 'settings': return { title: 'System Configuration & Preferences', icon: SettingsIcon, tag: 'Config' };
+      default: return { title: 'Enterprise AI Campaign OS', icon: Cpu, tag: 'v3.0' };
+    }
+  };
+
+  const currentMeta = getSectionMeta(activeOSSection);
+  const CurrentIcon = currentMeta.icon;
+
   return (
     <div className="flex h-screen bg-[#030712] overflow-hidden text-slate-100 font-sans transition-colors duration-500 relative selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* Dynamic Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[45vw] h-[45vw] bg-blue-600/10 rounded-full mix-blend-screen filter blur-[120px] pointer-events-none" />
-      <div className="absolute top-[30%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full mix-blend-screen filter blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[30%] w-[50vw] h-[50vw] bg-cyan-600/10 rounded-full mix-blend-screen filter blur-[140px] pointer-events-none" />
+      {/* Dynamic Ambient Mesh Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[45vw] h-[45vw] bg-cyan-600/10 rounded-full mix-blend-screen filter blur-[140px] pointer-events-none" />
+      <div className="absolute top-[25%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full mix-blend-screen filter blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[30%] w-[50vw] h-[50vw] bg-blue-600/10 rounded-full mix-blend-screen filter blur-[160px] pointer-events-none" />
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Enterprise AI OS Sidebar Navigation Ã¢â€â‚¬Ã¢â€â‚¬ */}
-      <aside className="w-[260px] bg-slate-950/40 border-r border-slate-800/60 flex flex-col z-30 shrink-0 backdrop-blur-3xl shadow-2xl shadow-black/50">
+      {/* ── Enterprise AI OS Sidebar Navigation ── */}
+      <aside className="w-[265px] bg-[#07090e]/80 border-r border-white/[0.08] flex flex-col z-30 shrink-0 backdrop-blur-3xl shadow-2xl shadow-black/80">
         {/* Brand Header */}
-        <div className="p-5 flex items-center justify-between border-b border-slate-800/60 bg-slate-950/20">
+        <div className="p-4 flex items-center justify-between border-b border-white/[0.08] bg-slate-950/40">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-cyan-500/10 border border-cyan-500/20 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/10 transition-transform duration-500 hover:scale-105">
-              <Cpu className="text-cyan-400 w-5 h-5 animate-pulse-slow" />
+            <div className="relative group">
+              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 via-blue-600/20 to-purple-600/20 border border-cyan-500/40 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/10 transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-400">
+                <Cpu className="text-cyan-400 w-5 h-5 animate-pulse-slow" />
+              </div>
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full ring-2 ring-[#07090e] animate-ping" />
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full ring-2 ring-[#07090e]" />
             </div>
             <div>
-              <span className="text-base font-bold tracking-tight block leading-none text-white flex items-center gap-1.5">
-                ADPilot Pro
-              </span>
-              <span className="text-[10px] text-cyan-400 font-mono uppercase tracking-widest font-semibold mt-1 block">
-                AI Campaign OS
+              <div className="flex items-center gap-1.5">
+                <span className="text-base font-black tracking-tight text-white">ADPilot Pro</span>
+                <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                  v3.0
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 font-mono uppercase tracking-wider font-semibold block mt-0.5">
+                Autonomous Marketing OS
               </span>
             </div>
           </div>
         </div>
 
         {/* 5-Tier Operating System Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
           {/* SECTION 1: OVERVIEW */}
           <div>
-            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              Overview
+            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+              <span>Overview</span>
+              <span className="text-[9px] text-slate-600 font-normal">Core</span>
             </div>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               <button
                 onClick={() => { setActiveOSSection('dashboard'); navigate('/dashboard'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'dashboard'
-                    ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-blue-600/25 via-blue-500/15 to-transparent text-cyan-300 border-l-2 border-l-cyan-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <LayoutDashboard className="w-4 h-4 text-blue-400" />
+                <LayoutDashboard className={`w-4 h-4 ${activeOSSection === 'dashboard' ? 'text-cyan-400' : 'text-blue-400'}`} />
                 <span>Executive Dashboard</span>
               </button>
               <button
                 onClick={() => { setActiveOSSection('brief'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'brief'
-                    ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-cyan-600/25 via-cyan-500/15 to-transparent text-cyan-300 border-l-2 border-l-cyan-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <FileText className="w-4 h-4 text-cyan-400" />
+                <FileText className={`w-4 h-4 ${activeOSSection === 'brief' ? 'text-cyan-300' : 'text-cyan-400'}`} />
                 <span>Campaign Ingestion Brief</span>
               </button>
               <button
                 onClick={() => { setActiveOSSection('simulation'); navigate('/simulation'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'simulation'
-                    ? 'bg-blue-600/20 text-cyan-300 border border-blue-500/30'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-emerald-600/25 via-emerald-500/15 to-transparent text-emerald-300 border-l-2 border-l-emerald-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Activity className="w-4 h-4 text-cyan-400" />
+                <Activity className={`w-4 h-4 ${activeOSSection === 'simulation' ? 'text-emerald-300' : 'text-emerald-400'}`} />
                 <span>End-to-End Simulation</span>
               </button>
             </div>
           </div>
 
-          {/* SECTION 2: AI WORKSPACE */}
+          {/* SECTION 2: AI WORKSPACE & DAG */}
           <div>
-            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              AI Workspace & DAG
+            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+              <span>AI Workspace & DAG</span>
+              <span className="text-[9px] text-slate-600 font-normal">Fleet</span>
             </div>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               <button
                 onClick={() => { setActiveOSSection('pipeline'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'pipeline'
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-cyan-600/25 via-cyan-500/15 to-transparent text-cyan-300 border-l-2 border-l-cyan-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Layers className="w-4 h-4 text-cyan-400" />
+                  <Layers className={`w-4 h-4 ${activeOSSection === 'pipeline' ? 'text-cyan-300' : 'text-cyan-400'}`} />
                   <span>Interactive Pipeline DAG</span>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
@@ -273,78 +306,71 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('agents'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'agents'
-                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-purple-600/25 via-purple-500/15 to-transparent text-purple-300 border-l-2 border-l-purple-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Compass className="w-4 h-4 text-purple-400" />
+                <Compass className={`w-4 h-4 ${activeOSSection === 'agents' ? 'text-purple-300' : 'text-purple-400'}`} />
                 <span>AI Agent Observatory</span>
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('creative'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'creative'
-                    ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-pink-600/25 via-pink-500/15 to-transparent text-pink-300 border-l-2 border-l-pink-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Palette className="w-4 h-4 text-pink-400" />
+                <Palette className={`w-4 h-4 ${activeOSSection === 'creative' ? 'text-pink-300' : 'text-pink-400'}`} />
                 <span>Nano Banana Studio</span>
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('optimizer'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'optimizer'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-amber-600/25 via-amber-500/15 to-transparent text-amber-300 border-l-2 border-l-amber-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Zap className="w-4 h-4 text-amber-400" />
+                <Zap className={`w-4 h-4 ${activeOSSection === 'optimizer' ? 'text-amber-300' : 'text-amber-400'}`} />
                 <span>RL Policy Optimizer (PPO)</span>
               </button>
             </div>
           </div>
 
-          {/* SECTION 3: KNOWLEDGE & MEMORY */}
+          {/* SECTION 3: KNOWLEDGE & GOVERNANCE */}
           <div>
-            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              Knowledge & Memory
+            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+              <span>Memory & Governance</span>
+              <span className="text-[9px] text-slate-600 font-normal">Control</span>
             </div>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               <button
                 onClick={() => { setActiveOSSection('knowledge'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'knowledge'
-                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-indigo-600/25 via-indigo-500/15 to-transparent text-indigo-300 border-l-2 border-l-indigo-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <BookOpen className="w-4 h-4 text-purple-400" />
-                <span>RAG & Multi-Tier Memory</span>
+                <BookOpen className={`w-4 h-4 ${activeOSSection === 'knowledge' ? 'text-indigo-300' : 'text-indigo-400'}`} />
+                <span>RAG & Vector Memory</span>
               </button>
-            </div>
-          </div>
 
-          {/* SECTION 4: OPERATIONS & GOVERNANCE */}
-          <div>
-            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              Operations & Governance
-            </div>
-            <div className="space-y-0.5">
               <button
                 onClick={() => { setActiveOSSection('hitl'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'hitl'
-                    ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-rose-600/25 via-rose-500/15 to-transparent text-rose-300 border-l-2 border-l-rose-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-rose-400" />
+                  <ShieldCheck className={`w-4 h-4 ${activeOSSection === 'hitl' ? 'text-rose-300' : 'text-rose-400'}`} />
                   <span>Human Review Gate</span>
                 </div>
                 <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
@@ -354,81 +380,82 @@ function App() {
 
               <button
                 onClick={() => { setActiveOSSection('timeline'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'timeline'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-emerald-600/25 via-emerald-500/15 to-transparent text-emerald-300 border-l-2 border-l-emerald-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Clock className="w-4 h-4 text-emerald-400" />
-                <span>Campaign Event Timeline</span>
+                <Clock className={`w-4 h-4 ${activeOSSection === 'timeline' ? 'text-emerald-300' : 'text-emerald-400'}`} />
+                <span>Event Timeline Audit</span>
               </button>
             </div>
           </div>
 
-          {/* SECTION 4: SYSTEM & MODELS */}
+          {/* SECTION 4: SYSTEM & SHOWCASE */}
           <div>
-            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              System & Model Registry
+            <div className="px-3 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+              <span>System & Showcase</span>
+              <span className="text-[9px] text-slate-600 font-normal">Platform</span>
             </div>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               <button
                 onClick={() => { setActiveOSSection('showcase'); navigate('/showcase'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'showcase'
-                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-purple-600/25 via-purple-500/15 to-transparent text-purple-300 border-l-2 border-l-purple-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Sparkles className="w-4 h-4 text-purple-400" />
+                <Sparkles className={`w-4 h-4 ${activeOSSection === 'showcase' ? 'text-purple-300' : 'text-purple-400'}`} />
                 <span>Showcase Portal V3</span>
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('techstack'); navigate('/technology-stack'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'techstack'
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-cyan-600/25 via-cyan-500/15 to-transparent text-cyan-300 border-l-2 border-l-cyan-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Cpu className="w-4 h-4 text-cyan-400" />
+                <Cpu className={`w-4 h-4 ${activeOSSection === 'techstack' ? 'text-cyan-300' : 'text-cyan-400'}`} />
                 <span>Technology Stack & Arch</span>
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('models'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'models'
-                    ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-blue-600/25 via-blue-500/15 to-transparent text-blue-300 border-l-2 border-l-blue-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
-                <Box className="w-4 h-4 text-blue-400" />
-                <span>ML & Neural Model Registry</span>
+                <Box className={`w-4 h-4 ${activeOSSection === 'models' ? 'text-blue-300' : 'text-blue-400'}`} />
+                <span>Neural Model Registry</span>
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('health'); navigate('/campaigns'); }}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'health'
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-gradient-to-r from-emerald-600/25 via-emerald-500/15 to-transparent text-emerald-300 border-l-2 border-l-emerald-400 border-y border-r border-white/[0.08] shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Activity className="w-4 h-4 text-emerald-400" />
+                  <Activity className={`w-4 h-4 ${activeOSSection === 'health' ? 'text-emerald-300' : 'text-emerald-400'}`} />
                   <span>Platform Diagnostics</span>
                 </div>
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" />
               </button>
 
               <button
                 onClick={() => { setActiveOSSection('settings'); navigate('/campaigns'); }}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ease-out active:scale-[0.98] ${
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-[0.98] ${
                   activeOSSection === 'settings'
-                    ? 'bg-slate-800 text-slate-200'
-                    : 'text-slate-400 hover:bg-slate-900/40 hover:text-slate-200 hover:-translate-y-0.5 border border-transparent hover:border-slate-800/50'
+                    ? 'bg-slate-800 text-slate-200 border-l-2 border-l-slate-400 border-y border-r border-white/[0.08]'
+                    : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200 border border-transparent hover:border-white/[0.05]'
                 }`}
               >
                 <SettingsIcon className="w-4 h-4 text-slate-400" />
@@ -439,70 +466,98 @@ function App() {
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-3.5 border-t border-slate-800/80 bg-slate-950/60 space-y-2.5">
+        <div className="p-3.5 border-t border-white/[0.08] bg-slate-950/60 space-y-2.5">
           <button
             onClick={handleNewCampaign}
-            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 text-cyan-300 border border-cyan-500/40 transition-all active:scale-95"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/20 transition-all duration-200 active:scale-[0.98]"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Campaign</span>
           </button>
           
-          <div className="flex items-center justify-between px-1 text-[11px] font-mono text-slate-500">
-            <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" /> 18 Stages Certified
+          <div className="flex items-center justify-between px-1 text-[11px] font-mono text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>18 Agents Ready</span>
             </span>
-            <span>v3.0-PRO</span>
+            <span className="text-slate-500 font-semibold">99.9% Up</span>
           </div>
         </div>
       </aside>
 
-      {/* Ã¢â€â‚¬Ã¢â€â‚¬ Main Application Content Canvas Ã¢â€â‚¬Ã¢â€â‚¬ */}
+      {/* ── Main Application Content Canvas ── */}
       <main className="flex-1 flex flex-col overflow-hidden relative z-10">
-        {/* Top App Bar */}
-        <header className="h-16 bg-slate-950/40 border-b border-slate-800/60 px-6 flex items-center justify-between z-20 shrink-0 backdrop-blur-3xl shadow-sm">
-          {/* Quick Search & Command Palette Button */}
+        {/* Top App Bar with Dynamic Breadcrumb */}
+        <header className="h-16 bg-[#07090e]/80 border-b border-white/[0.08] px-6 flex items-center justify-between z-20 shrink-0 backdrop-blur-3xl shadow-sm">
+          {/* Breadcrumb & Section Title */}
           <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                <CurrentIcon className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-sm font-bold text-slate-100 tracking-tight">
+                    {currentMeta.title}
+                  </h1>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-white/[0.06] text-cyan-300 border border-white/[0.08]">
+                    {currentMeta.tag}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Search & Demo Launcher */}
+          <div className="hidden md:flex items-center gap-3">
             <button
               onClick={() => setIsCommandPaletteOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200 text-xs font-medium transition-all shadow-inner"
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-950/80 border border-white/[0.08] hover:border-cyan-500/40 text-slate-400 hover:text-slate-200 text-xs font-medium transition-all shadow-inner"
             >
               <Search className="w-3.5 h-3.5 text-slate-500" />
               <span>Search workspace, agents, models...</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-slate-950 text-[10px] font-mono text-slate-400 border border-slate-800 ml-2">
+              <kbd className="px-1.5 py-0.5 rounded bg-slate-900 text-[10px] font-mono text-slate-400 border border-slate-800 ml-2">
                 Ctrl K
               </kbd>
             </button>
 
             <button
               onClick={() => setIsDemoModalOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-semibold hover:from-cyan-500/30 hover:to-blue-500/30 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-purple-500/15 text-cyan-300 border border-cyan-500/30 text-xs font-semibold hover:border-cyan-400 transition-all active:scale-95"
             >
               <Sparkles className="w-3.5 h-3.5 fill-cyan-400 text-cyan-400" />
-              <span>1-Click AI Demo Simulation</span>
+              <span>1-Click Demo</span>
             </button>
           </div>
 
-          {/* Top Right Status & Notifications */}
+          {/* Top Right Status, Feeds, Profile */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsActivityFeedOpen(!isActivityFeedOpen)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-xs font-mono text-cyan-400 transition-all relative"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-white/[0.08] hover:border-cyan-500/40 text-xs font-mono text-cyan-400 transition-all relative"
             >
               <Activity className="w-3.5 h-3.5 animate-pulse" />
-              <span className="hidden md:inline">Live AI Feed</span>
+              <span className="hidden sm:inline">AI Activity</span>
               <span className="w-2 h-2 rounded-full bg-cyan-400" />
             </button>
 
-            <div className="h-6 w-[1px] bg-slate-800" />
+            <button
+              onClick={toggleTheme}
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+              className="p-2 rounded-xl bg-slate-950/80 border border-white/[0.08] text-slate-400 hover:text-slate-200 hover:border-white/[0.15] transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-amber-400" />
+            </button>
 
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold shadow-md">
+            <div className="h-5 w-[1px] bg-white/[0.08]" />
+
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-extrabold shadow-md shadow-cyan-500/20">
                 AD
               </div>
-              <div className="hidden lg:block text-left">
+              <div className="hidden xl:block text-left">
                 <div className="text-xs font-bold text-slate-200 leading-tight">Admin Director</div>
-                <div className="text-[9px] text-slate-400 font-mono uppercase">Full Access</div>
+                <div className="text-[9px] text-cyan-400 font-mono uppercase font-semibold">Autonomous Ops</div>
               </div>
             </div>
           </div>

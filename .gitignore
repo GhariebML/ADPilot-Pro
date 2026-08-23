@@ -47,6 +47,10 @@ frontend/build/
 # Local OS files
 .DS_Store
 Thumbs.db
+~$*.docx
+~$*.pptx
+~$*.xlsx
+~$*
 
 # Typings & Caches
 .mypy_cache/

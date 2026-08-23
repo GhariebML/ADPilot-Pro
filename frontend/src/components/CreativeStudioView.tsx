@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Palette, 
   Sparkles, 
-  Layers, 
   Download, 
   CheckCircle2, 
   Sliders, 
   Eye, 
-  RefreshCw,
-  Image as ImageIcon,
-  Copy,
-  Check,
-  Smartphone,
-  Monitor,
-  LayoutGrid
+  RefreshCw, 
+  Copy, 
+  Check, 
+  Smartphone, 
+  Monitor, 
+  LayoutGrid,
+  ShieldCheck,
+  Maximize2
 } from 'lucide-react';
 
 interface CreativeItem {
@@ -29,6 +29,7 @@ interface CreativeItem {
   palette: string[];
   imageUrl: string;
 }
+
 export const CreativeStudioView: React.FC = () => {
   const [selectedFormat, setSelectedFormat] = useState<'all' | '1:1' | '4:5' | '16:9' | '9:16'>('all');
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
@@ -37,6 +38,7 @@ export const CreativeStudioView: React.FC = () => {
   const [generationStep, setGenerationStep] = useState<number>(0);
   const [showConfig, setShowConfig] = useState(false);
   const [previewImage, setPreviewImage] = useState<CreativeItem | null>(null);
+  const [showSafeZone, setShowSafeZone] = useState(false);
 
   // Studio Inputs
   const [productName, setProductName] = useState('ADPilot Pro');
@@ -201,30 +203,30 @@ export const CreativeStudioView: React.FC = () => {
   const steps = [
     'Analyzing Campaign Intent & Target Market',
     'Synthesizing Multi-Modal Creative Directives',
-    'Rendering with Gemini Nano Banana Engine',
-    'Auditing CLIP ViT Aesthetics & WCAG Contrast'
+    'Rendering with Gemini Nano Banana Diffusion Engine',
+    'Auditing CLIP ViT Aesthetics & Safe Zone Margins'
   ];
 
   return (
     <div className="w-full space-y-6">
       {/* Header Banner & Generation Station */}
-      <div className="bg-slate-950/60 border border-slate-800/80 shadow-2xl rounded-2xl p-6 relative overflow-hidden backdrop-blur-2xl">
+      <div className="glass-panel-elevated rounded-2xl p-6 relative overflow-hidden shadow-2xl">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-3">
-                <span className="p-2.5 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 text-pink-400 border border-pink-500/30 shadow-[0_0_15px_rgba(236,72,153,0.2)]">
+                <span className="p-2.5 rounded-xl bg-gradient-to-br from-pink-500/25 to-purple-500/25 text-pink-400 border border-pink-500/40 shadow-[0_0_20px_rgba(236,72,153,0.25)]">
                   <Palette className="w-6 h-6" />
                 </span>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold text-slate-100">Nano Banana Creative Studio</h2>
+                    <h2 className="text-xl font-black text-slate-100">Nano Banana Creative Studio</h2>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-pink-500/20 text-pink-300 border border-pink-500/30">
-                      GEMINI NATIVE ENGINE
+                      GEMINI DIFFUSION
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Multi-modal visual asset generator powered by Google Gemini and ADPilot Design Agent
+                    Multi-modal visual asset generator and multi-aspect ratio diffusion engine with zero aesthetic compromise.
                   </p>
                 </div>
               </div>
@@ -238,11 +240,11 @@ export const CreativeStudioView: React.FC = () => {
                 className={`px-3.5 py-2 rounded-xl text-xs font-semibold font-mono flex items-center gap-2 border transition-all ${
                   showConfig 
                     ? 'bg-slate-800 text-cyan-300 border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.2)]' 
-                    : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border-slate-800'
+                    : 'bg-[#07090e]/80 text-slate-400 hover:text-slate-200 border-white/[0.08]'
                 }`}
               >
                 <Sliders className="w-4 h-4" />
-                <span>{showConfig ? 'Hide Studio Parameters' : 'Configure Parameters'}</span>
+                <span>{showConfig ? 'Hide Parameters' : 'Configure Parameters'}</span>
               </button>
 
               <button
@@ -259,7 +261,7 @@ export const CreativeStudioView: React.FC = () => {
 
           {/* Expandable Configuration Drawer */}
           {showConfig && (
-            <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800/80 space-y-4 animate-in fade-in duration-300">
+            <div className="p-5 rounded-xl bg-[#07090e]/90 border border-white/[0.08] space-y-4 animate-in fade-in duration-300">
               <div className="text-xs font-mono font-bold uppercase tracking-wider text-pink-400 flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5" />
                 Studio Directive Parameters
@@ -273,7 +275,7 @@ export const CreativeStudioView: React.FC = () => {
                     type="text"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/[0.08] text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
                   />
                 </div>
 
@@ -283,7 +285,7 @@ export const CreativeStudioView: React.FC = () => {
                   <select
                     value={campaignGoal}
                     onChange={(e) => setCampaignGoal(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/[0.08] text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
                   >
                     <option value="lead_generation">Lead Generation</option>
                     <option value="brand_awareness">Brand Awareness</option>
@@ -298,7 +300,7 @@ export const CreativeStudioView: React.FC = () => {
                   <select
                     value={visualStyle}
                     onChange={(e) => setVisualStyle(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/[0.08] text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
                   >
                     <option value="Futuristic Cyberpunk Glassmorphism">Futuristic Cyberpunk Glassmorphism</option>
                     <option value="Minimalist 3D Enterprise">Minimalist 3D Enterprise</option>
@@ -317,7 +319,7 @@ export const CreativeStudioView: React.FC = () => {
                     value={targetAudience}
                     onChange={(e) => setTargetAudience(e.target.value)}
                     placeholder="e.g. CMOs, Growth Marketers, Enterprise Founders"
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/[0.08] text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
                   />
                 </div>
 
@@ -328,13 +330,13 @@ export const CreativeStudioView: React.FC = () => {
                     value={customPrompt}
                     onChange={(e) => setCustomPrompt(e.target.value)}
                     placeholder="e.g. Floating 3D holographic neural nodes with glowing purple accents"
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/[0.08] text-slate-200 text-xs font-mono focus:outline-none focus:border-pink-500 transition-colors shadow-inner"
                   />
                 </div>
               </div>
 
               {/* Brand Palette Preset Selector */}
-              <div className="space-y-2 pt-2 border-t border-slate-800/80">
+              <div className="space-y-2 pt-2 border-t border-white/[0.08]">
                 <label className="text-[11px] font-mono text-slate-400 font-semibold">Brand Palette Presets</label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {palettePresets.map((preset, idx) => (
@@ -344,8 +346,8 @@ export const CreativeStudioView: React.FC = () => {
                       onClick={() => setSelectedPaletteIndex(idx)}
                       className={`p-2.5 rounded-xl border flex items-center justify-between transition-all ${
                         selectedPaletteIndex === idx
-                          ? 'bg-pink-500/10 border-pink-500/60 shadow-[0_0_12px_rgba(236,72,153,0.2)]'
-                          : 'bg-slate-950/80 border-slate-800 hover:border-slate-700'
+                          ? 'bg-pink-500/15 border-pink-500/60 shadow-[0_0_12px_rgba(236,72,153,0.2)]'
+                          : 'bg-slate-950/80 border-white/[0.08] hover:border-white/[0.2]'
                       }`}
                     >
                       <span className="text-[11px] font-mono font-medium text-slate-300 truncate mr-2">{preset.name}</span>
@@ -363,15 +365,15 @@ export const CreativeStudioView: React.FC = () => {
 
           {/* Active Generation Progress Tracker */}
           {isGenerating && (
-            <div className="p-4 rounded-xl bg-slate-900/90 border border-pink-500/30 space-y-3 animate-in fade-in">
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-pink-500/40 space-y-3 animate-in fade-in shadow-xl">
               <div className="flex items-center justify-between text-xs font-mono">
                 <span className="text-pink-400 flex items-center gap-2 font-bold">
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  Nano Banana Generation Pipeline Active
+                  Nano Banana Diffusion Pipeline Active
                 </span>
-                <span className="text-slate-400">Stage {Math.min(generationStep, 4)} of 4</span>
+                <span className="text-slate-300 font-bold">Stage {Math.min(generationStep, 4)} of 4</span>
               </div>
-              <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+              <div className="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-white/[0.08]">
                 <div 
                   className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-500 h-full transition-all duration-300"
                   style={{ width: `${Math.max(15, (generationStep / 4) * 100)}%` }}
@@ -384,8 +386,8 @@ export const CreativeStudioView: React.FC = () => {
           )}
 
           {/* Aspect Ratio Filter Tabs */}
-          <div className="flex items-center justify-between border-t border-slate-800/80 pt-4 flex-wrap gap-3">
-            <div className="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 rounded-xl p-1.5">
+          <div className="flex items-center justify-between border-t border-white/[0.08] pt-4 flex-wrap gap-3">
+            <div className="flex items-center gap-1.5 bg-[#07090e]/90 border border-white/[0.08] rounded-xl p-1.5">
               {[
                 { id: 'all', label: 'All Formats (4)', icon: LayoutGrid },
                 { id: '16:9', label: '16:9 Display', icon: Monitor },
@@ -400,7 +402,7 @@ export const CreativeStudioView: React.FC = () => {
                     onClick={() => setSelectedFormat(fmt.id as any)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono flex items-center gap-1.5 transition-all ${
                       selectedFormat === fmt.id
-                        ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40 shadow-sm'
+                        ? 'bg-pink-500/25 text-pink-300 border border-pink-500/50 shadow-sm'
                         : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -411,7 +413,7 @@ export const CreativeStudioView: React.FC = () => {
               })}
             </div>
 
-            <div className="text-xs font-mono text-slate-500 flex items-center gap-2">
+            <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               Showing {filteredCreatives.length} generated multi-channel assets
             </div>
@@ -422,7 +424,7 @@ export const CreativeStudioView: React.FC = () => {
       {/* Creatives Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredCreatives.map((creative) => (
-          <div key={creative.id} className="bg-slate-950/70 border border-slate-800/90 rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between hover:border-slate-700 transition-all space-y-4 shadow-xl">
+          <div key={creative.id} className="glass-card-premium p-5 flex flex-col justify-between hover:border-pink-500/40 transition-all space-y-4 shadow-2xl">
             {/* Top Info */}
             <div className="flex items-center justify-between">
               <div>
@@ -432,17 +434,17 @@ export const CreativeStudioView: React.FC = () => {
                 <h3 className="text-sm font-bold text-slate-100 mt-0.5">{creative.headline}</h3>
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-pink-500/10 text-pink-300 border border-pink-500/20">
+                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-pink-500/15 text-pink-300 border border-pink-500/30">
                   {creative.aspectRatio}
                 </span>
-                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-slate-900 text-slate-300 border border-slate-800">
+                <span className="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-[#07090e] text-slate-300 border border-white/[0.08]">
                   {creative.dimensions}
                 </span>
               </div>
             </div>
 
             {/* Visual Image Preview with Hover Controls */}
-            <div className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-900 group aspect-video flex items-center justify-center cursor-pointer shadow-inner"
+            <div className="relative rounded-xl overflow-hidden border border-white/[0.08] bg-black group aspect-video flex items-center justify-center cursor-pointer shadow-inner"
                  onClick={() => setPreviewImage(creative)}>
               <img
                 src={creative.imageUrl}
@@ -451,19 +453,19 @@ export const CreativeStudioView: React.FC = () => {
               />
               
               {/* Quick Actions Hover Overlay */}
-              <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-xs">
+              <div className="absolute inset-0 bg-[#07090e]/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-xs">
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setPreviewImage(creative); }}
-                  className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-cyan-400 border border-cyan-500/30 text-xs font-mono flex items-center gap-1.5 transition-all shadow-lg"
+                  className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-cyan-300 border border-cyan-500/40 text-xs font-mono flex items-center gap-1.5 transition-all shadow-xl"
                 >
                   <Eye className="w-4 h-4" />
-                  <span>Inspect Full Resolution</span>
+                  <span>Full Screen</span>
                 </button>
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); handleDownload(creative); }}
-                  className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-emerald-400 border border-emerald-500/30 text-xs font-mono flex items-center gap-1.5 transition-all shadow-lg"
+                  className="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 text-xs font-mono flex items-center gap-1.5 transition-all shadow-xl"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download</span>
@@ -471,17 +473,17 @@ export const CreativeStudioView: React.FC = () => {
               </div>
 
               {/* Bottom Badges */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex items-end p-3.5 pointer-events-none">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent flex items-end p-3.5 pointer-events-none">
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur-md text-[10px] font-mono text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <span className="px-2 py-0.5 rounded bg-slate-950/90 backdrop-blur-md text-[10px] font-mono text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
                       <CheckCircle2 className="w-3 h-3" /> CLIP {creative.qualityScore}/10
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur-md text-[10px] font-mono text-cyan-400 border border-cyan-500/30">
+                    <span className="px-2 py-0.5 rounded bg-slate-950/90 backdrop-blur-md text-[10px] font-mono text-cyan-300 border border-cyan-500/30">
                       WCAG {creative.contrastRatio}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-slate-950/80 backdrop-blur-md text-[10px] font-mono text-purple-300 border border-purple-500/30">
-                      ✨ Gemini Synth
+                    <span className="px-2 py-0.5 rounded bg-slate-950/90 backdrop-blur-md text-[10px] font-mono text-pink-300 border border-pink-500/30">
+                      ✨ Gemini Native
                     </span>
                   </div>
                 </div>
@@ -490,9 +492,9 @@ export const CreativeStudioView: React.FC = () => {
 
             {/* Extracted Color Palette */}
             <div>
-              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center justify-between">
                 <span>Extracted Brand Palette</span>
-                <span className="text-slate-600 font-normal">Click hex to copy</span>
+                <span className="text-slate-500 font-normal">Click hex to copy</span>
               </div>
               <div className="flex items-center gap-2">
                 {creative.palette.map((hex, idx) => (
@@ -500,7 +502,7 @@ export const CreativeStudioView: React.FC = () => {
                     key={idx}
                     type="button"
                     onClick={() => handleCopyColor(hex)}
-                    className="flex-1 p-2 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 flex items-center justify-center gap-1.5 transition-all text-[11px] font-mono font-semibold"
+                    className="flex-1 p-2 rounded-lg border border-white/[0.08] bg-[#07090e]/90 hover:bg-white/[0.06] flex items-center justify-center gap-1.5 transition-all text-[11px] font-mono font-semibold"
                   >
                     <span className="w-3.5 h-3.5 rounded-full border border-white/20 shrink-0" style={{ backgroundColor: hex }} />
                     <span className="text-slate-300">{copiedColorHex === hex ? 'Copied!' : hex}</span>
@@ -510,9 +512,9 @@ export const CreativeStudioView: React.FC = () => {
             </div>
 
             {/* Prompt Directives Box */}
-            <div className="bg-slate-900/60 border border-slate-800/80 rounded-xl p-3.5 space-y-2">
+            <div className="bg-[#07090e]/90 border border-white/[0.08] rounded-xl p-3.5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-pink-400" />
                   Synthesis Directive Prompt
                 </span>
@@ -534,7 +536,7 @@ export const CreativeStudioView: React.FC = () => {
                   )}
                 </button>
               </div>
-              <p className="text-xs text-slate-300 font-mono leading-relaxed bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/50">
+              <p className="text-xs text-slate-300 font-mono leading-relaxed bg-black/50 p-2.5 rounded-lg border border-white/[0.05]">
                 "{creative.prompt}"
               </p>
             </div>
@@ -546,30 +548,45 @@ export const CreativeStudioView: React.FC = () => {
       {previewImage && (
         <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-6"
              onClick={() => setPreviewImage(null)}>
-          <div className="relative max-w-4xl w-full bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl p-4 space-y-4"
+          <div className="relative max-w-4xl w-full glass-panel-elevated border border-white/[0.15] rounded-2xl overflow-hidden shadow-2xl p-5 space-y-4"
                onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
               <div>
                 <span className="text-xs font-mono text-pink-400 font-bold">{previewImage.platform} ({previewImage.aspectRatio})</span>
                 <h3 className="text-base font-bold text-white mt-0.5">{previewImage.headline}</h3>
               </div>
-              <button onClick={() => setPreviewImage(null)} className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold font-mono">
+              <button onClick={() => setPreviewImage(null)} className="px-3 py-1 bg-white/[0.08] hover:bg-white/[0.15] text-white rounded-lg text-xs font-bold font-mono">
                 ✕ Close
               </button>
             </div>
 
-            <div className="max-h-[60vh] overflow-hidden rounded-xl bg-black flex items-center justify-center">
+            <div className="max-h-[60vh] overflow-hidden rounded-xl bg-black flex items-center justify-center relative">
               <img src={previewImage.imageUrl} alt="Generated Full Visual" className="max-h-[60vh] w-auto object-contain rounded-lg" />
+              {showSafeZone && (
+                <div className="absolute inset-4 border-2 border-dashed border-cyan-400/60 pointer-events-none flex items-center justify-center">
+                  <span className="bg-slate-950/80 text-cyan-300 px-2 py-1 rounded text-[10px] font-mono">100% Safe Zone Margin (Passed)</span>
+                </div>
+              )}
             </div>
 
-            <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between pt-2 border-t border-white/[0.08] flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded bg-slate-800 text-xs font-mono text-emerald-400">CLIP: {previewImage.qualityScore}/10</span>
-                <span className="px-2.5 py-1 rounded bg-slate-800 text-xs font-mono text-cyan-400">Dimensions: {previewImage.dimensions}</span>
+                <span className="px-2.5 py-1 rounded bg-[#07090e] text-xs font-mono text-emerald-400 border border-white/[0.08]">CLIP: {previewImage.qualityScore}/10</span>
+                <span className="px-2.5 py-1 rounded bg-[#07090e] text-xs font-mono text-cyan-400 border border-white/[0.08]">Dimensions: {previewImage.dimensions}</span>
+                <button
+                  type="button"
+                  onClick={() => setShowSafeZone(!showSafeZone)}
+                  className={`px-2.5 py-1 rounded text-xs font-mono border transition-all ${
+                    showSafeZone ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' : 'bg-[#07090e] text-slate-400 border-white/[0.08]'
+                  }`}
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 inline mr-1" />
+                  {showSafeZone ? 'Hide Safe Zone' : 'Toggle Safe Zone'}
+                </button>
               </div>
               <button
                 onClick={() => handleDownload(previewImage)}
-                className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold font-mono flex items-center gap-1.5 shadow-lg"
+                className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold font-mono flex items-center gap-1.5 shadow-lg shadow-pink-500/20"
               >
                 <Download className="w-3.5 h-3.5" />
                 Download High-Res Asset
@@ -581,6 +598,3 @@ export const CreativeStudioView: React.FC = () => {
     </div>
   );
 };
-
-
-

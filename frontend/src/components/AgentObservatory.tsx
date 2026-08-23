@@ -1,15 +1,13 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Bot, 
   Cpu, 
   Search, 
-  ShieldCheck, 
-  Sparkles, 
-  ExternalLink, 
   CheckCircle2, 
   Terminal, 
-  Layers, 
-  Filter 
+  Filter,
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 import type { AgentContract } from '../types';
 
@@ -44,32 +42,39 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
+      <div className="glass-panel-elevated rounded-2xl p-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <div className="flex items-center gap-3">
+              <span className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-lg shadow-cyan-500/20">
                 <Bot className="w-5 h-5" />
               </span>
-              <h2 className="text-xl font-bold text-slate-100">AI Agent Center & Contract Observatory</h2>
+              <div>
+                <h2 className="text-xl font-black text-slate-100 flex items-center gap-2">
+                  AI Agent Center & Contract Observatory
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                    Epistemic Contracts
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
+                  Every agent operates under deterministic Pydantic v2 schemas, explicit data provenance, and dedicated neural policy models.
+                </p>
+              </div>
             </div>
-            <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Every agent in the ADPilot architecture operates under strict deterministic data contracts, explicit epistemic provenance, and specialized neural/classical models.
-            </p>
           </div>
 
           {/* Quick Stats Pill */}
-          <div className="flex items-center gap-3 bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl px-4 py-2.5 shrink-0">
+          <div className="flex items-center gap-4 bg-[#07090e]/90 border border-white/[0.08] rounded-xl px-4 py-2.5 shrink-0 shadow-inner">
             <div>
-              <div className="text-[10px] uppercase font-mono text-slate-500">Registered Agents</div>
-              <div className="text-sm font-bold text-slate-100">{agents.length} Active</div>
+              <div className="text-[10px] uppercase font-mono text-slate-400">Registered Agents</div>
+              <div className="text-sm font-bold text-slate-100 font-mono">{agents.length} Active</div>
             </div>
-            <div className="h-6 w-[1px] bg-slate-800" />
+            <div className="h-6 w-[1px] bg-white/[0.08]" />
             <div>
-              <div className="text-[10px] uppercase font-mono text-slate-500">Pipeline Integrity</div>
-              <div className="text-sm font-bold text-emerald-400 flex items-center gap-1">
+              <div className="text-[10px] uppercase font-mono text-slate-400">Pipeline Integrity</div>
+              <div className="text-sm font-bold text-emerald-400 flex items-center gap-1 font-mono">
                 <CheckCircle2 className="w-3.5 h-3.5" /> 100% Certified
               </div>
             </div>
@@ -77,7 +82,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="mt-6 pt-5 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-6 pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="relative w-full sm:w-80">
             <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -85,7 +90,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
               placeholder="Search agent, model or responsibility..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+              className="w-full bg-[#07090e]/90 border border-white/[0.08] rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 transition-colors shadow-inner"
             />
           </div>
 
@@ -95,10 +100,10 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all shrink-0 ${
                   selectedFilter === filter
-                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                    : 'bg-slate-950/60 text-slate-400 border border-slate-800/80 hover:text-slate-200'
+                    ? 'bg-gradient-to-r from-cyan-500/25 to-blue-500/25 text-cyan-300 border border-cyan-400 shadow-sm'
+                    : 'bg-[#07090e]/80 text-slate-400 border border-white/[0.08] hover:text-slate-200 hover:border-white/[0.15]'
                 }`}
               >
                 {filter}
@@ -109,10 +114,10 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
       </div>
 
       {/* Agents Table / Grid */}
-      <div className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl overflow-hidden backdrop-blur-3xl shadow-xl">
+      <div className="glass-panel-elevated rounded-2xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 border-b border-slate-800 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+            <thead className="bg-[#07090e]/90 border-b border-white/[0.08] text-[11px] font-mono text-slate-400 uppercase tracking-wider">
               <tr>
                 <th className="py-3.5 px-4">Agent Name & Role</th>
                 <th className="py-3.5 px-4">Model Architecture</th>
@@ -123,18 +128,18 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                 <th className="py-3.5 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-white/[0.06]">
               {filteredAgents.map((agent) => (
                 <tr 
                   key={agent.id}
                   onClick={() => onSelectAgent(agent)}
-                  className="hover:bg-slate-800/40 transition-colors cursor-pointer group"
+                  className="hover:bg-white/[0.03] transition-colors cursor-pointer group"
                 >
                   {/* Name & Role */}
                   <td className="py-4 px-4">
                     <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-slate-950 border border-slate-800 group-hover:border-cyan-500/40 transition-colors shrink-0">
-                        <Cpu className="w-4 h-4 text-cyan-400" />
+                      <div className="p-2 rounded-lg bg-slate-950 border border-white/[0.08] group-hover:border-cyan-400/50 transition-colors shrink-0 text-cyan-400">
+                        <Cpu className="w-4 h-4" />
                       </div>
                       <div>
                         <div className="font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">
@@ -149,7 +154,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
 
                   {/* Model */}
                   <td className="py-4 px-4">
-                    <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-950 text-slate-200 border border-slate-800 font-mono">
+                    <span className="inline-block px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[#07090e] text-slate-200 border border-white/[0.08] font-mono">
                       {agent.model}
                     </span>
                   </td>
@@ -158,7 +163,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                   <td className="py-4 px-4">
                     <div className="flex flex-wrap gap-1 max-w-xs">
                       {agent.inputs.map((inp, idx) => (
-                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-slate-950 text-slate-300 border border-slate-800/80">
+                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-[#07090e] text-slate-300 border border-white/[0.08] font-mono">
                           {inp}
                         </span>
                       ))}
@@ -169,7 +174,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                   <td className="py-4 px-4">
                     <div className="flex flex-wrap gap-1 max-w-xs">
                       {agent.outputs.map((out, idx) => (
-                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-mono">
                           {out}
                         </span>
                       ))}
@@ -180,7 +185,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                   <td className="py-4 px-4">
                     <div className="flex flex-wrap gap-1 max-w-xs">
                       {agent.tools.map((t, idx) => (
-                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                        <span key={idx} className="px-1.5 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/20 font-mono">
                           {t}
                         </span>
                       ))}
@@ -192,7 +197,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                     <div className="font-bold text-emerald-400 font-mono">
                       {agent.confidence}%
                     </div>
-                    <div className="text-[10px] text-slate-500 font-mono">
+                    <div className="text-[10px] text-slate-400 font-mono">
                       {agent.latencyMs}ms
                     </div>
                   </td>
@@ -204,7 +209,7 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
                         e.stopPropagation();
                         onInspectIO(agent);
                       }}
-                      className="p-1.5 rounded-lg bg-slate-950 hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/40 transition-all"
+                      className="p-2 rounded-lg bg-[#07090e] hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-300 border border-white/[0.08] hover:border-cyan-400/40 transition-all"
                       title="Inspect Raw Input / Output JSON"
                     >
                       <Terminal className="w-3.5 h-3.5" />
@@ -219,4 +224,3 @@ export const AgentObservatory: React.FC<AgentObservatoryProps> = ({
     </div>
   );
 };
-

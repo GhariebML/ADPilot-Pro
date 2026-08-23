@@ -1,8 +1,8 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { CampaignBrief } from '../types';
 import { campaignService } from '../services/api';
-import { Sparkles, Rocket, AlertCircle, RefreshCw, Building2, ShoppingBag, Home, Briefcase, Zap, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Rocket, AlertCircle, RefreshCw, Building2, ShoppingBag, Home, Briefcase, Zap, CheckCircle2, TrendingUp } from 'lucide-react';
 
 interface CampaignBriefFormProps {
   onSubmit: (taskId: string) => void;
@@ -102,12 +102,12 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activePreset, setActivePreset] = useState<string | null>(null);
 
-  // Watch form fields to compute live quality score
+  // Watch form fields to compute live quality score & reach estimation
   const watchedBusiness = watch('businessName');
   const watchedProduct = watch('productName');
   const watchedDesc = watch('productDescription');
   const watchedAudience = watch('targetAudience');
-  const watchedBudget = watch('budget');
+  const watchedBudget = watch('budget') || 10000;
   const selectedTone = watch('tone');
   const selectedGoals = watch('goals') || [];
 
@@ -123,6 +123,10 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
   };
 
   const qualityScore = computeQualityScore();
+
+  // Dynamic estimate calculations
+  const estimatedImpressions = Math.round(watchedBudget * 14.5).toLocaleString();
+  const estimatedClicks = Math.round(watchedBudget * 0.42).toLocaleString();
 
   const handleGoalToggle = (goal: string) => {
     const current = selectedGoals;
@@ -162,19 +166,19 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
     }
   };
 
-  const labelClass = 'block text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-1.5';
-  const inputClass = 'w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder:text-slate-600 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all font-sans';
+  const labelClass = 'block text-[11px] font-mono font-bold text-slate-300 uppercase tracking-wider mb-1.5';
+  const inputClass = 'w-full bg-[#07090e]/90 border border-white/[0.1] shadow-inner rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder:text-slate-500 focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all font-sans';
 
   return (
     <div className="w-full space-y-6">
       {/* Top Presets Banner */}
-      <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4 space-y-3">
+      <div className="glass-panel-elevated rounded-2xl p-4 space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono">1-Click Vertical Presets</span>
+            <span className="text-xs font-bold text-slate-100 uppercase tracking-wider font-mono">1-Click Vertical Presets</span>
           </div>
-          <span className="text-[11px] text-slate-500 font-mono">Load calibrated parameters</span>
+          <span className="text-[11px] text-cyan-300 font-mono font-semibold">Load calibrated parameters</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
@@ -188,17 +192,19 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
                 onClick={() => applyPreset(preset)}
                 className={`p-3 rounded-xl border text-left transition-all relative group flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-cyan-500/15 border-cyan-500/50 text-cyan-200 shadow-md shadow-cyan-500/10'
-                    : 'bg-slate-900/50 border-slate-800 hover:border-slate-700 hover:bg-slate-900 text-slate-300'
+                    ? 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border-cyan-400 text-cyan-200 shadow-md shadow-cyan-500/15'
+                    : 'bg-[#07090e]/80 border-white/[0.08] hover:border-white/[0.2] hover:bg-white/[0.04] text-slate-300'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <Icon className={`w-4 h-4 ${isSelected ? 'text-cyan-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
-                  {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />}
+                  <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-cyan-500/20 text-cyan-300' : 'bg-white/[0.05] text-slate-400 group-hover:text-slate-200'}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  {isSelected && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
                 </div>
                 <div>
-                  <div className="text-xs font-bold leading-tight">{preset.name}</div>
-                  <div className="text-[10px] text-slate-500 font-mono mt-0.5 leading-tight">{preset.category}</div>
+                  <div className="text-xs font-bold leading-tight text-white">{preset.name}</div>
+                  <div className="text-[10px] text-slate-400 font-mono mt-0.5 leading-tight">{preset.category}</div>
                 </div>
               </button>
             );
@@ -206,32 +212,46 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
         </div>
       </div>
 
-      {/* Brief Completeness Indicator */}
-      <div className="bg-slate-950/40 border border-slate-800/60 rounded-xl p-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300 text-xs font-mono font-bold">
-            {qualityScore}%
-          </div>
-          <div>
-            <div className="text-xs font-bold text-slate-200">Brief Completeness Score</div>
-            <div className="text-[10px] text-slate-500 font-mono">
-              {qualityScore >= 80 ? 'ðŸŽ¯ Excellent readiness for 18-agent pipeline' : 'âš ï¸ Add more detail to optimize agent accuracy'}
+      {/* Brief Completeness & Reach Estimates */}
+      <div className="glass-panel-elevated rounded-xl p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/25 to-blue-500/25 border border-cyan-500/40 flex items-center justify-center text-cyan-300 text-xs font-mono font-bold shadow-md shadow-cyan-500/10">
+              {qualityScore}%
             </div>
+            <div>
+              <div className="text-xs font-bold text-slate-100">Brief Completeness Score</div>
+              <div className="text-[10px] text-slate-400 font-mono">
+                {qualityScore >= 80 ? 'Target: Optimized for 18-agent fleet' : 'Add more detail for higher synthesis precision'}
+              </div>
+            </div>
+          </div>
+
+          <div className="w-32 bg-slate-900 h-2.5 rounded-full overflow-hidden border border-white/[0.08] p-0.5">
+            <div
+              className={`h-full transition-all duration-500 rounded-full ${
+                qualityScore >= 80 ? 'bg-gradient-to-r from-cyan-400 to-emerald-400' : 'bg-gradient-to-r from-amber-400 to-cyan-400'
+              }`}
+              style={{ width: `${qualityScore}%` }}
+            />
           </div>
         </div>
 
-        <div className="w-32 bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-          <div
-            className={`h-full transition-all duration-500 rounded-full ${
-              qualityScore >= 80 ? 'bg-gradient-to-r from-cyan-400 to-emerald-400' : 'bg-gradient-to-r from-amber-400 to-cyan-400'
-            }`}
-            style={{ width: `${qualityScore}%` }}
-          />
+        {/* Dynamic Reach Pill Bar */}
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.08] text-[11px] font-mono">
+          <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#07090e]/80 border border-white/[0.06]">
+            <span className="text-slate-400">Est. Impressions:</span>
+            <span className="text-cyan-300 font-bold">~{estimatedImpressions}</span>
+          </div>
+          <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-[#07090e]/80 border border-white/[0.06]">
+            <span className="text-slate-400">Est. Clicks:</span>
+            <span className="text-emerald-300 font-bold">~{estimatedClicks}</span>
+          </div>
         </div>
       </div>
 
       {submitError && (
-        <div className="p-3.5 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs flex items-start gap-2.5">
+        <div className="p-3.5 bg-rose-500/15 border border-rose-500/40 rounded-xl text-rose-300 text-xs flex items-start gap-2.5 shadow-lg shadow-rose-500/10">
           <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="font-semibold">{submitError}</p>
@@ -250,7 +270,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
               className={inputClass}
               placeholder="e.g. VisionGuard AI"
             />
-            {errors.businessName && <span className="text-[10px] text-rose-400 mt-1 block">{errors.businessName.message}</span>}
+            {errors.businessName && <span className="text-[10px] text-rose-400 mt-1 block font-mono">{errors.businessName.message}</span>}
           </div>
 
           <div>
@@ -261,7 +281,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
               className={inputClass}
               placeholder="e.g. Enterprise Security Platform"
             />
-            {errors.productName && <span className="text-[10px] text-rose-400 mt-1 block">{errors.productName.message}</span>}
+            {errors.productName && <span className="text-[10px] text-rose-400 mt-1 block font-mono">{errors.productName.message}</span>}
           </div>
         </div>
 
@@ -274,7 +294,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
             className={`${inputClass} resize-none`}
             placeholder="Describe key features, primary differentiators, and value proposition..."
           />
-          {errors.productDescription && <span className="text-[10px] text-rose-400 mt-1 block">{errors.productDescription.message}</span>}
+          {errors.productDescription && <span className="text-[10px] text-rose-400 mt-1 block font-mono">{errors.productDescription.message}</span>}
         </div>
 
         {/* Target Audience */}
@@ -286,7 +306,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
             className={inputClass}
             placeholder="e.g. CISOs, VP of IT Security, Enterprise Operations Directors"
           />
-          {errors.targetAudience && <span className="text-[10px] text-rose-400 mt-1 block">{errors.targetAudience.message}</span>}
+          {errors.targetAudience && <span className="text-[10px] text-rose-400 mt-1 block font-mono">{errors.targetAudience.message}</span>}
         </div>
 
         {/* Row 2: Goals, Budget & Duration */}
@@ -328,10 +348,10 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
           <label className={labelClass}>Optimization Goals</label>
           <div className="flex flex-wrap gap-2">
             {[
-              { id: 'lead_generation', label: 'ðŸŽ¯ Lead Generation' },
-              { id: 'sales_conversion', label: 'âš¡ Direct Sales / ROAS' },
-              { id: 'brand_awareness', label: 'ðŸš€ Brand Awareness' },
-              { id: 'retargeting', label: 'ðŸ”„ BOFU Retargeting' },
+              { id: 'lead_generation', label: '🎯 Lead Generation' },
+              { id: 'sales_conversion', label: '⚡ Direct Sales / ROAS' },
+              { id: 'brand_awareness', label: '🚀 Brand Awareness' },
+              { id: 'retargeting', label: '🔄 BOFU Retargeting' },
             ].map((goal) => {
               const isChecked = selectedGoals.includes(goal.id);
               return (
@@ -339,10 +359,10 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
                   key={goal.id}
                   type="button"
                   onClick={() => handleGoalToggle(goal.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all duration-200 ${
                     isChecked
-                      ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 shadow-sm'
-                      : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-300'
+                      ? 'bg-gradient-to-r from-cyan-500/25 to-blue-500/25 border-cyan-400 text-cyan-300 shadow-sm shadow-cyan-500/20'
+                      : 'bg-[#07090e]/80 border-white/[0.08] text-slate-400 hover:text-slate-200 hover:border-white/[0.2]'
                   }`}
                 >
                   {goal.label}
@@ -357,7 +377,7 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
           <button
             type="submit"
             disabled={isSubmitting || isLoading}
-            className="w-full py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white shadow-lg shadow-cyan-500/20 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            className="w-full py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:via-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isSubmitting || isLoading ? (
               <>
@@ -376,4 +396,3 @@ export const CampaignBriefForm: React.FC<CampaignBriefFormProps> = ({ onSubmit, 
     </div>
   );
 };
-

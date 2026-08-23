@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { 
   Activity, 
   CheckCircle2, 
@@ -13,7 +13,7 @@ import {
 
 export const SystemHealthView: React.FC = () => {
   const services = [
-    { name: 'FastAPI Backend API', category: 'INFRASTRUCTURE', status: 'HEALTHY', endpoint: 'http://127.0.0.1:8001/healthz', latency: '2.4ms', version: 'v2.0.0' },
+    { name: 'FastAPI Backend API', category: 'INFRASTRUCTURE', status: 'HEALTHY', endpoint: 'http://127.0.0.1:8001/healthz', latency: '2.4ms', version: 'v3.0.0' },
     { name: 'Async SQLite Database', category: 'DATABASE', status: 'HEALTHY', endpoint: 'sqlite+aiosqlite:///./adpilot.db', latency: '1.8ms', version: 'SQLAlchemy 2.0' },
     { name: 'Embedded Qdrant Vector DB', category: 'VECTOR_STORE', status: 'HEALTHY', endpoint: './storage/qdrant_rag', latency: '4.2ms', version: 'v1.18.0' },
     { name: 'FastEmbed BGE Embeddings', category: 'AI_MODELS', status: 'HEALTHY', endpoint: 'BAAI/bge-small-en-v1.5', latency: '23.3ms', version: 'ONNX Runtime' },
@@ -27,52 +27,59 @@ export const SystemHealthView: React.FC = () => {
   return (
     <div className="w-full space-y-6">
       {/* Header Banner */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden backdrop-blur-3xl">
+      <div className="glass-panel-elevated rounded-2xl p-6 relative overflow-hidden shadow-2xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <Activity className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <span className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/25 to-teal-500/25 text-emerald-400 border border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
+                <Activity className="w-6 h-6" />
               </span>
-              <h2 className="text-xl font-bold text-slate-100">AI Platform System Health & Diagnostics</h2>
+              <div>
+                <h2 className="text-xl font-black text-slate-100 flex items-center gap-2">
+                  AI Platform System Health & Diagnostics
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    Live Telemetry
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
+                  Live operational health probes monitoring backend endpoints, database persistence, neural model inference engines, and vector store readiness.
+                </p>
+              </div>
             </div>
-            <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Live operational health probes monitoring backend endpoints, database persistence, neural model inference engines, and vector store readiness.
-            </p>
           </div>
 
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono shrink-0">
-            <CheckCircle2 className="w-4 h-4" />
+          <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold font-mono shrink-0 shadow-lg shadow-emerald-500/10">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             <span>ALL SYSTEMS NOMINAL (9/9)</span>
           </div>
         </div>
       </div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {services.map((svc, idx) => (
-          <div key={idx} className="bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-5 backdrop-blur-3xl flex flex-col justify-between">
+          <div key={idx} className="glass-card-premium p-5 flex flex-col justify-between hover:border-emerald-500/40 transition-all shadow-2xl">
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-950 text-slate-400 border border-slate-800">
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#07090e] text-slate-300 border border-white/[0.08]">
                   {svc.category}
                 </span>
-                <span className="flex items-center gap-1 text-[11px] font-bold font-mono text-emerald-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="flex items-center gap-1.5 text-[11px] font-bold font-mono text-emerald-400">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   {svc.status}
                 </span>
               </div>
 
               <h3 className="text-sm font-bold text-slate-100 mt-1">{svc.name}</h3>
               
-              <div className="p-2 rounded-lg bg-slate-950 border border-slate-800/80 font-mono text-[11px] text-slate-400 mt-3 truncate">
+              <div className="p-2.5 rounded-xl bg-[#07090e] border border-white/[0.08] font-mono text-[11px] text-slate-400 mt-3 truncate shadow-inner">
                 {svc.endpoint}
               </div>
             </div>
 
-            <div className="pt-3 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-500">Probe Latency: <strong className="text-cyan-400">{svc.latency}</strong></span>
-              <span className="text-slate-400">{svc.version}</span>
+            <div className="pt-3 mt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
+              <span className="text-slate-400">Probe Latency: <strong className="text-cyan-400">{svc.latency}</strong></span>
+              <span className="text-slate-500">{svc.version}</span>
             </div>
           </div>
         ))}
@@ -80,4 +87,3 @@ export const SystemHealthView: React.FC = () => {
     </div>
   );
 };
-

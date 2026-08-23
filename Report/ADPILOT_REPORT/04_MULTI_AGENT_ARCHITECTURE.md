@@ -1,0 +1,25 @@
+# 04 — Complete Multi-Agent Architecture
+
+## 1. Master Agent Architecture Matrix
+The ADPilot Pro system incorporates 18 distinct agent roles, organized logically across 5 execution phases.
+
+| # | Agent Name | Implementation File / Module | Primary Responsibility | Core AI / Model | Input Contract | Output Contract | Next Pipeline Stage | HITL Required | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| **1** | **Campaign Manager Agent** | `src/adpilot/agents/campaign_manager_agent.py` | Orchestrates end-to-end campaign lifecycle and task routing | GPT-4o / Claude 3.5 Sonnet | `CampaignManagerInput` | `CampaignManagerOutput` | Product Classifier / Strategy | No | `[IMPLEMENTED]` |
+| **2** | **Product Classifier Agent** | `src/adpilot/agents/product_classifier_agent.py` | Categorizes offering, extracts USPs, and sets vertical taxonomy | Scikit Classifier / GPT-4o | `ProductClassifierInput` | `ProductClassifierOutput` | Audience Agent | No | `[IMPLEMENTED]` |
+| **3** | **Audience Agent** | `src/adpilot/agents/audience_agent.py` | Synthesizes target ICPs, demographics, and psychographic triggers | GPT-4o / Claude 3.5 Sonnet | `AudienceAgentInput` | `AudienceAgentOutput` | Competitor Agent | No | `[IMPLEMENTED]` |
+| **4** | **Competitor Agent** | `src/adpilot/agents/competitor_agent.py` | Analyzes market landscape, rival offerings, and positioning gaps | Claude 3.5 Sonnet / Perplexity | `CompetitorAgentInput` | `CompetitorAgentOutput` | Strategy Agent | No | `[IMPLEMENTED]` |
+| **5** | **Strategy Agent** | `src/adpilot/agents/strategy_agent.py` | Formulates macro marketing strategy, funnel allocation, and positioning | Claude 3.5 Sonnet / GPT-4o | `StrategyAgentInput` | `StrategyAgentOutput` | Research Agent | No | `[IMPLEMENTED]` |
+| **6** | **Research Agent** | `src/adpilot/agents/research_agent.py` | Performs deep sector retrieval, market trend analysis, and keyword mapping | GPT-4o / FastEmbed RAG | `ResearchAgentInput` | `ResearchAgentOutput` | Content Agent | No | `[IMPLEMENTED]` |
+| **7** | **Content Agent** | `src/adpilot/agents/content_agent.py` | Synthesizes multi-channel copy, hooks, value props, and CTAs | GPT-4o / Claude 3.5 Sonnet | `ContentAgentInput` | `ContentAgentOutput` | Content Evaluator | No | `[IMPLEMENTED]` |
+| **8** | **Content Evaluator** | `src/adpilot/agents/content_evaluator.py` | Audits copy quality, readability scores, and brand alignment | Custom ML / Rule Engine | `ContentEvaluatorInput` | `ContentEvaluatorOutput` | Design Agent | No | `[IMPLEMENTED]` |
+| **9** | **Design Agent** | `src/adpilot/agents/design_agent.py` | Formulates visual briefs, layout schemas, and coordinates image synthesis | Gemini Nano Banana Adapter | `DesignAgentInput` | `DesignAgentOutput` | Creative Evaluator | No | `[IMPLEMENTED]` |
+| **10** | **Creative Agent** | `src/adpilot/agents/creative_agent.py` | Assembles final creative packaging across multi-channel specifications | Custom Assembly / LLM | `CreativeAgentInput` | `CreativeAgentOutput` | CV Agent | No | `[IMPLEMENTED]` |
+| **11** | **Creative Evaluator** | `src/adpilot/agents/creative_evaluator.py` | Evaluates creative assets against brand guidelines and policy rules | Rule Engine / Regressor | `CreativeEvaluatorInput` | `CreativeEvaluatorOutput` | CV Agent | No | `[IMPLEMENTED]` |
+| **12** | **Computer Vision (CV) Agent** | `src/adpilot/agents/cv_agent.py` | Evaluates visual aesthetic score, text density, and WCAG contrast | CLIP-ViT / Custom ONNX | `CVAgentInput` | `CVAgentOutput` | Analytics Agent | No | `[IMPLEMENTED]` |
+| **13** | **Analytics Agent** | `src/adpilot/agents/analytics_agent.py` | Evaluates simulated KPI performance, CTR, and ROAS forecasting | Custom ONNX / Scikit | `AnalyticsAgentInput` | `AnalyticsAgentOutput` | Optimization Agent | No | `[IMPLEMENTED]` |
+| **14** | **Optimization Agent** | `src/adpilot/agents/optimization_agent.py` | Generates budget reallocation and parameter tuning recommendations | Rule Engine / Heuristic | `OptimizationAgentInput` | `OptimizationAgentOutput` | RL / PPO Optimizer | No | `[IMPLEMENTED]` |
+| **15** | **RL / PPO Optimizer** | `src/adpilot/services/ai_optimizer.py` | Executes reinforcement policy optimization over channel allocations | PPO Policy Network | `PPOOptimizerInput` | `PPOOptimizerOutput` | Correction Agent | Yes | `[PARTIALLY IMPLEMENTED]` |
+| **16** | **Correction Agent** | `src/adpilot/agents/correction_agent.py` | Inspects policy deviations and triggers automated corrective loops | Rule Engine / LLM | `CorrectionAgentInput` | `CorrectionAgentOutput` | HITL Review Gate | No | `[IMPLEMENTED]` |
+| **17** | **Publishing Agent** | `src/adpilot/agents/publishing_agent.py` | Dispatches approved campaigns to ad network connectors | Connector APIs (Meta, Google) | `PublishingAgentInput` | `PublishingAgentOutput` | Monitoring Agent | No | `[IMPLEMENTED]` |
+| **18** | **Monitoring Agent** | `src/adpilot/agents/monitoring_agent.py` | Ingests live performance telemetry and triggers optimization triggers | Telemetry Ingestion / Stats | `MonitoringAgentInput` | `MonitoringAgentOutput` | Continuous Loop | No | `[IMPLEMENTED]` |

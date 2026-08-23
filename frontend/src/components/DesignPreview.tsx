@@ -87,7 +87,7 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
 
   if (!campaignId) {
     return (
-      <div className="flex items-center justify-center h-full text-slate-400">
+      <div className="flex items-center justify-center h-full text-slate-400 font-mono text-xs">
         <p>Select or create a campaign to view design assets</p>
       </div>
     )
@@ -107,7 +107,7 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
                 onClick={handleDownloadAll}
                 disabled={isDownloading}
                 aria-label="Download all assets"
-                className="flex items-center gap-2 px-3 md:px-4 py-2 bg-primary hover:bg-primary/90 disabled:bg-primary/50 disabled:cursor-not-allowed text-white rounded-lg transition-colors text-sm md:text-base"
+                className="flex items-center gap-2 px-3 md:px-4 py-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-cyan-600/50 disabled:cursor-not-allowed text-white rounded-lg transition-colors text-sm md:text-base font-mono font-bold shadow-lg shadow-cyan-500/20"
               >
                 {isDownloading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -121,7 +121,7 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
           </div>
 
           {assets.length > 0 && (
-            <p className="text-xs md:text-sm text-slate-400">
+            <p className="text-xs md:text-sm text-slate-400 font-mono">
               {assets.length} asset{assets.length !== 1 ? 's' : ''} available
             </p>
           )}
@@ -132,25 +132,25 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
       <div className="flex-1 overflow-auto bg-[var(--bg-main)]">
         {loading && (
           <div className="flex items-center justify-center h-full">
-              <div className="flex flex-col items-center gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                <p className="text-slate-500">Loading design assets...</p>
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
+              <p className="text-slate-400 font-mono text-xs">Loading design assets...</p>
             </div>
           </div>
         )}
 
         {error && (
           <div className="p-4 md:p-6">
-            <div className="flex items-center gap-3 p-3 md:p-4 bg-red-50 border border-red-100 rounded-lg">
-              <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
-              <p className="text-sm text-red-600">{error}</p>
+            <div className="flex items-center gap-3 p-3 md:p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+              <p className="text-sm text-red-400 font-mono">{error}</p>
             </div>
           </div>
         )}
 
         {!loading && !error && assets.length === 0 && (
           <div className="flex items-center justify-center h-full">
-            <p className="text-slate-400">No design assets available yet</p>
+            <p className="text-slate-400 font-mono text-xs">No design assets available yet</p>
           </div>
         )}
 
@@ -159,14 +159,14 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
             {assets.map((asset) => (
               <div
                 key={asset.id}
-                className="group relative bg-[var(--bg-surface)] border border-[var(--border-main)] hover:border-primary/30 rounded-lg overflow-hidden transition-all duration-200 shadow-sm"
+                className="group relative bg-[var(--bg-surface)] border border-[var(--border-main)] hover:border-cyan-500/40 rounded-xl overflow-hidden transition-all duration-200 shadow-xl"
               >
                 {/* Image Container */}
-                <div className="aspect-video bg-gray-50 overflow-hidden">
+                <div className="aspect-video bg-black overflow-hidden relative">
                   <img
                     src={asset.image_url}
                     alt={`Design asset ${asset.id}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                     onError={(e) => {
                       const img = e.target as HTMLImageElement
@@ -176,10 +176,10 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
                 </div>
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-[#07090e]/70 group-hover:bg-[#07090e]/80 transition-colors duration-200 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                   <button
                     onClick={() => setSelectedAsset(asset)}
-                    className="p-2 bg-primary hover:bg-primary/90 rounded-full text-white transition-colors"
+                    className="p-2 bg-cyan-600 hover:bg-cyan-500 rounded-full text-white transition-colors shadow-lg"
                     title="Preview"
                     aria-label="Preview asset"
                   >
@@ -187,7 +187,7 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
                   </button>
                   <button
                     onClick={() => handleDownloadSingle(asset)}
-                    className="p-2 bg-slate-600 hover:bg-slate-700 rounded-full text-white transition-colors"
+                    className="p-2 bg-slate-800 hover:bg-slate-700 rounded-full text-white transition-colors shadow-lg"
                     title="Download"
                     aria-label={`Save asset ${asset.id}`}
                   >
@@ -196,22 +196,22 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
                 </div>
 
                 {/* Asset Info */}
-                <div className="p-3 md:p-4 border-t border-[var(--border-main)]">
-                  <p className="text-xs text-slate-600 truncate">
+                <div className="p-3 md:p-4 border-t border-[var(--border-main)] bg-[#07090e]/60">
+                  <p className="text-xs font-mono font-bold text-slate-300 truncate">
                     Asset #{asset.id}
                   </p>
-                  <p className="text-xs text-slate-500 mt-1 truncate">
+                  <p className="text-xs font-mono text-slate-500 mt-1 truncate">
                     {new Date(asset.created_at).toLocaleDateString()}
                   </p>
                   <button
                     onClick={() => handleCopyUrl(asset)}
-                    className="mt-2 flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors w-full"
+                    className="mt-2 flex items-center gap-1 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors w-full"
                     title="Copy image URL"
                   >
                     {copiedAssetId === asset.id ? (
                       <>
-                        <Check className="w-3 h-3" />
-                        <span>Copied!</span>
+                        <Check className="w-3 h-3 text-emerald-400" />
+                        <span className="text-emerald-400">Copied!</span>
                       </>
                     ) : (
                       <>
@@ -230,45 +230,45 @@ export function DesignPreview({ campaignId }: DesignPreviewProps) {
       {/* Full Screen Preview Modal */}
       {selectedAsset && (
         <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedAsset(null)}
         >
           <div
-            className="bg-[var(--bg-surface)] rounded-lg max-w-2xl w-full max-h-[90vh] overflow-auto shadow-2xl border border-[var(--border-main)]"
+            className="bg-[#07090e] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-auto shadow-2xl border border-white/[0.12]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 bg-[var(--bg-surface)] border-b border-[var(--border-main)] px-4 py-3 flex items-center justify-between">
-              <h3 className="text-sm font-bold text-[var(--text-main)]">
+            <div className="sticky top-0 bg-[#07090e] border-b border-white/[0.08] px-4 py-3 flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-100 font-mono">
                 Asset #{selectedAsset.id}
               </h3>
               <button
                 onClick={() => setSelectedAsset(null)}
-                className="text-slate-500 hover:text-slate-700 transition-colors"
+                className="text-slate-400 hover:text-slate-200 transition-colors p-1"
                 aria-label="Close preview"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-4">
+            <div className="p-4 space-y-4">
               <img
                 src={selectedAsset.image_url}
                 alt={`Design asset ${selectedAsset.id}`}
-                className="w-full rounded-lg"
+                className="w-full rounded-xl border border-white/[0.08]"
               />
-              <div className="mt-4 space-y-3">
-                <div className="flex items-center justify-between p-3 bg-[var(--bg-main)] border border-[var(--border-main)] rounded-lg">
-                  <span className="text-xs text-[var(--text-muted)]">URL</span>
+              <div className="space-y-3 font-mono text-xs">
+                <div className="flex items-center justify-between p-3 bg-black/40 border border-white/[0.08] rounded-xl">
+                  <span className="text-slate-400 truncate mr-2">{selectedAsset.image_url}</span>
                   <button
                     onClick={() => handleCopyUrl(selectedAsset)}
-                    className="text-xs text-primary hover:text-primary/80 transition-colors"
+                    className="text-cyan-400 hover:text-cyan-300 font-bold shrink-0"
                   >
                     {copiedAssetId === selectedAsset.id ? 'Copied!' : 'Copy'}
                   </button>
                 </div>
                 <button
                   onClick={() => handleDownloadSingle(selectedAsset)}
-                  className="w-full px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
                 >
                   <Download className="w-4 h-4" />
                   Download Asset

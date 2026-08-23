@@ -79,6 +79,30 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
   }
 
+  .glass-panel-elevated {
+    background: rgba(13, 19, 33, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-card-premium {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 14, 26, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-premium:hover {
+    border-color: rgba(0, 240, 255, 0.35);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 240, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
   /* Obsidian Card System */
   .obsidian-card {
     background: var(--bg-card);
@@ -122,6 +146,20 @@
     transform: translateY(-2px);
     border-color: rgba(56, 189, 248, 0.35);
   }
+
+  /* Cyber Badge Utility */
+  .cyber-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+  }
 }
 
 @layer utilities {
@@ -145,6 +183,21 @@
     box-shadow: 0 0 24px rgba(244, 63, 94, 0.35);
   }
 
+  .neon-border-cyan {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  }
+
+  .neon-border-purple {
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+  }
+
+  .neon-border-emerald {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+  }
+
   .text-gradient-cyan {
     background: linear-gradient(135deg, #00f0ff, #3b82f6);
     -webkit-background-clip: text;
@@ -164,6 +217,19 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, #34d399, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tabular-num-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
   }
 
   .cyber-grid {
