@@ -499,18 +499,20 @@ function App() {
         {/* ── Main Scrollable Body ── */}
         <div className="flex-1 overflow-y-auto p-6 bg-[#030712]/90">
           <div className="max-w-7xl mx-auto space-y-6">
-            {/* Top Campaign Control Bar */}
-            <CampaignControlBar
-              campaign={campaignBrief}
-              progress={status?.progress || (results ? 100 : 0)}
-              status={status?.status || (results ? 'completed' : 'idle')}
-              activeAgentsCount={MASTER_AGENTS.length}
-              totalAgentsCount={MASTER_AGENTS.length}
-              confidenceScore={94}
-              onOpenHITL={() => setActiveOSSection('hitl')}
-              onOpenDemo={() => setIsDemoModalOpen(true)}
-              onExportReport={handleDownloadAssets}
-            />
+            {/* Top Campaign Control Bar (Hidden on Showcase & TechStack standalone views) */}
+            {activeOSSection !== 'showcase' && activeOSSection !== 'techstack' && (
+              <CampaignControlBar
+                campaign={campaignBrief}
+                progress={status?.progress || (results ? 100 : 0)}
+                status={status?.status || (results ? 'completed' : 'idle')}
+                activeAgentsCount={MASTER_AGENTS.length}
+                totalAgentsCount={MASTER_AGENTS.length}
+                confidenceScore={94}
+                onOpenHITL={() => setActiveOSSection('hitl')}
+                onOpenDemo={() => setIsDemoModalOpen(true)}
+                onExportReport={handleDownloadAssets}
+              />
+            )}
 
             {/* Dynamic View Switcher */}
             {activeOSSection === 'brief' && (
