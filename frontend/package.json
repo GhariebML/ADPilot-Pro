@@ -16,12 +16,15 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.0",
+    "@types/three": "^0.160.0",
     "axios": "^1.6.0",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.294.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.48.0",
     "react-router-dom": "^6.30.4",
+    "three": "^0.160.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
