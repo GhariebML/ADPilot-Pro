@@ -9,12 +9,12 @@ describe('CampaignBriefForm', () => {
     const mockSubmit = vi.fn()
     render(<CampaignBriefForm onSubmit={mockSubmit} />)
 
-    expect(screen.getByText('Campaign Brief')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('e.g. FutureCorp')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('e.g. NeuralLink v2')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('Value proposition & key features...')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('e.g. Tech enthusiasts, early adopters')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Initialize Campaign Generation/i })).toBeInTheDocument()
+    expect(screen.getByText('1-Click Vertical Presets')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('e.g. VisionGuard AI')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('e.g. Enterprise Security Platform')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Describe key features, primary differentiators, and value proposition...')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('e.g. CISOs, VP of IT Security, Enterprise Operations Directors')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Launch 18-Stage Autonomous Pipeline/i })).toBeInTheDocument()
   })
 
   it('validates required fields', async () => {
@@ -22,7 +22,7 @@ describe('CampaignBriefForm', () => {
     const mockSubmit = vi.fn()
     render(<CampaignBriefForm onSubmit={mockSubmit} />)
 
-    const submitButton = screen.getByRole('button', { name: /Initialize Campaign Generation/i })
+    const submitButton = screen.getByRole('button', { name: /Launch 18-Stage Autonomous Pipeline/i })
     await user.click(submitButton)
 
     // wait for form validation to prevent submission
@@ -34,58 +34,54 @@ describe('CampaignBriefForm', () => {
   it('submits form with valid data', async () => {
     const user = userEvent.setup()
     const mockSubmit = vi.fn()
+    vi.spyOn(campaignService, 'submitCampaign').mockResolvedValueOnce({ taskId: 'task-test-123' })
     render(<CampaignBriefForm onSubmit={mockSubmit} />)
 
-    const businessInput = screen.getByPlaceholderText('e.g. FutureCorp')
-    const productInput = screen.getByPlaceholderText('e.g. NeuralLink v2')
-    const descInput = screen.getByPlaceholderText('Value proposition & key features...')
-    const audienceInput = screen.getByPlaceholderText('e.g. Tech enthusiasts, early adopters')
-    const budgetInput = screen.getByRole('spinbutton')
+    const businessInput = screen.getByPlaceholderText('e.g. VisionGuard AI')
+    const productInput = screen.getByPlaceholderText('e.g. Enterprise Security Platform')
+    const descInput = screen.getByPlaceholderText('Describe key features, primary differentiators, and value proposition...')
+    const audienceInput = screen.getByPlaceholderText('e.g. CISOs, VP of IT Security, Enterprise Operations Directors')
+    const budgetInput = screen.getByPlaceholderText('10000')
 
     await user.type(businessInput, 'Test Business')
     await user.type(productInput, 'Test Product')
-    await user.type(descInput, 'A great product')
-    await user.type(audienceInput, 'Young professionals')
+    await user.type(descInput, 'A great product with autonomous AI capabilities.')
+    await user.type(audienceInput, 'Young professionals and founders')
+    await user.clear(budgetInput)
     await user.type(budgetInput, '5000')
 
-    // Select duration (now defaults to 1-week, or we select 2-weeks)
-    const durationSelect = screen.getByRole('combobox')
-    await user.selectOptions(durationSelect, '2-weeks')
-
-    const submitButton = screen.getByRole('button', { name: /Initialize Campaign Generation/i })
+    const submitButton = screen.getByRole('button', { name: /Launch 18-Stage Autonomous Pipeline/i })
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(mockSubmit).toHaveBeenCalled()
+      expect(mockSubmit).toHaveBeenCalledWith('task-test-123')
     })
   })
 
   it('displays error message on submission failure', async () => {
     const user = userEvent.setup()
     const mockSubmit = vi.fn()
-    vi.spyOn(campaignService, 'submitCampaign').mockRejectedValueOnce(new Error('API error'))
+    vi.spyOn(campaignService, 'submitCampaign').mockRejectedValueOnce(new Error('API error occurred'))
     render(<CampaignBriefForm onSubmit={mockSubmit} />)
 
-    const businessInput = screen.getByPlaceholderText('e.g. FutureCorp')
-    const productInput = screen.getByPlaceholderText('e.g. NeuralLink v2')
-    const descInput = screen.getByPlaceholderText('Value proposition & key features...')
-    const audienceInput = screen.getByPlaceholderText('e.g. Tech enthusiasts, early adopters')
-    const budgetInput = screen.getByRole('spinbutton')
+    const businessInput = screen.getByPlaceholderText('e.g. VisionGuard AI')
+    const productInput = screen.getByPlaceholderText('e.g. Enterprise Security Platform')
+    const descInput = screen.getByPlaceholderText('Describe key features, primary differentiators, and value proposition...')
+    const audienceInput = screen.getByPlaceholderText('e.g. CISOs, VP of IT Security, Enterprise Operations Directors')
+    const budgetInput = screen.getByPlaceholderText('10000')
 
     await user.type(businessInput, 'Test Business')
     await user.type(productInput, 'Test Product')
-    await user.type(descInput, 'A great product')
-    await user.type(audienceInput, 'Young professionals')
+    await user.type(descInput, 'A great product with autonomous AI capabilities.')
+    await user.type(audienceInput, 'Young professionals and founders')
+    await user.clear(budgetInput)
     await user.type(budgetInput, '5000')
 
-    const durationSelect = screen.getByRole('combobox')
-    await user.selectOptions(durationSelect, '2-weeks')
-
-    const submitButton = screen.getByRole('button', { name: /Initialize Campaign Generation/i })
+    const submitButton = screen.getByRole('button', { name: /Launch 18-Stage Autonomous Pipeline/i })
     await user.click(submitButton)
 
     await waitFor(() => {
-      expect(screen.getByText(/API error/)).toBeInTheDocument()
+      expect(screen.getByText(/API error occurred/i)).toBeInTheDocument()
     })
   })
 
@@ -93,12 +89,12 @@ describe('CampaignBriefForm', () => {
     const mockSubmit = vi.fn()
     const { rerender } = render(<CampaignBriefForm onSubmit={mockSubmit} isLoading={false} />)
 
-    let submitButton = screen.getByRole('button', { name: /Initialize Campaign Generation/i })
+    let submitButton = screen.getByRole('button', { name: /Launch 18-Stage Autonomous Pipeline/i })
     expect(submitButton).not.toBeDisabled()
 
     rerender(<CampaignBriefForm onSubmit={mockSubmit} isLoading={true} />)
 
-    submitButton = screen.getByRole('button', { name: /Initialize Campaign Generation/i })
-    expect(submitButton).toBeDisabled()
+    const loadingButton = screen.getByRole('button', { name: /Orchestrating 18 AI Agents/i })
+    expect(loadingButton).toBeDisabled()
   })
 })

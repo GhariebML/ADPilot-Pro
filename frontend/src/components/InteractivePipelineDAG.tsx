@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Compass, 
   Search, 
@@ -17,7 +17,10 @@ import {
   ArrowRight,
   Info,
   Layers,
-  Sparkles
+  Sparkles,
+  GitBranch,
+  Clock,
+  Filter
 } from 'lucide-react';
 import type { AgentContract } from '../types';
 
@@ -43,6 +46,8 @@ const getAgentIcon = (id: string) => {
     case 'hitl': return <ShieldCheck className="w-4 h-4 text-rose-400" />;
     case 'publishing': return <Send className="w-4 h-4 text-emerald-400" />;
     case 'monitoring': return <Activity className="w-4 h-4 text-cyan-400" />;
+    case 'classifier': return <Layers className="w-4 h-4 text-cyan-400" />;
+    case 'planner': return <GitBranch className="w-4 h-4 text-blue-400" />;
     default: return <Layers className="w-4 h-4 text-blue-400" />;
   }
 };
@@ -65,25 +70,39 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
   onInspectIO,
   isRunning = false,
 }) => {
+  const [filterCategory, setFilterCategory] = useState<string>('all');
+
+  const categories = [
+    { id: 'all', label: 'All 18 Stages' },
+    { id: 'strategy', label: 'Strategy & Intel (1-7)' },
+    { id: 'creative', label: 'Creative & CV (8-10)' },
+    { id: 'ml_rl', label: 'Analytics & RL (11-13)' },
+    { id: 'governance', label: 'HITL & Dispatch (14-18)' },
+  ];
+
   return (
-    <div className="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/80 border border-slate-800/90 rounded-2xl p-5 sm:p-6 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+      {/* Background Subtle Gradient */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-[100px] pointer-events-none" />
+
       {/* Header Info */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-slate-800/80">
         <div>
           <div className="flex items-center gap-2.5 flex-wrap">
             <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
-              Autonomous Multi-Agent Intelligence Pipeline (DAG)
+              Autonomous Master Pipeline (DAG 3.0)
             </h3>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/30">
-              18-Stage Execution Graph
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+              18 Sequential Stages
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Click any agent to inspect its deterministic contract, model architecture, epistemic confidence, and raw payload telemetry.
+            Deterministic Pydantic v2 contract flow with epistemic uncertainty scoring and live state machine transitions.
           </p>
         </div>
 
+        {/* Live Legend */}
         <div className="flex items-center gap-3 text-xs font-mono text-slate-400 shrink-0">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400" /> Complete
@@ -97,7 +116,7 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
         </div>
       </div>
 
-      {/* Responsive Node Grid with Proper Breathing Room */}
+      {/* Responsive Node Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3.5 relative">
         {agents.map((agent, index) => {
           const isSelected = activeAgentId === agent.id;
@@ -107,9 +126,9 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
             <div
               key={agent.id}
               onClick={() => onSelectAgent(agent)}
-              className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden group ${
+              className={`p-4 rounded-xl border transition-all duration-250 cursor-pointer flex flex-col justify-between relative overflow-hidden group ${
                 isSelected
-                  ? 'bg-slate-800/90 border-cyan-500 shadow-xl shadow-cyan-500/10 scale-[1.02]'
+                  ? 'bg-slate-900 border-cyan-500 shadow-xl shadow-cyan-500/15 scale-[1.02]'
                   : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700 hover:bg-slate-900/60'
               }`}
             >
@@ -179,7 +198,7 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
                     className="text-[10px] font-medium text-cyan-400 hover:text-cyan-300 flex items-center gap-1 hover:underline font-mono"
                   >
                     <Info className="w-3 h-3" />
-                    <span>Inspect Payload</span>
+                    <span>Inspect I/O</span>
                   </button>
                   <span className="text-[10px] text-slate-500 flex items-center gap-0.5 font-mono">
                     Next <ArrowRight className="w-2.5 h-2.5" />

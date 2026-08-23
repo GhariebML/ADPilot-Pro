@@ -65,6 +65,7 @@ from .auth import verify_api_key
 from .errors import setup_error_handlers
 from .middleware import setup_middlewares
 from .v1.router import v1_router
+from .websocket import ws_router
 
 try:
     from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -132,8 +133,9 @@ app = FastAPI(
 setup_error_handlers(app)
 setup_middlewares(app)
 
-# Mount API v1 router
+# Mount API v1 router and WebSocket telemetry router
 app.include_router(v1_router, prefix="/api/v1")
+app.include_router(ws_router)
 
 # CORS — configurable origins, defaults to localhost dev ports
 _settings = get_config()
