@@ -21,6 +21,7 @@ import { LiveActivityFeed } from './components/LiveActivityFeed'
 import { CommandPalette } from './components/CommandPalette'
 import { InteractiveDemoModal } from './components/InteractiveDemoModal'
 import { TechnologyStackView } from './components/TechnologyStackView'
+import { ShowcaseLandingView } from './components/ShowcaseLandingView'
 import { MASTER_AGENTS } from './data/agentContracts'
 import { useTaskPolling } from './hooks/useTaskPolling'
 import { campaignService } from './services/api'
@@ -96,9 +97,9 @@ function App() {
     { id: '9', timestamp: '18:39:22', agent: 'HITL Gate', action: 'HUMAN_APPROVAL_RECORDED', level: 'success', details: 'Campaign Director authorized live multi-channel deployment.', latency: '50ms' }
   ])
 
-  // Custom OS active section — defaults to techstack on dedicated showcase port (3001)
+  // Custom OS active section — defaults to showcase on dedicated showcase port (3001) or /showcase
   const isShowcasePort = typeof window !== 'undefined' && window.location.port === '3001'
-  const [activeOSSection, setActiveOSSection] = useState<string>(isShowcasePort ? 'techstack' : 'pipeline')
+  const [activeOSSection, setActiveOSSection] = useState<string>(isShowcasePort ? 'showcase' : 'pipeline')
 
   // Theme Sync
   useEffect(() => {
@@ -114,7 +115,9 @@ function App() {
   useEffect(() => {
     const path = location.pathname.toLowerCase()
     const isShowcase = typeof window !== 'undefined' && window.location.port === '3001'
-    if (path === '/technology-stack' || path === '/technologies' || path === '/tech-stack' || (isShowcase && (path === '/' || path === '/campaigns'))) {
+    if (path === '/showcase' || (isShowcase && (path === '/' || path === '/campaigns'))) {
+      setActiveOSSection('showcase')
+    } else if (path === '/technology-stack' || path === '/technologies' || path === '/tech-stack') {
       setActiveOSSection('techstack')
     } else if (path === '/dashboard') {
       setActiveOSSection('dashboard')
@@ -358,6 +361,18 @@ function App() {
             </div>
             <div className="space-y-0.5">
               <button
+                onClick={() => { setActiveOSSection('showcase'); navigate('/showcase'); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  activeOSSection === 'showcase'
+                    ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200'
+                }`}
+              >
+                <Sparkles className="w-4 h-4 text-purple-400" />
+                <span>Showcase Portal V3</span>
+              </button>
+
+              <button
                 onClick={() => { setActiveOSSection('techstack'); navigate('/technology-stack'); }}
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                   activeOSSection === 'techstack'
@@ -588,6 +603,10 @@ function App() {
 
             {activeOSSection === 'hitl' && (
               <HITLApprovalCenter />
+            )}
+
+            {activeOSSection === 'showcase' && (
+              <ShowcaseLandingView />
             )}
 
             {activeOSSection === 'techstack' && (
