@@ -96,8 +96,9 @@ function App() {
     { id: '9', timestamp: '18:39:22', agent: 'HITL Gate', action: 'HUMAN_APPROVAL_RECORDED', level: 'success', details: 'Campaign Director authorized live multi-channel deployment.', latency: '50ms' }
   ])
 
-  // Custom OS active section
-  const [activeOSSection, setActiveOSSection] = useState<string>('pipeline')
+  // Custom OS active section — defaults to techstack on dedicated showcase port (3001)
+  const isShowcasePort = typeof window !== 'undefined' && window.location.port === '3001'
+  const [activeOSSection, setActiveOSSection] = useState<string>(isShowcasePort ? 'techstack' : 'pipeline')
 
   // Theme Sync
   useEffect(() => {
@@ -112,7 +113,8 @@ function App() {
   // Sync URL Path with active OS view
   useEffect(() => {
     const path = location.pathname.toLowerCase()
-    if (path === '/technology-stack' || path === '/technologies' || path === '/tech-stack') {
+    const isShowcase = typeof window !== 'undefined' && window.location.port === '3001'
+    if (path === '/technology-stack' || path === '/technologies' || path === '/tech-stack' || (isShowcase && (path === '/' || path === '/campaigns'))) {
       setActiveOSSection('techstack')
     } else if (path === '/dashboard') {
       setActiveOSSection('dashboard')
