@@ -2,6 +2,12 @@
   <img src="docs/images/hero_banner.png" alt="ADPilot Pro — Enterprise Autonomous Marketing OS" width="100%" />
 </p>
 
+<p align="center">
+  <a href="https://github.com/GhariebML/ADPilot-Pro">
+    <img src="docs/images/adpilot_logo.png" alt="ADPilot Pro Logo" width="120" style="border-radius: 20px;" />
+  </a>
+</p>
+
 <h1 align="center">ADPilot Pro</h1>
 
 <p align="center">

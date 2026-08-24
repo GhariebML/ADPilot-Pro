@@ -215,10 +215,17 @@ function App() {
       <aside className="w-[265px] bg-[#07090e]/80 border-r border-white/[0.08] flex flex-col z-30 shrink-0 backdrop-blur-3xl shadow-2xl shadow-black/80">
         {/* Brand Header */}
         <div className="p-4 flex items-center justify-between border-b border-white/[0.08] bg-slate-950/40">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/showcase')}>
             <div className="relative group">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500/20 via-blue-600/20 to-purple-600/20 border border-cyan-500/40 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/10 transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-400">
-                <Cpu className="text-cyan-400 w-5 h-5 animate-pulse-slow" />
+              <div className="w-10 h-10 bg-slate-900/90 border border-cyan-500/40 rounded-xl overflow-hidden flex items-center justify-center p-1 shadow-lg shadow-cyan-500/10 transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-400">
+                <img 
+                  src="/logo.png" 
+                  alt="ADPilot Logo" 
+                  className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
               </div>
               <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full ring-2 ring-[#07090e] animate-ping" />
               <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full ring-2 ring-[#07090e]" />

@@ -129,12 +129,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 
 app = FastAPI(
-    title="AdPilot API",
+    title="ADPilot Pro API",
     description=(
-        "Phase 1 & Phase 2 REST API for the AdPilot autonomous marketing multi-agent platform. "
-        "Exposes versioned endpoints, the Analytics Quality Gate, and the full campaign DAG pipeline."
+        "Enterprise-Grade Autonomous AI Marketing Operating System REST & WebSocket API. "
+        "Exposes 18-Agent multi-model pipeline execution, PPO Reinforcement Learning optimizer, "
+        "FastEmbed hybrid RAG memory, and HMAC-SHA256 governance endpoints."
     ),
-    version="2.0.0",
+    version="3.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,

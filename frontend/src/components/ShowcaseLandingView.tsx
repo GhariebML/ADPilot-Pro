@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Zap, 
   Sparkles, 
@@ -64,12 +64,12 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
   return (
     <div className="w-full bg-[#030712] text-slate-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen">
-      {/* â”€â”€ TOP NAV BAR (Rendered on Standalone Port 3001 or as Sleek Subnav) â”€â”€ */}
+      {/* ── TOP NAV BAR (Rendered on Standalone Port 3001 or as Sleek Subnav) ── */}
       {isStandalone && (
         <header className="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-2xl border-b border-slate-800/80 px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md shadow-cyan-500/20">
-              <Zap className="text-white w-5 h-5 fill-white" />
+            <div className="w-9 h-9 bg-slate-900 border border-cyan-500/40 rounded-xl overflow-hidden flex items-center justify-center p-1 shadow-md shadow-cyan-500/20">
+              <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" />
             </div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-base tracking-tight text-white">ADPilot Pro</span>
@@ -98,6 +98,16 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             </button>
 
             <a
+              href="https://github.com/GhariebML/ADPilot-Pro"
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 transition-all"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <span>GitHub</span>
+            </a>
+
+            <a
               href="http://localhost:3000/campaigns"
               target="_blank"
               rel="noopener noreferrer"
@@ -110,23 +120,28 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </header>
       )}
 
-      {/* â”€â”€ 3D HOLOGRAPHIC GLOBAL BACKGROUND â”€â”€ */}
+      {/* ── 3D HOLOGRAPHIC GLOBAL BACKGROUND ── */}
       <ThreeHolographicGlobe
         activeMode={visualMode}
         onModeChange={setVisualMode}
         className="fixed inset-0 w-full h-full pointer-events-none z-0"
       />
 
-      {/* â”€â”€ 3D HOLOGRAPHIC HERO SECTION (PERFECTLY CENTERED) â”€â”€ */}
+      {/* ── 3D HOLOGRAPHIC HERO SECTION (PERFECTLY CENTERED) ── */}
       <section className="relative z-10 w-full py-16 sm:py-24 overflow-hidden border-b border-slate-800/60 flex flex-col items-center justify-center text-center">
         {/* Ambient Glow Orbs */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] bg-radial from-cyan-500/10 via-purple-500/5 to-transparent rounded-full filter blur-[140px] pointer-events-none z-0" />
 
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
-          {/* Release Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/90 border border-cyan-500/40 text-xs font-mono text-cyan-300 shadow-xl shadow-cyan-500/10">
-            <Sparkles className="w-4 h-4 text-cyan-400 fill-cyan-400" />
-            <span>ADPilot Pro Enterprise V3 â€¢ 18-Agent Autonomous Marketing OS</span>
+          {/* Logo & Release Badge */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-slate-950/80 border border-cyan-500/50 p-2.5 shadow-2xl shadow-cyan-500/20 backdrop-blur-2xl transition-transform hover:scale-105 duration-300">
+              <img src="/logo.png" alt="ADPilot Pro Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]" />
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/90 border border-cyan-500/40 text-xs font-mono text-cyan-300 shadow-xl shadow-cyan-500/10">
+              <Sparkles className="w-4 h-4 text-cyan-400 fill-cyan-400" />
+              <span>ADPilot Pro Enterprise V3 • 18-Agent Autonomous Marketing OS</span>
+            </div>
           </div>
 
           {/* Main Headline */}
@@ -390,10 +405,10 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
       <footer className="py-12 bg-slate-950/20 backdrop-blur-md border-t border-slate-800/80 px-6 relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-slate-500">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
-              AD
+            <div className="w-7 h-7 bg-slate-900 border border-cyan-500/40 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-sm">
+              <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain" />
             </div>
-            <span>Â© 2026 ADPilot Pro â€” Autonomous Marketing Operating System</span>
+            <span>© 2026 ADPilot Pro — Autonomous Marketing Operating System</span>
           </div>
 
           <div className="flex items-center gap-6">
