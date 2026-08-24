@@ -1,0 +1,19 @@
+# Vercel Ignore for Clean Frontend Build
+.venv/
+__pycache__/
+*.pyc
+*.pt
+*.pth
+*.pkl
+*.onnx
+*.safetensors
+ml/
+models/
+research/
+storage/
+tests/
+data/
+Report/
+.github/
+.pytest_cache/
+.coverage
