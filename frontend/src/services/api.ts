@@ -2,7 +2,8 @@ import axios from 'axios';
 import type { CampaignBrief, TaskResponse, ContentOutput, DesignAssetsResponse } from '../types';
 
 const isTestEnv = import.meta.env.MODE === 'test';
-const API_BASE = (import.meta.env?.VITE_API_URL as string) || (isTestEnv ? 'http://127.0.0.1:8000/api' : 'http://127.0.0.1:8001/api');
+const isProd = import.meta.env.PROD;
+const API_BASE = (import.meta.env?.VITE_API_URL as string) || (isProd ? '/api' : (isTestEnv ? 'http://127.0.0.1:8000/api' : 'http://127.0.0.1:8001/api'));
 
 const apiClient = axios.create({
   baseURL: API_BASE,
@@ -23,7 +24,7 @@ apiClient.interceptors.response.use(
   (err) => {
     if (err.code === 'ERR_NETWORK' || err.message?.includes('Network Error')) {
       return Promise.reject(
-        new Error('Unable to connect to backend server at http://127.0.0.1:8001. Please ensure the backend is running.')
+        new Error('Unable to connect to the backend server. Please verify backend deployment or use Demo/Simulation mode.')
       );
     }
     const detail = err?.response?.data?.detail;
