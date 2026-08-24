@@ -296,10 +296,15 @@ export const SettingsView: React.FC<{ theme: string; toggleTheme: () => void }> 
     </div>
 
     {/* About */}
-    <div className="glass-card-premium p-4 rounded-xl text-center space-y-1">
-      <p className="text-xs font-bold text-white">ADPilot Pro v3.0 Enterprise</p>
-      <p className="text-[10px] text-slate-400 font-mono">18-Stage Autonomous Multi-Agent Campaign Operating System</p>
-      <p className="text-[10px] text-cyan-400 font-mono font-semibold mt-1">Built with Precision & Deterministic Epistemic Contracts</p>
+    <div className="glass-card-premium p-4 rounded-xl text-center space-y-2 flex flex-col items-center">
+      <div className="w-12 h-12 rounded-xl bg-slate-900/90 border border-cyan-500/30 p-1.5 flex items-center justify-center shadow-lg shadow-cyan-500/10">
+        <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]" />
+      </div>
+      <div>
+        <p className="text-xs font-bold text-white">ADPilot Pro v3.0 Enterprise</p>
+        <p className="text-[10px] text-slate-400 font-mono">18-Stage Autonomous Multi-Agent Campaign Operating System</p>
+        <p className="text-[10px] text-cyan-400 font-mono font-semibold mt-1">Built with Precision & Deterministic Epistemic Contracts</p>
+      </div>
     </div>
   </div>
 );
