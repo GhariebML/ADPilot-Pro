@@ -1,4 +1,4 @@
-﻿"""Phase 16 â€” Master Pipeline Runner executing the full immutable 18-stage workflow.
+"""Phase 16 â€” Master Pipeline Runner executing the full immutable 18-stage workflow.
 
 Pipeline:
 User Input
@@ -26,7 +26,9 @@ from __future__ import annotations
 
 import logging
 import time
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
+from uuid import uuid4
 
 from ..agents.analytics_agent import AnalyticsAgent
 from ..agents.audience_agent import AudienceAgent
@@ -321,7 +323,16 @@ class MasterPipelineRunner:
             if not design_out:
                 break
                 
-            decision, feedback = await evaluator.evaluate(context, design_out)
+            eval_result = await evaluator.evaluate(context, design_out)
+            if isinstance(eval_result, dict):
+                decision = eval_result.get("status", "PASS")
+                feedback = eval_result
+            elif isinstance(eval_result, tuple):
+                decision, feedback = eval_result
+            else:
+                decision = str(eval_result)
+                feedback = {"status": decision}
+
             if decision == "PASS":
                 break
                 
@@ -366,8 +377,8 @@ class MasterPipelineRunner:
                     "human_decision": "PENDING",
                     "parent_asset_id": None,
                     "timestamps": {
-                        "generated_at": datetime.utcnow().isoformat(),
-                        "evaluated_at": datetime.utcnow().isoformat()
+                        "generated_at": datetime.now(timezone.utc).isoformat(),
+                        "evaluated_at": datetime.now(timezone.utc).isoformat()
                     }
                 }
                 

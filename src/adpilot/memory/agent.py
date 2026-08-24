@@ -4,7 +4,10 @@ import logging
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from motor.motor_asyncio import AsyncIOMotorDatabase
+try:
+    from motor.motor_asyncio import AsyncIOMotorDatabase
+except ImportError:
+    AsyncIOMotorDatabase = Any  # type: ignore
 
 from ..schemas.memory_schemas import AgentRunRecord
 
@@ -15,9 +18,9 @@ class AgentMemory:
     Handles logging of agent executions, inputs, and raw outputs to the agent_runs collection.
     """
 
-    def __init__(self, db: AsyncIOMotorDatabase) -> None:
+    def __init__(self, db: Optional[Any] = None) -> None:
         self.db = db
-        self.collection = self.db["agent_runs"]
+        self.collection = self.db["agent_runs"] if self.db is not None else None
 
     async def start_run(self, campaign_id: str, agent_name: str, inputs: Dict[str, Any]) -> str:
         """Log the start of an agent run and return the run ID."""

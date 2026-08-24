@@ -10,10 +10,13 @@ from sqlalchemy import select
 @pytest.mark.anyio
 async def test_user_registration_and_login():
     """Verify registration creates users and organizations, and login returns bearer tokens."""
+    from uuid import uuid4
+    test_email = f"test_saas_user_{uuid4().hex[:6]}@example.com"
+
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         # 1. Register organization and user
         register_payload = {
-            "email": "test_saas_user@example.com",
+            "email": test_email,
             "password": "securepassword123",
             "role": "marketer",
             "organizationName": "Test Acme SaaS Inc",
@@ -21,7 +24,7 @@ async def test_user_registration_and_login():
         res = await ac.post("/api/auth/register", json=register_payload)
         assert res.status_code == 201
         data = res.json()
-        assert data["email"] == "test_saas_user@example.com"
+        assert data["email"] == test_email
         assert data["role"] == "marketer"
         assert "userId" in data
         assert "organizationId" in data
@@ -33,7 +36,7 @@ async def test_user_registration_and_login():
         async with async_session_factory() as session:
             db_user = (await session.execute(select(User).where(User.id == user_id))).scalar_one_or_none()
             assert db_user is not None
-            assert db_user.email == "test_saas_user@example.com"
+            assert db_user.email == test_email
             assert db_user.role == "marketer"
 
             db_org = (await session.execute(select(Organization).where(Organization.id == org_id))).scalar_one_or_none()
@@ -42,7 +45,7 @@ async def test_user_registration_and_login():
 
         # 2. Login
         login_payload = {
-            "email": "test_saas_user@example.com",
+            "email": test_email,
             "password": "securepassword123",
         }
         res_login = await ac.post("/api/auth/login", json=login_payload)

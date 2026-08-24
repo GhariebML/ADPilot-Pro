@@ -34,16 +34,44 @@ class CampaignManagerAgent(BaseAgent[CampaignManagerInput, CampaignManagerOutput
     async def run(self, context: CampaignContext) -> CampaignContext:
         """Generate the final campaign management plan and update context."""
         competitor_analyses = []
-        if context.competitors and context.competitors.competitors:
-            for comp in context.competitors.competitors:
-                competitor_analyses.append(
-                    CompetitorAnalysis(
-                        name=comp.name,
-                        strengths=comp.strengths,
-                        weaknesses=comp.weaknesses,
-                        positioning=comp.messaging_analysis,
-                    )
-                )
+        if context.competitors:
+            comps_raw = getattr(context.competitors, "competitors", None)
+            if comps_raw is None and hasattr(context.competitors, "names"):
+                comps_raw = getattr(context.competitors, "names", [])
+            elif comps_raw is None and isinstance(context.competitors, dict):
+                comps_raw = context.competitors.get("competitors") or context.competitors.get("names") or []
+            elif comps_raw is None and isinstance(context.competitors, list):
+                comps_raw = context.competitors
+
+            if isinstance(comps_raw, list):
+                for comp in comps_raw:
+                    if hasattr(comp, "name"):
+                        competitor_analyses.append(
+                            CompetitorAnalysis(
+                                name=comp.name,
+                                strengths=getattr(comp, "strengths", ["Established brand presence"]),
+                                weaknesses=getattr(comp, "weaknesses", ["High implementation cost"]),
+                                positioning=getattr(comp, "messaging_analysis", getattr(comp, "positioning", "Legacy incumbent")),
+                            )
+                        )
+                    elif isinstance(comp, dict):
+                        competitor_analyses.append(
+                            CompetitorAnalysis(
+                                name=comp.get("name", "Competitor"),
+                                strengths=comp.get("strengths", ["Established brand presence"]),
+                                weaknesses=comp.get("weaknesses", ["High implementation cost"]),
+                                positioning=comp.get("messaging_analysis", comp.get("positioning", "Legacy incumbent")),
+                            )
+                        )
+                    elif isinstance(comp, str):
+                        competitor_analyses.append(
+                            CompetitorAnalysis(
+                                name=comp,
+                                strengths=["Established market presence", "Brand awareness"],
+                                weaknesses=["Higher pricing", "Legacy architecture"],
+                                positioning=f"Direct market rival in {context.brief.target_market if context.brief else 'target space'}",
+                            )
+                        )
 
         synthetic_research = ResearchAgentOutput(
             audience_personas=[],

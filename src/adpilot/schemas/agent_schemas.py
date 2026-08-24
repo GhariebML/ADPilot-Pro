@@ -621,10 +621,11 @@ class CreativeAsset(BaseModel):
     format: str = Field(default="png", description="Format (png, jpg, webp)")
     channel: MarketingChannel = Field(default=MarketingChannel.linkedin, description="Target marketing channel")
     funnel_stage: FunnelStage = Field(default=FunnelStage.awareness, description="Funnel stage")
-    generation_prompt: str = Field(..., description="Diffusion generation prompt")
+    generation_prompt: str = Field(default="Modern digital advertising campaign creative", description="Diffusion generation prompt")
     negative_prompt: str = Field(default="blurry, low resolution, distorted text, bad anatomy, watermark", description="Negative prompt")
     color_palette: List[str] = Field(default_factory=list, description="Primary brand color hexes used in asset")
     generation_status: str = Field(default="placeholder", description="Status: 'generated', 'unconfigured', 'failed', 'placeholder'")
+    metadata: Dict[str, Any] = Field(default_factory=dict, description="Custom asset lineage and HITL metadata")
 
 
 class CreativeMetadata(BaseModel):

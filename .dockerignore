@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Environment & local secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv
+venv
+*.egg-info
+dist
+build
+
+# Testing & Coverage
+.pytest_cache
+.ruff_cache
+.coverage
+htmlcov
+.mypy_cache
+
+# Frontend build outputs & dependencies
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/coverage
+
+# Local data & databases
+storage
+data/chromadb
+data/test_qdrant
+data/uploads
+*.db
+mlruns
+
+# Logs
+*.log
+.local-logs
+
+# OS files
+.DS_Store
+Thumbs.db

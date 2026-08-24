@@ -3,9 +3,13 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Any, Optional
 
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+try:
+    from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+except ImportError:
+    AsyncIOMotorClient = None  # type: ignore
+    AsyncIOMotorDatabase = Any  # type: ignore
 
 from ..core.config import get_config
 from .agent import AgentMemory
