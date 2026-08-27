@@ -6,6 +6,18 @@ import type { CampaignBrief, TaskResponse, ContentOutput, DesignAssetsResponse }
  * NEXT_PUBLIC_API_URL, and intelligent environment defaults.
  */
 export function resolveApiBaseUrl(): string {
+  // Check local storage runtime override if user configured it in Settings
+  if (typeof window !== 'undefined') {
+    const savedBackend = localStorage.getItem('adpilot_backend_url');
+    if (savedBackend && savedBackend.trim() !== '') {
+      let clean = savedBackend.trim().replace(/\/+$/, '');
+      if (!clean.endsWith('/api') && !clean.endsWith('/api/v1')) {
+        clean = `${clean}/api`;
+      }
+      return clean;
+    }
+  }
+
   const envUrl = 
     (import.meta.env?.VITE_API_URL as string) || 
     (import.meta.env?.VITE_API_BASE_URL as string) ||
@@ -30,8 +42,8 @@ export function resolveApiBaseUrl(): string {
     return 'http://127.0.0.1:8001/api';
   }
 
-  // Production fallback on relative path
-  return '/api';
+  // Production fallback — points directly to the live Render FastAPI backend
+  return 'https://adpilot-pro.onrender.com/api';
 }
 
 export const API_BASE = resolveApiBaseUrl();
