@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_BASE } from '../services/api';
 import { 
   Activity, 
   CheckCircle2, 
@@ -12,8 +13,9 @@ import {
 } from 'lucide-react';
 
 export const SystemHealthView: React.FC = () => {
+  const backendHealthEndpoint = `${API_BASE.replace(/\/api\/?$/, '')}/health`;
   const services = [
-    { name: 'FastAPI Backend API', category: 'INFRASTRUCTURE', status: 'HEALTHY', endpoint: 'http://127.0.0.1:8001/healthz', latency: '2.4ms', version: 'v3.0.0' },
+    { name: 'FastAPI Backend API', category: 'INFRASTRUCTURE', status: 'HEALTHY', endpoint: backendHealthEndpoint, latency: '2.4ms', version: 'v3.0.0' },
     { name: 'Async SQLite Database', category: 'DATABASE', status: 'HEALTHY', endpoint: 'sqlite+aiosqlite:///./adpilot.db', latency: '1.8ms', version: 'SQLAlchemy 2.0' },
     { name: 'Embedded Qdrant Vector DB', category: 'VECTOR_STORE', status: 'HEALTHY', endpoint: './storage/qdrant_rag', latency: '4.2ms', version: 'v1.18.0' },
     { name: 'FastEmbed BGE Embeddings', category: 'AI_MODELS', status: 'HEALTHY', endpoint: 'BAAI/bge-small-en-v1.5', latency: '23.3ms', version: 'ONNX Runtime' },

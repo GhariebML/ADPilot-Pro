@@ -108,9 +108,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             </a>
 
             <a
-              href="http://localhost:3000/campaigns"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/campaigns"
               className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white hover:from-cyan-400 hover:to-purple-500 shadow-md shadow-cyan-500/20 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
             >
               <span>Launch Live OS</span>
@@ -197,9 +195,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
           {/* Action CTA Buttons */}
           <div className="grid grid-cols-1 sm:flex sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 pt-1 w-full max-w-md mx-auto">
             <a
-              href="http://localhost:3000/campaigns"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/campaigns"
               className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white text-slate-950 hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/20 active:scale-95 cursor-pointer shrink-0 min-h-[42px]"
             >
               <span>Launch Live OS</span>
@@ -215,10 +211,8 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             </button>
 
             <a
-              href="http://localhost:3000/technology-stack"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-slate-950/90 border border-slate-800 hover:border-purple-500/50 text-slate-300 hover:text-purple-300 transition-all flex items-center justify-center gap-2 shrink-0"
+              href="/technology-stack"
+              className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-slate-950/90 border border-slate-800 hover:border-purple-500/50 text-slate-300 hover:text-purple-300 transition-all flex items-center justify-center gap-2 shrink-0 min-h-[42px]"
             >
               <Cpu className="w-4 h-4 text-purple-400" />
               <span>Architecture</span>
@@ -415,13 +409,13 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             <button onClick={() => setIsWhitepaperOpen(true)} className="hover:text-cyan-300 transition-colors">
               Whitepaper
             </button>
-            <a href="http://localhost:3000/technology-stack" className="hover:text-cyan-300 transition-colors">
+            <a href="/technology-stack" className="hover:text-cyan-300 transition-colors">
               Architecture
             </a>
             <a href="https://github.com/GhariebML/ADPilot-Pro" target="_blank" rel="noreferrer" className="hover:text-cyan-300 transition-colors">
               GitHub
             </a>
-            <a href="http://localhost:3000/campaigns" className="hover:text-cyan-300 transition-colors">
+            <a href="/campaigns" className="hover:text-cyan-300 transition-colors">
               Live Dashboard
             </a>
           </div>

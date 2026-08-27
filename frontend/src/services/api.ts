@@ -1,11 +1,42 @@
 import axios from 'axios';
 import type { CampaignBrief, TaskResponse, ContentOutput, DesignAssetsResponse } from '../types';
 
-const isTestEnv = import.meta.env.MODE === 'test';
-const isProd = import.meta.env.PROD;
-const API_BASE = (import.meta.env?.VITE_API_URL as string) || (isProd ? '/api' : (isTestEnv ? 'http://127.0.0.1:8000/api' : 'http://127.0.0.1:8001/api'));
+/**
+ * Robust API Base URL resolution supporting VITE_API_URL, VITE_API_BASE_URL,
+ * NEXT_PUBLIC_API_URL, and intelligent environment defaults.
+ */
+export function resolveApiBaseUrl(): string {
+  const envUrl = 
+    (import.meta.env?.VITE_API_URL as string) || 
+    (import.meta.env?.VITE_API_BASE_URL as string) ||
+    (import.meta.env?.NEXT_PUBLIC_API_URL as string);
 
-const apiClient = axios.create({
+  if (envUrl && envUrl.trim() !== '') {
+    let clean = envUrl.trim().replace(/\/+$/, '');
+    // If the base domain was passed without /api, append /api
+    if (!clean.endsWith('/api') && !clean.endsWith('/api/v1')) {
+      clean = `${clean}/api`;
+    }
+    return clean;
+  }
+
+  // Test runner environment (MSW mock server)
+  if (import.meta.env.MODE === 'test') {
+    return 'http://127.0.0.1:8000/api';
+  }
+
+  // Local development fallback
+  if (!import.meta.env.PROD) {
+    return 'http://127.0.0.1:8001/api';
+  }
+
+  // Production fallback on relative path
+  return '/api';
+}
+
+export const API_BASE = resolveApiBaseUrl();
+
+export const apiClient = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: false,
@@ -24,7 +55,7 @@ apiClient.interceptors.response.use(
   (err) => {
     if (err.code === 'ERR_NETWORK' || err.message?.includes('Network Error')) {
       return Promise.reject(
-        new Error('Unable to connect to the backend server. Please verify backend deployment or use Demo/Simulation mode.')
+        new Error('Unable to connect to the backend server. Please verify your Render/FastAPI backend deployment or configure VITE_API_URL on Vercel.')
       );
     }
     const detail = err?.response?.data?.detail;
@@ -45,9 +76,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-// ─── Service API ────────────────────────────────────────────────────────────
-
-// ─── Service API ────────────────────────────────────────────────────────────
+// ─── Campaign & Content Service ─────────────────────────────────────────────
 
 export const campaignService = {
   /** Submit a new campaign brief — calls the full multi-agent DAG pipeline. */
@@ -89,6 +118,70 @@ export const campaignService = {
     const response = await apiClient.get(`/design-assets/${assetId}/download`, {
       responseType: 'blob',
     });
+    return response.data;
+  },
+
+  /** Generate creative assets via Nano Banana / Creative Studio API. */
+  async generateCreative(payload: {
+    product_name: string;
+    product_type: string;
+    campaign_goal: string;
+    target_audience: string;
+    visual_style: string;
+    custom_prompt: string;
+    brand_colors: string[];
+  }): Promise<any> {
+    const response = await apiClient.post('/creative/generate', payload);
+    return response.data;
+  },
+};
+
+// ─── Simulation Service ─────────────────────────────────────────────────────
+
+export const simulationService = {
+  /** Initialize an enterprise pipeline simulation. */
+  async createSimulation(payload: {
+    product_name: string;
+    product_type: string;
+    campaign_objective: string;
+    target_audience: string;
+    budget: number;
+    duration_days: number;
+    platforms: string[];
+    target_cac: number;
+    target_roas: number;
+  }): Promise<{ simulation_id: string; status: string }> {
+    const response = await apiClient.post('/v1/simulations', payload);
+    return response.data;
+  },
+
+  /** Trigger execution of a created simulation. */
+  async runSimulation(simId: string): Promise<any> {
+    const response = await apiClient.post(`/v1/simulations/${simId}/run`);
+    return response.data;
+  },
+
+  /** Poll state of a simulation run. */
+  async getSimulation(simId: string): Promise<any> {
+    const response = await apiClient.get(`/v1/simulations/${simId}`);
+    return response.data;
+  },
+
+  /** Approve simulation at Human-in-the-Loop governance gate. */
+  async approveSimulation(simId: string): Promise<any> {
+    const response = await apiClient.post(`/v1/simulations/${simId}/approve`);
+    return response.data;
+  },
+};
+
+// ─── System Health Service ──────────────────────────────────────────────────
+
+export const systemService = {
+  /** Liveness / health probe. */
+  async getHealth(): Promise<{ status: string; version: string }> {
+    // Attempt root /health (or /healthz) relative to API host
+    const origin = API_BASE.replace(/\/api\/?$/, '');
+    const response = await axios.get(`${origin}/health`, { timeout: 5000 });
     return response.data;
   },
 };

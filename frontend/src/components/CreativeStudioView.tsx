@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { campaignService } from '../services/api';
 import { 
   Palette, 
   Sparkles, 
@@ -149,22 +150,15 @@ export const CreativeStudioView: React.FC = () => {
     }, 600);
 
     try {
-      const response = await fetch('http://localhost:8001/api/creative/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          product_name: productName,
-          product_type: productType,
-          campaign_goal: campaignGoal,
-          target_audience: targetAudience,
-          visual_style: visualStyle,
-          custom_prompt: customPrompt,
-          brand_colors: palettePresets[selectedPaletteIndex].colors
-        })
+      const data = await campaignService.generateCreative({
+        product_name: productName,
+        product_type: productType,
+        campaign_goal: campaignGoal,
+        target_audience: targetAudience,
+        visual_style: visualStyle,
+        custom_prompt: customPrompt,
+        brand_colors: palettePresets[selectedPaletteIndex].colors
       });
-      const data = await response.json();
       if (data.status === 'success' && data.creative_assets && data.creative_assets.length > 0) {
         const platformNames: Record<string, string> = {
           'linkedin': 'LinkedIn Sponsored Content',

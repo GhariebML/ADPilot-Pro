@@ -151,11 +151,11 @@ app.include_router(v1_router, prefix="/api/v1")
 app.include_router(ws_router)
 app.include_router(sse_router)
 
-# CORS — configurable origins, defaults to localhost dev ports
+# CORS — configurable origins, supports Vercel, Render, and local dev ports
 _settings = get_config()
-_cors_origins = [o.strip() for o in _settings.allowed_origins.split(",")]
+_cors_origins = [o.strip() for o in _settings.allowed_origins.split(",") if o.strip()]
 
-# Always include common dev origins so local development never breaks
+# Always include common dev origins and production Vercel patterns
 _dev_origins = [
     "http://localhost:3000",
     "http://localhost:3001",
@@ -171,6 +171,7 @@ for _o in _dev_origins:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -617,6 +618,17 @@ async def _run_dashboard_task(task_id: str, brief: FrontendCampaignBrief) -> Non
 # ---------------------------------------------------------------------------
 
 @app.get(
+    "/health",
+    response_model=HealthResponse,
+    summary="Root Health Check",
+    tags=["System"],
+)
+async def health_check() -> HealthResponse:
+    """Production health endpoint returning 200 and application version."""
+    return HealthResponse(status="ok", version="3.0.0")
+
+
+@app.get(
     "/healthz",
     response_model=HealthResponse,
     summary="Liveness probe",
@@ -624,7 +636,7 @@ async def _run_dashboard_task(task_id: str, brief: FrontendCampaignBrief) -> Non
 )
 async def healthz() -> HealthResponse:
     """Return 200 when the API server is running."""
-    return HealthResponse()
+    return HealthResponse(status="ok", version="3.0.0")
 
 
 @app.get(

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { simulationService } from '../../services/api';
 import { Play, Pause, RefreshCw, CheckCircle, AlertTriangle, ChevronRight, Activity, Target, Brain, Database, PenTool, Image, BarChart3, ShieldCheck, UploadCloud, Eye } from 'lucide-react';
 
 export const CampaignSimulationView = () => {
@@ -7,10 +8,8 @@ export const CampaignSimulationView = () => {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
 
   const startDemo = async () => {
-    const res = await fetch('http://localhost:8001/api/v1/simulations', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    try {
+      const data = await simulationService.createSimulation({
         product_name: 'AI Marketing SaaS',
         product_type: 'saas',
         campaign_objective: 'Lead Generation',
@@ -20,35 +19,41 @@ export const CampaignSimulationView = () => {
         platforms: ['Meta', 'Google', 'LinkedIn'],
         target_cac: 45,
         target_roas: 3.5
-      })
-    });
-    const data = await res.json();
-    setSimId(data.simulation_id);
-    await fetch('http://localhost:8001/api/v1/simulations/' + data.simulation_id + '/run', { method: 'POST' });
+      });
+      setSimId(data.simulation_id);
+      await simulationService.runSimulation(data.simulation_id);
+    } catch (err) {
+      console.error('Failed to start simulation:', err);
+    }
   };
 
   useEffect(() => {
     if (!simId) return;
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('http://localhost:8001/api/v1/simulations/' + simId);
-        if (!res.ok) {
-          if (res.status === 404) { clearInterval(interval); setSimId(null); setSimulation(null); }
-          return;
-        }
-        const data = await res.json();
+        const data = await simulationService.getSimulation(simId);
         setSimulation(data);
         if (data.status === 'COMPLETED' || data.status === 'FAILED') {
           clearInterval(interval);
         }
-      } catch (e) { /* network error, ignore */ }
+      } catch (e: any) {
+        if (e?.response?.status === 404 || e?.message?.includes('404')) {
+          clearInterval(interval);
+          setSimId(null);
+          setSimulation(null);
+        }
+      }
     }, 1500);
     return () => clearInterval(interval);
   }, [simId]);
 
   const approve = async () => {
     if (!simId) return;
-    await fetch('http://localhost:8001/api/v1/simulations/' + simId + '/approve', { method: 'POST' });
+    try {
+      await simulationService.approveSimulation(simId);
+    } catch (err) {
+      console.error('Failed to approve simulation:', err);
+    }
   };
 
   if (!simulation) {
