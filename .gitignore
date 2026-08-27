@@ -64,5 +64,6 @@ e2e_test_output.json
 mlruns/
 mlflow.db
 scratch/
+ADPilot-Pro-main/
 
 

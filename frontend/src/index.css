@@ -332,3 +332,39 @@
   animation: laser-scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* ── Mobile & Responsive Enhancements ── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-left {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+.safe-right {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+@media (max-width: 640px) {
+  button, a, input, select {
+    touch-action: manipulation;
+  }
+}
+

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { 
   CheckCircle2, 
   XCircle, 
@@ -78,31 +78,31 @@ export const EnterpriseComparisonMatrix: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
               <Award className="w-4 h-4" />
             </span>
-            <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider">
               Enterprise Capability Matrix: ADPilot Pro vs Alternatives
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Comparing architectural determinism, reinforcement learning, and governance across modern solutions.
           </p>
         </div>
 
-        <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
+        <span className="px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0 self-start sm:self-auto">
           Enterprise Certified
         </span>
       </div>
 
       {/* Comparison Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-left font-mono text-xs border-collapse">
+      <div className="overflow-x-auto no-scrollbar touch-scroll -mx-4 sm:mx-0 px-4 sm:px-0">
+        <table className="w-full text-left font-mono text-xs border-collapse min-w-[620px]">
           <thead>
             <tr className="border-b border-slate-800 text-[11px] text-slate-400 uppercase">
               <th className="py-3 px-4">Capability Dimension</th>

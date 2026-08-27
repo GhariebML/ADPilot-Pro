@@ -51,13 +51,13 @@ export const AgentDetailDrawer: React.FC<AgentDetailDrawerProps> = ({
         className="absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity animate-in fade-in duration-200" 
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-xl bg-[#07090e] border-l border-white/[0.1] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen max-w-full sm:max-w-xl bg-[#07090e] border-l border-white/[0.1] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
           {/* Header */}
-          <div className="p-6 border-b border-white/[0.08] bg-[#07090e]/95 flex items-start justify-between gap-4">
-            <div className="flex items-center gap-3.5">
-              <div className="p-3 rounded-2xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.25)]">
-                <Bot className="w-6 h-6 animate-pulse" />
+          <div className="p-4 sm:p-6 border-b border-white/[0.08] bg-[#07090e]/95 flex items-start justify-between gap-3 sm:gap-4">
+            <div className="flex items-center gap-2.5 sm:gap-3.5">
+              <div className="p-2.5 sm:p-3 rounded-2xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.25)] shrink-0">
+                <Bot className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
               </div>
               <div>
                 <div className="flex items-center gap-2">

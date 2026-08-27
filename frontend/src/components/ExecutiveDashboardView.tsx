@@ -127,43 +127,43 @@ export const ExecutiveDashboardView: React.FC = () => {
   ];
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-4 sm:space-y-6">
       {/* Header Banner */}
-      <div className="glass-panel-elevated rounded-2xl p-6 relative overflow-hidden">
+      <div className="glass-panel-elevated rounded-2xl p-4 sm:p-6 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-lg shadow-cyan-500/25">
-                <BarChart3 className="w-5 h-5" />
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <span className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 shrink-0">
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
               </span>
               <div>
-                <h2 className="text-xl font-black text-slate-100 flex items-center gap-2">
-                  Executive Intelligence & Attribution Dashboard
+                <h2 className="text-base sm:text-xl font-black text-slate-100 flex items-center gap-2 flex-wrap">
+                  Executive Intelligence & Attribution
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
                     Live Telemetry
                   </span>
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
                   Macro financial attribution, multi-agent fleet operations, and autonomous ROAS policy optimization.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#07090e]/90 border border-white/[0.08] rounded-xl p-1 shrink-0 shadow-inner">
+          <div className="flex items-center gap-1 bg-[#07090e]/90 border border-white/[0.08] rounded-xl p-1 shrink-0 shadow-inner overflow-x-auto no-scrollbar">
             {(['7d', '30d', '90d'] as const).map((r) => (
               <button
                 key={r}
                 onClick={() => setTimeRange(r)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all duration-200 ${
+                className={`px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all duration-200 shrink-0 ${
                   timeRange === r
                     ? 'bg-gradient-to-r from-cyan-500/30 to-blue-500/30 text-cyan-300 border border-cyan-500/40 shadow-sm'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
-                {r === '7d' ? 'Last 7 Days' : r === '30d' ? 'Last 30 Days' : 'Last Quarter'}
+                {r === '7d' ? '7 Days' : r === '30d' ? '30 Days' : 'Quarter'}
               </button>
             ))}
           </div>
@@ -171,7 +171,7 @@ export const ExecutiveDashboardView: React.FC = () => {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
         {kpis.map((kpi, idx) => (
           <div 
             key={idx} 

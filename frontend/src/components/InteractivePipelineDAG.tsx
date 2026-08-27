@@ -88,15 +88,15 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
   });
 
   return (
-    <div className="w-full glass-panel-elevated rounded-2xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full glass-panel-elevated rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
       {/* Background Subtle Gradient */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-[120px] pointer-events-none" />
 
       {/* Header Info */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-5 mb-4 sm:mb-5 border-b border-white/[0.08]">
         <div>
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <h3 className="text-base font-black text-slate-100 flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-sm sm:text-base font-black text-slate-100 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
               Autonomous Master Pipeline (DAG 3.0)
             </h3>
@@ -104,13 +104,13 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
               18 Sequential Stages
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Deterministic Pydantic contract graph with epistemic confidence scoring and zero-hallucination verification.
           </p>
         </div>
 
         {/* Live Legend */}
-        <div className="flex items-center gap-3 text-xs font-mono text-slate-400 shrink-0">
+        <div className="flex items-center gap-3 text-[11px] sm:text-xs font-mono text-slate-400 shrink-0 flex-wrap">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400" /> Complete
           </span>
@@ -124,7 +124,7 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
       </div>
 
       {/* Category Filter Pills */}
-      <div className="flex items-center gap-2 mb-5 overflow-x-auto pb-1">
+      <div className="flex items-center gap-2 mb-4 sm:mb-5 overflow-x-auto no-scrollbar touch-scroll pb-1">
         <Filter className="w-3.5 h-3.5 text-slate-500 shrink-0 hidden sm:inline" />
         {categories.map((cat) => (
           <button
@@ -142,7 +142,7 @@ export const InteractivePipelineDAG: React.FC<InteractivePipelineDAGProps> = ({
       </div>
 
       {/* Responsive Node Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3.5 relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-3.5 relative">
         {filteredAgents.map((agent, index) => {
           const isSelected = activeAgentId === agent.id;
           const isHITL = agent.id === 'hitl';
