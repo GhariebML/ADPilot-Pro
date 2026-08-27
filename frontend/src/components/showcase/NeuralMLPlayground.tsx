@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Zap, 
   BarChart3, 
@@ -41,28 +41,28 @@ export const NeuralMLPlayground: React.FC = () => {
   const forecastedCac = (totalBudget / Math.max(1, estimatedConversions)).toFixed(2);
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
       {/* Header & Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
               <Cpu className="w-4 h-4" />
             </span>
-            <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider">
               Live Neural ML & RL Inference Playground
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Test live parameter sweeps against our PyTorch PPO Policy Network, Ridge Revenue Forecaster, and CLIP-ViT models.
           </p>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl">
+        <div className="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl overflow-x-auto no-scrollbar touch-scroll max-w-full">
           <button
             onClick={() => setActiveTab('ppo')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 shrink-0 ${
               activeTab === 'ppo'
                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
                 : 'text-slate-400 hover:text-white'
@@ -74,7 +74,7 @@ export const NeuralMLPlayground: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('ridge')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 shrink-0 ${
               activeTab === 'ridge'
                 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
                 : 'text-slate-400 hover:text-white'
@@ -86,7 +86,7 @@ export const NeuralMLPlayground: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('clip')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all flex items-center gap-1.5 shrink-0 ${
               activeTab === 'clip'
                 ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40'
                 : 'text-slate-400 hover:text-white'

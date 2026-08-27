@@ -356,11 +356,11 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* â”€â”€ MODULE 8: ROADMAP & 100% PROOF â”€â”€ */}
-      <section id="roadmap" className="py-16 border-b border-slate-800/60 relative z-10">
-        <div className="max-w-4xl mx-auto px-6 space-y-8">
+      {/* ── MODULE 8: ROADMAP & 100% PROOF ── */}
+      <section id="roadmap" className="py-12 sm:py-16 border-b border-slate-800/60 relative z-10">
+        <div className="max-w-4xl mx-auto px-3.5 sm:px-6 space-y-6 sm:space-y-8">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white">
               Engineering <span className="text-gradient-cyan">Milestone Roadmap</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
@@ -368,7 +368,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             </p>
           </div>
 
-          <div className="space-y-3 font-mono text-xs">
+          <div className="space-y-2.5 sm:space-y-3 font-mono text-xs">
             {[
               { phase: 'Phase 1: Foundation Schemas & Error Handling System', status: 'VERIFIED_DONE', date: 'Certified (100%)' },
               { phase: 'Phase 2: Master Campaign Orchestrator DAG', status: 'VERIFIED_DONE', date: 'Certified (100%)' },
@@ -381,16 +381,16 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
               { phase: 'Phase 9: Real-Time WebSockets & Adversarial Debate', status: 'VERIFIED_DONE', date: 'Certified (100%)' },
               { phase: 'Phase 10: Production Ad Network Live Adapters', status: 'IN_PROGRESS', date: 'Next Release' },
             ].map((p, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-colors">
-                <div className="flex items-center gap-3">
+              <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-colors">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   {p.status === 'VERIFIED_DONE' ? (
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   ) : (
                     <RefreshCw className="w-4 h-4 text-cyan-400 animate-spin shrink-0" />
                   )}
-                  <span className="text-slate-200 font-semibold">{p.phase}</span>
+                  <span className="text-slate-200 font-semibold truncate text-xs sm:text-sm">{p.phase}</span>
                 </div>
-                <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold ${
+                <span className={`px-2.5 py-0.5 rounded text-[10px] font-bold shrink-0 self-start sm:self-auto ${
                   p.status === 'VERIFIED_DONE' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
                 }`}>
                   {p.date}
@@ -401,25 +401,25 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
         </div>
       </section>
 
-      {/* â”€â”€ FOOTER â”€â”€ */}
-      <footer className="py-12 bg-slate-950/20 backdrop-blur-md border-t border-slate-800/80 px-6 relative z-10">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-slate-500">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 bg-slate-900 border border-cyan-500/40 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-sm">
+      {/* ── FOOTER ── */}
+      <footer className="py-8 sm:py-12 bg-slate-950/20 backdrop-blur-md border-t border-slate-800/80 px-4 sm:px-6 relative z-10">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-xs font-mono text-slate-500 text-center sm:text-left">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-7 h-7 bg-slate-900 border border-cyan-500/40 rounded-lg overflow-hidden flex items-center justify-center p-0.5 shadow-sm shrink-0">
               <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain" />
             </div>
-            <span>© 2026 ADPilot Pro — Autonomous Marketing Operating System</span>
+            <span className="text-[11px] sm:text-xs">© 2026 ADPilot Pro — Autonomous Marketing OS</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs">
             <button onClick={() => setIsWhitepaperOpen(true)} className="hover:text-cyan-300 transition-colors">
-              Technical Whitepaper
+              Whitepaper
             </button>
             <a href="http://localhost:3000/technology-stack" className="hover:text-cyan-300 transition-colors">
-              Architecture Board
+              Architecture
             </a>
-            <a href="https://github.com/GhariebML/ADPilot-Pro" className="hover:text-cyan-300 transition-colors">
-              GitHub Repository
+            <a href="https://github.com/GhariebML/ADPilot-Pro" target="_blank" rel="noreferrer" className="hover:text-cyan-300 transition-colors">
+              GitHub
             </a>
             <a href="http://localhost:3000/campaigns" className="hover:text-cyan-300 transition-colors">
               Live Dashboard

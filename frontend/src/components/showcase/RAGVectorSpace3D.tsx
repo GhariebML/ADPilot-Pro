@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Database, 
   Search, 
@@ -49,38 +49,38 @@ export const RAGVectorSpace3D: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
               <Database className="w-4 h-4" />
             </span>
-            <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider">
               Dual-Stream Hybrid RAG & Vector Space 3D
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             FastEmbed BGE 384-dimensional dense semantic vectors fused with BM25 Okapi lexical scoring (RRF k=60) stored in local Qdrant.
           </p>
         </div>
 
-        <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
-          HitRate = 1.0 â€¢ MRR = 1.00
+        <span className="px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0 self-start sm:self-auto">
+          HitRate = 1.0 • MRR = 1.00
         </span>
       </div>
 
       {/* Query Bar */}
       <div className="space-y-2">
-        <label className="text-xs font-mono text-slate-400 uppercase tracking-wider block">
+        <label className="text-[11px] sm:text-xs font-mono text-slate-400 uppercase tracking-wider block">
           Select or Enter Benchmark Retrieval Query:
         </label>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {sampleQueries.map((q, idx) => (
             <button
               key={idx}
               onClick={() => { setActiveQuery(q); setSearchTriggered(true); }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all text-left truncate max-w-md ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-mono transition-all text-left truncate max-w-full sm:max-w-md ${
                 activeQuery === q
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-sm'
                   : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -141,22 +141,22 @@ export const InteractiveDAG3D: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
       {/* Background Laser Scan */}
       <div className="absolute inset-0 cyber-grid-3d opacity-30 pointer-events-none" />
 
       {/* Top Header & Simulation Trigger */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 relative z-10 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
               <Layers className="w-4 h-4" />
             </span>
-            <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider">
               Interactive 3D Multi-Agent Pipeline Flow (DAG)
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Click any node or trigger the live simulation to trace deterministic state passing across all 7 layers.
           </p>
         </div>
@@ -164,7 +164,7 @@ export const InteractiveDAG3D: React.FC = () => {
         <button
           onClick={triggerLiveRun}
           disabled={isSimulating}
-          className="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white shadow-lg shadow-cyan-500/20 flex items-center gap-2 transition-all active:scale-95 disabled:opacity-50 shrink-0"
+          className="w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-mono font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50 shrink-0 min-h-[40px]"
         >
           {isSimulating ? (
             <>
@@ -181,7 +181,7 @@ export const InteractiveDAG3D: React.FC = () => {
       </div>
 
       {/* 3D DAG Pipeline Nodes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2.5 relative z-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-2.5 relative z-10">
         {stages.map((stage, idx) => {
           const isSelected = activeStageId === stage.id;
           const isDone = stage.status === 'COMPLETED';
@@ -190,13 +190,13 @@ export const InteractiveDAG3D: React.FC = () => {
             <div
               key={stage.id}
               onClick={() => setActiveStageId(stage.id)}
-              className={`p-3.5 rounded-xl border bg-gradient-to-b ${stage.color} backdrop-blur-md cursor-pointer transition-all duration-300 flex flex-col justify-between space-y-2 relative group hover:scale-[1.03] ${
+              className={`p-3 sm:p-3.5 rounded-xl border bg-gradient-to-b ${stage.color} backdrop-blur-md cursor-pointer transition-all duration-300 flex flex-col justify-between space-y-2 relative group hover:scale-[1.03] ${
                 isSelected
                   ? 'ring-2 ring-cyan-400 shadow-lg shadow-cyan-500/20 scale-[1.02]'
                   : 'opacity-85 hover:opacity-100'
               }`}
             >
-              <div className="flex items-center justify-between text-[10px] font-mono font-bold">
+              <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono font-bold">
                 <span className="text-slate-400">STAGE {stage.stageNum}</span>
                 {isDone ? (
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />

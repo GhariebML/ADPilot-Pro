@@ -53,7 +53,9 @@ import {
   Menu,
   X,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  Sun,
+  Moon
 } from 'lucide-react'
 
 function App() {
@@ -492,52 +494,69 @@ function App() {
 
       {/* ── Mobile Slide-Over Navigation Drawer ── */}
       <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-[280px] bg-[#07090e] border-r border-white/[0.1] flex flex-col transition-transform duration-300 ease-in-out lg:hidden shadow-2xl safe-top safe-bottom ${
+        className={`fixed inset-y-0 left-0 z-50 w-[86vw] max-w-[320px] bg-[#07090e]/95 border-r border-white/[0.12] backdrop-blur-3xl flex flex-col transition-transform duration-300 ease-in-out lg:hidden shadow-2xl shadow-cyan-950/40 safe-top safe-bottom ${
           isMobileNavOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Mobile Header */}
-        <div className="p-4 flex items-center justify-between border-b border-white/[0.08] bg-slate-950/60">
-          <div className="flex items-center gap-3" onClick={() => { navigate('/showcase'); setIsMobileNavOpen(false); }}>
-            <div className="w-9 h-9 bg-slate-900 border border-cyan-500/40 rounded-xl flex items-center justify-center p-1 shadow-md">
-              <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+        <div className="p-4 flex items-center justify-between border-b border-white/[0.08] bg-slate-950/70">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => { navigate('/showcase'); setIsMobileNavOpen(false); }}>
+            <div className="w-10 h-10 bg-slate-900 border border-cyan-500/50 rounded-xl flex items-center justify-center p-1.5 shadow-lg shadow-cyan-500/20">
+              <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-black text-white">ADPilot Pro</span>
-                <span className="px-1.5 py-0.2 rounded text-[8px] font-mono font-bold bg-cyan-500/20 text-cyan-300">v3.0</span>
+                <span className="text-sm font-black text-white tracking-tight">ADPilot Pro</span>
+                <span className="px-1.5 py-0.2 rounded text-[8px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">v3.0</span>
               </div>
-              <span className="text-[9px] text-slate-400 font-mono">Marketing OS</span>
+              <span className="text-[10px] text-slate-400 font-mono tracking-wide">Autonomous Marketing OS</span>
             </div>
           </div>
           <button 
             onClick={() => setIsMobileNavOpen(false)}
-            className="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900/80 border border-white/[0.08]"
+            aria-label="Close navigation"
+            className="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900/90 border border-white/[0.08] active:scale-95 transition-all"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
+        {/* Mobile Telemetry Ribbon */}
+        <div className="px-4 py-2 bg-black/40 border-b border-white/[0.06] flex items-center justify-between text-[10px] font-mono">
+          <span className="flex items-center gap-1.5 text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400 animate-pulse" />
+            <span>Fleet: 18 Agents Ready</span>
+          </span>
+          <span className="text-cyan-400 font-bold">PPO Policy: +28.7%</span>
+        </div>
+
         {/* Mobile Navigation Links */}
-        <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto touch-scroll">
+        <nav className="flex-1 px-3.5 py-4 space-y-4 overflow-y-auto touch-scroll">
           {renderNavItems(true)}
         </nav>
 
-        {/* Mobile Footer */}
-        <div className="p-3.5 border-t border-white/[0.08] bg-slate-950/80 space-y-2">
+        {/* Mobile Drawer Footer */}
+        <div className="p-3.5 border-t border-white/[0.08] bg-slate-950/90 space-y-2.5">
           <button
             onClick={handleNewCampaign}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-lg shadow-cyan-500/20 active:scale-95"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/25 active:scale-95 transition-all min-h-[44px]"
           >
-            <Plus className="w-3.5 h-3.5" />
-            <span>New Campaign</span>
+            <Plus className="w-4 h-4" />
+            <span>Create New Campaign</span>
           </button>
-          <div className="flex items-center justify-between px-1 text-[10px] font-mono text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>18 Agents Ready</span>
-            </span>
-            <span className="text-slate-500 font-semibold">99.9% Up</span>
+
+          <div className="flex items-center justify-between px-1 pt-1 text-[10px] font-mono text-slate-400 border-t border-white/[0.05]">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              <span className="text-slate-300 truncate max-w-[130px]">System Director</span>
+            </div>
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-1 text-slate-400 hover:text-cyan-300 transition-colors p-1"
+            >
+              {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-cyan-400" />}
+              <span className="capitalize">{theme} Mode</span>
+            </button>
           </div>
         </div>
       </aside>

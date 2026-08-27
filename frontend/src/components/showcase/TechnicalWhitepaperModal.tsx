@@ -33,36 +33,36 @@ export const TechnicalWhitepaperModal: React.FC<TechnicalWhitepaperModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl relative font-sans">
+    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4">
+      <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col shadow-2xl relative font-sans">
         {/* Modal Top Bar */}
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80 shrink-0">
-          <div className="flex items-center gap-2.5">
-            <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+        <div className="p-3 sm:p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <span className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
               <BookOpen className="w-4 h-4" />
             </span>
-            <div>
-              <h3 className="text-sm font-bold text-white font-mono">
-                ADPilot Pro Technical Whitepaper (v3.0 Architecture)
+            <div className="min-w-0">
+              <h3 className="text-xs sm:text-sm font-bold text-white font-mono truncate">
+                ADPilot Pro Technical Whitepaper (v3.0)
               </h3>
-              <span className="text-[10px] text-slate-400 font-mono">
-                Document ID: ADP-WHT-2026-V3 • Classification: Production Technical Specification
+              <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono truncate block">
+                ADP-WHT-2026-V3 • Production Technical Specification
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handleCopyMarkdown}
-              className="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold bg-slate-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-1.5 transition-all"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-mono font-semibold bg-slate-800 text-slate-300 hover:text-white border border-slate-700 flex items-center gap-1.5 transition-all"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied Markdown' : 'Copy Text'}</span>
+              <span className="hidden xs:inline">{copied ? 'Copied' : 'Copy'}</span>
             </button>
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -70,7 +70,7 @@ export const TechnicalWhitepaperModal: React.FC<TechnicalWhitepaperModalProps> =
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 font-mono text-xs text-slate-300 leading-relaxed">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 font-mono text-xs text-slate-300 leading-relaxed touch-scroll">
           {/* Executive Abstract */}
           <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
             <h4 className="text-cyan-400 font-bold uppercase tracking-wider text-[11px]">1. Executive Abstract</h4>
