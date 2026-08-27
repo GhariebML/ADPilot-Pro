@@ -56,7 +56,7 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
   const progressPct = Math.round(((currentStep + 1) / agents.length) * 100);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4">
       {/* Backdrop */}
       <div 
         onClick={onClose}
@@ -64,52 +64,52 @@ export const InteractiveDemoModal: React.FC<InteractiveDemoModalProps> = ({
       />
 
       {/* Modal Container */}
-      <div className="relative z-10 w-full max-w-4xl glass-panel-elevated border border-white/[0.12] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="relative z-10 w-full max-w-4xl glass-panel-elevated border border-white/[0.12] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-5 border-b border-white/[0.08] flex items-center justify-between bg-[#07090e]/95">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20">
-              <Play className="w-5 h-5 fill-white" />
+        <div className="p-3.5 sm:p-5 border-b border-white/[0.08] flex items-center justify-between bg-[#07090e]/95">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="p-2 sm:p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 shrink-0">
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-white" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-slate-100">Live Multi-Agent Pipeline Simulation</h3>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <h3 className="text-xs sm:text-base font-bold text-slate-100 truncate">Live Simulation</h3>
+                <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-mono font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 shrink-0">
                   Step {currentStep + 1} of {agents.length}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 font-mono mt-0.5">
+              <p className="text-[10px] sm:text-xs text-slate-400 font-mono mt-0.5 truncate hidden sm:block">
                 Autonomous B2B Enterprise SaaS Campaign Ingestion → Optimization Stream
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="px-3 py-1.5 rounded-xl text-xs font-bold font-mono bg-white/[0.08] hover:bg-white/[0.15] text-slate-200 border border-white/[0.08] flex items-center gap-1.5 transition-colors"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold font-mono bg-white/[0.08] hover:bg-white/[0.15] text-slate-200 border border-white/[0.08] flex items-center gap-1.5 transition-colors"
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              <span>{isPlaying ? 'Pause' : 'Play'}</span>
+              <span className="hidden xs:inline">{isPlaying ? 'Pause' : 'Play'}</span>
             </button>
             <button
               onClick={() => { setCurrentStep(0); setIsPlaying(true); }}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.08] transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.08] transition-colors"
               title="Restart Simulation"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.08] transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-white/[0.08] transition-colors"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
 
         {/* Multi-Node Progress Strip */}
-        <div className="px-6 py-4 bg-black/40 border-b border-white/[0.08] overflow-x-auto">
+        <div className="px-3 sm:px-6 py-2.5 sm:py-4 bg-black/40 border-b border-white/[0.08] overflow-x-auto no-scrollbar touch-scroll">
           <div className="flex items-center justify-between min-w-[650px] gap-2">
             {agents.map((ag, idx) => {
               const isPast = idx < currentStep;

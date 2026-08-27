@@ -21,29 +21,33 @@ const PhaseBadge = () => (
 const ComingSoonCard: React.FC<{ icon: React.ElementType; label: string; description: string; color: string }> = ({
   icon: Icon, label, description, color,
 }) => (
-  <div className="glass-card-premium p-4 flex items-center gap-4 hover:border-cyan-500/40 transition-all duration-200 group">
-    <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${color} group-hover:scale-105 transition-transform`}>
-      <Icon size={18} />
+  <div className="glass-card-premium p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 hover:border-cyan-500/40 transition-all duration-200 group">
+    <div className="flex items-center gap-3 min-w-0">
+      <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center border ${color} group-hover:scale-105 transition-transform shrink-0`}>
+        <Icon size={18} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-bold text-slate-100 group-hover:text-cyan-300 transition-colors truncate">{label}</p>
+        <p className="text-[11px] sm:text-xs text-slate-400 leading-snug transition-colors">{description}</p>
+      </div>
     </div>
-    <div className="flex-1 min-w-0">
-      <p className="text-xs font-bold text-slate-100 group-hover:text-cyan-300 transition-colors">{label}</p>
-      <p className="text-xs text-slate-400 leading-snug transition-colors">{description}</p>
+    <div className="self-start sm:self-auto shrink-0">
+      <PhaseBadge />
     </div>
-    <PhaseBadge />
   </div>
 );
 
 const SectionHeader: React.FC<{ icon: React.ElementType; title: string; subtitle: string; color: string }> = ({
   icon: Icon, title, subtitle, color,
 }) => (
-  <div className="mb-6 pb-4 border-b border-white/[0.08]">
-    <div className="flex items-center gap-3 mb-2">
-      <div className="p-2 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+  <div className="mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-white/[0.08]">
+    <div className="flex items-center gap-2.5 sm:gap-3 mb-1.5 sm:mb-2">
+      <div className="p-1.5 sm:p-2 rounded-xl bg-white/[0.05] border border-white/[0.08] shrink-0">
         <Icon size={18} className={color} />
       </div>
-      <h2 className="text-lg font-black text-slate-100">{title}</h2>
+      <h2 className="text-base sm:text-lg font-black text-slate-100">{title}</h2>
     </div>
-    <p className="text-xs text-slate-400 ml-11">{subtitle}</p>
+    <p className="text-[11px] sm:text-xs text-slate-400 ml-9 sm:ml-11">{subtitle}</p>
   </div>
 );
 

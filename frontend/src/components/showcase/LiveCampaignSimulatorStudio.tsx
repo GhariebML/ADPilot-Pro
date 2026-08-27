@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Play, 
   Sparkles, 
@@ -160,30 +160,30 @@ export const LiveCampaignSimulatorStudio: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="p-1.5 rounded-lg bg-pink-500/10 text-pink-400 border border-pink-500/20 shrink-0">
               <Sparkles className="w-4 h-4" />
             </span>
-            <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider">
               Live In-Showcase Campaign Generation Studio
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Select a commercial vertical to test live deterministic multi-agent formulation across copy, design palettes, and predictive metrics.
           </p>
         </div>
 
-        <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-pink-500/10 text-pink-300 border border-pink-500/30 shrink-0">
+        <span className="px-3 py-1 rounded-xl text-[11px] sm:text-xs font-mono font-bold bg-pink-500/10 text-pink-300 border border-pink-500/30 shrink-0 self-start sm:self-auto">
           Zero-Credit Live Simulator
         </span>
       </div>
 
       {/* Preset Selector Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
         {presets.map((preset) => {
           const Icon = preset.icon;
           const isSelected = activePreset.id === preset.id;
@@ -191,16 +191,16 @@ export const LiveCampaignSimulatorStudio: React.FC = () => {
             <button
               key={preset.id}
               onClick={() => handleSimulate(preset)}
-              className={`p-4 rounded-xl border text-left transition-all flex items-start gap-3 ${
+              className={`p-3 sm:p-4 rounded-xl border text-left transition-all flex items-start gap-2.5 sm:gap-3 ${
                 isSelected
                   ? 'bg-cyan-500/15 border-cyan-500/50 shadow-md shadow-cyan-500/10'
                   : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
               }`}
             >
-              <div className={`p-2 rounded-lg ${isSelected ? 'bg-cyan-500/20 text-cyan-300' : 'bg-slate-950 text-slate-400'}`}>
-                <Icon className="w-5 h-5" />
+              <div className={`p-2 rounded-lg shrink-0 ${isSelected ? 'bg-cyan-500/20 text-cyan-300' : 'bg-slate-950 text-slate-400'}`}>
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div className="overflow-hidden">
+              <div className="overflow-hidden min-w-0">
                 <div className="text-xs font-bold text-white truncate">{preset.name}</div>
                 <div className="text-[10px] text-slate-400 font-mono mt-0.5 truncate">{preset.category}</div>
               </div>

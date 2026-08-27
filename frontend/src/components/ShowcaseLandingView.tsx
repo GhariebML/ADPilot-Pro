@@ -66,15 +66,15 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
     <div className="w-full bg-[#030712] text-slate-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen">
       {/* ── TOP NAV BAR (Rendered on Standalone Port 3001 or as Sleek Subnav) ── */}
       {isStandalone && (
-        <header className="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-2xl border-b border-slate-800/80 px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-slate-900 border border-cyan-500/40 rounded-xl overflow-hidden flex items-center justify-center p-1 shadow-md shadow-cyan-500/20">
+        <header className="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-2xl border-b border-slate-800/80 px-3.5 sm:px-6 h-16 flex items-center justify-between safe-top">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-slate-900 border border-cyan-500/40 rounded-xl overflow-hidden flex items-center justify-center p-1 shadow-md shadow-cyan-500/20 shrink-0">
               <img src="/logo.png" alt="ADPilot Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]" />
             </div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base tracking-tight text-white">ADPilot Pro</span>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
-                v3.0 3D Enterprise
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-extrabold text-sm sm:text-base tracking-tight text-white">ADPilot Pro</span>
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+                v3.0 3D
               </span>
             </div>
           </div>
@@ -88,7 +88,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
             <a href="#comparison" className="hover:text-cyan-300 transition-colors">Comparison</a>
           </nav>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5">
             <button
               onClick={() => setIsWhitepaperOpen(true)}
               className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-all"
@@ -111,7 +111,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
               href="http://localhost:3000/campaigns"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white hover:from-cyan-400 hover:to-purple-500 shadow-md shadow-cyan-500/20 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white hover:from-cyan-400 hover:to-purple-500 shadow-md shadow-cyan-500/20 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
             >
               <span>Launch Live OS</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -134,32 +134,32 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center justify-center space-y-6 text-center">
           {/* Logo & Release Badge */}
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-slate-950/80 border border-cyan-500/50 p-2.5 shadow-2xl shadow-cyan-500/20 backdrop-blur-2xl transition-transform hover:scale-105 duration-300">
+          <div className="flex flex-col items-center gap-3 w-full">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-950/80 border border-cyan-500/50 p-2 sm:p-2.5 shadow-2xl shadow-cyan-500/20 backdrop-blur-2xl transition-transform hover:scale-105 duration-300">
               <img src="/logo.png" alt="ADPilot Pro Logo" className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.8)]" />
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/90 border border-cyan-500/40 text-xs font-mono text-cyan-300 shadow-xl shadow-cyan-500/10">
-              <Sparkles className="w-4 h-4 text-cyan-400 fill-cyan-400" />
-              <span>ADPilot Pro Enterprise V3 • 18-Agent Autonomous Marketing OS</span>
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-slate-950/90 border border-cyan-500/40 text-[10px] sm:text-xs font-mono text-cyan-300 shadow-xl shadow-cyan-500/10 max-w-full text-center">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 fill-cyan-400 shrink-0" />
+              <span className="truncate">ADPilot Pro V3 • 18-Agent Autonomous Marketing OS</span>
             </div>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] max-w-4xl mx-auto">
+          <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.15] max-w-4xl mx-auto px-2">
             Autonomous AI <br />
             <span className="text-gradient-cyan">Marketing Operating System</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-xs sm:text-base lg:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-light px-2">
             Orchestrating <strong>18 specialized micro-agents</strong>, <strong>PyTorch PPO Reinforcement Learning</strong>, <strong>FastEmbed BGE Hybrid RAG</strong>, and <strong>Cryptographic HMAC-SHA256 Governance</strong> in an immutable, deterministic DAG.
           </p>
 
           {/* 3D Hologram Interactive Mode Switcher HUD */}
-          <div className="flex items-center justify-center gap-1.5 p-1 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-3xl shadow-xl z-20">
+          <div className="flex items-center justify-start sm:justify-center gap-1.5 p-1 rounded-xl bg-slate-950/85 border border-slate-800 backdrop-blur-3xl shadow-xl z-20 overflow-x-auto no-scrollbar touch-scroll max-w-full">
             <button
               onClick={() => setVisualMode('brain')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all shrink-0 ${
                 visualMode === 'brain'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -171,7 +171,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
             <button
               onClick={() => setVisualMode('globe')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all shrink-0 ${
                 visualMode === 'globe'
                   ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -183,7 +183,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
             <button
               onClick={() => setVisualMode('torus')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all shrink-0 ${
                 visualMode === 'torus'
                   ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
                   : 'text-slate-400 hover:text-white'
@@ -195,12 +195,12 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
           </div>
 
           {/* Action CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-1 w-full max-w-md mx-auto">
+          <div className="grid grid-cols-1 sm:flex sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 pt-1 w-full max-w-md mx-auto">
             <a
               href="http://localhost:3000/campaigns"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white text-slate-950 hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/20 active:scale-95 cursor-pointer shrink-0"
+              className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white text-slate-950 hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-xl shadow-cyan-500/20 active:scale-95 cursor-pointer shrink-0 min-h-[42px]"
             >
               <span>Launch Live OS</span>
               <ArrowRight className="w-4 h-4" />
@@ -208,7 +208,7 @@ export const ShowcaseLandingView: React.FC<ShowcaseProps> = () => {
 
             <button
               onClick={() => setIsWhitepaperOpen(true)}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-slate-950/90 border border-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 shrink-0"
+              className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-slate-950/90 border border-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-cyan-300 transition-all flex items-center justify-center gap-2 shrink-0 min-h-[42px]"
             >
               <BookOpen className="w-4 h-4 text-cyan-400" />
               <span>Whitepaper</span>

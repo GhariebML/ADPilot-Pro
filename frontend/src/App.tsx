@@ -718,8 +718,8 @@ function App() {
         </header>
 
         {/* ── Main Scrollable Body ── */}
-        <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 md:p-6 lg:p-8 bg-transparent touch-scroll safe-bottom">
-          <div className="max-w-7xl mx-auto space-y-5 sm:space-y-6">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full max-w-full p-3 sm:p-5 md:p-6 lg:p-8 bg-transparent touch-scroll safe-bottom">
+          <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6 w-full">
             {/* Top Campaign Control Bar (Hidden on Showcase & TechStack standalone views) */}
             {activeOSSection !== 'showcase' && activeOSSection !== 'techstack' && (
               <CampaignControlBar

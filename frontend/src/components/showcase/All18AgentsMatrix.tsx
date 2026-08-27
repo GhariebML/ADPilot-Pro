@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Bot, 
   Search, 
@@ -62,30 +62,30 @@ export const All18AgentsMatrix: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-6 backdrop-blur-2xl space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full bg-slate-950/40 border border-slate-800/60 shadow-2xl rounded-2xl p-4 sm:p-6 backdrop-blur-2xl space-y-4 sm:space-y-6 relative overflow-hidden">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-b border-slate-800/80 pb-4">
         <div>
-          <div className="flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-              <Bot className="w-5 h-5" />
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
+            <span className="p-1.5 sm:p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
+              <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
             </span>
-            <h3 className="text-lg font-bold text-white font-mono uppercase tracking-wider">
+            <h3 className="text-sm sm:text-lg font-bold text-white font-mono uppercase tracking-wider">
               18-Stage Master Agent Fleet & Contract Matrix
             </h3>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
             Every agent operates under strict immutable Pydantic v2 schemas with dedicated neural backbones and zero string passing.
           </p>
         </div>
 
         {/* Quick Filter Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar touch-scroll pb-1 max-w-full">
           {roles.map(r => (
             <button
               key={r.id}
               onClick={() => setSelectedRole(r.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-all shrink-0 ${
                 selectedRole === r.id
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-sm'
                   : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'
@@ -104,18 +104,18 @@ export const All18AgentsMatrix: React.FC = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search all 18 agents by name, model (GPT-4o, Claude 3.5, PyTorch PPO), or role..."
+          placeholder="Search 18 agents by name, model (GPT-4o, Claude 3.5, PPO)..."
           className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
         />
       </div>
 
       {/* Agents Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {filteredAgents.map((agent, idx) => (
           <div
             key={agent.id}
             onClick={() => setSelectedAgent(agent)}
-            className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/90 transition-all cursor-pointer group flex flex-col justify-between space-y-4"
+            className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/90 transition-all cursor-pointer group flex flex-col justify-between space-y-3 sm:space-y-4"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
@@ -146,7 +146,7 @@ export const All18AgentsMatrix: React.FC = () => {
             <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] font-mono text-slate-500">
               <span className="truncate max-w-[160px]">Out: {agent.outputs.join(', ')}</span>
               <span className="text-cyan-400 flex items-center gap-1 group-hover:underline shrink-0">
-                <span>View Specs</span>
+                <span>Specs</span>
                 <ArrowRight className="w-3 h-3" />
               </span>
             </div>
@@ -154,10 +154,10 @@ export const All18AgentsMatrix: React.FC = () => {
         ))}
       </div>
 
-      {/* â”€â”€ Slide-Over Agent Contract Drawer â”€â”€ */}
+      {/* Slide-Over Agent Contract Drawer */}
       {selectedAgent && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-5 shadow-2xl relative font-sans">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-2.5 sm:p-4">
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-2xl relative font-sans touch-scroll">
             <button
               onClick={() => setSelectedAgent(null)}
               className="absolute top-5 right-5 p-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
