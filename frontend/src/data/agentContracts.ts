@@ -1,4 +1,5 @@
 import type { AgentContract } from '../types';
+export type { AgentContract };
 
 export const MASTER_AGENTS: AgentContract[] = [
   {
