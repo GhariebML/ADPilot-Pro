@@ -132,3 +132,5 @@ export interface AIActivityEvent {
   details: string;
   latency?: string;
 }
+
+export { MASTER_AGENTS } from '../data/agentContracts';
