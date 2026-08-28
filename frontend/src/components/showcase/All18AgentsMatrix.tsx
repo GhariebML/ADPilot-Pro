@@ -25,7 +25,7 @@ import {
   Code2,
   Check
 } from 'lucide-react';
-import { MASTER_AGENTS } from '../../data/agent_contracts';
+import { MASTER_AGENTS } from '../../data';
 import type { AgentContract } from '../../types';
 
 export const All18AgentsMatrix: React.FC = () => {
