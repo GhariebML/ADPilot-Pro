@@ -35,13 +35,13 @@ export const All18AgentsMatrix: React.FC = () => {
 
   const roles = [
     { id: 'ALL', label: 'All 18 Agents', count: MASTER_AGENTS.length },
-    { id: 'STRATEGY', label: 'Strategy & Research', count: MASTER_AGENTS.filter(a => ['strategy', 'research', 'audience', 'competitor'].includes(a.id)).length },
-    { id: 'CREATIVE', label: 'Creative & Vision', count: MASTER_AGENTS.filter(a => ['content', 'design', 'cv', 'creative'].includes(a.id)).length },
-    { id: 'OPTIMIZATION', label: 'ML, RL & Analytics', count: MASTER_AGENTS.filter(a => ['analytics', 'optimizer', 'evaluation', 'correction'].includes(a.id)).length },
-    { id: 'OPERATIONS', label: 'Governance & Dispatch', count: MASTER_AGENTS.filter(a => ['hitl', 'publishing', 'monitoring', 'campaign_manager'].includes(a.id)).length },
+    { id: 'STRATEGY', label: 'Strategy & Research', count: MASTER_AGENTS.filter((a: AgentContract) => ['strategy', 'research', 'audience', 'competitor'].includes(a.id)).length },
+    { id: 'CREATIVE', label: 'Creative & Vision', count: MASTER_AGENTS.filter((a: AgentContract) => ['content', 'design', 'cv', 'creative'].includes(a.id)).length },
+    { id: 'OPTIMIZATION', label: 'ML, RL & Analytics', count: MASTER_AGENTS.filter((a: AgentContract) => ['analytics', 'optimizer', 'evaluation', 'correction'].includes(a.id)).length },
+    { id: 'OPERATIONS', label: 'Governance & Dispatch', count: MASTER_AGENTS.filter((a: AgentContract) => ['hitl', 'publishing', 'monitoring', 'campaign_manager'].includes(a.id)).length },
   ];
 
-  const filteredAgents = MASTER_AGENTS.filter(agent => {
+  const filteredAgents = MASTER_AGENTS.filter((agent: AgentContract) => {
     const matchesSearch = searchQuery === '' || 
       agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       agent.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -81,7 +81,7 @@ export const All18AgentsMatrix: React.FC = () => {
 
         {/* Quick Filter Tabs */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar touch-scroll pb-1 max-w-full">
-          {roles.map(r => (
+          {roles.map((r: { id: string; label: string; count: number }) => (
             <button
               key={r.id}
               onClick={() => setSelectedRole(r.id)}
@@ -111,7 +111,7 @@ export const All18AgentsMatrix: React.FC = () => {
 
       {/* Agents Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        {filteredAgents.map((agent, idx) => (
+        {filteredAgents.map((agent: AgentContract, idx: number) => (
           <div
             key={agent.id}
             onClick={() => setSelectedAgent(agent)}
@@ -209,7 +209,7 @@ export const All18AgentsMatrix: React.FC = () => {
             <div>
               <h4 className="text-xs font-bold font-mono text-slate-400 uppercase tracking-wider mb-2">Downstream Consumers</h4>
               <div className="flex flex-wrap gap-1.5">
-                {selectedAgent.downstream.map((down, idx) => (
+                {selectedAgent.downstream.map((down: string, idx: number) => (
                   <span key={idx} className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono text-cyan-300">
                     {down}
                   </span>
